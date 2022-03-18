@@ -1,5 +1,5 @@
 
-import Navbar from "../styles/navbar";
+import Navbar from "../components/navbar";
 import {
     BrowserRouter as Router,
     Route,

@@ -1,19 +1,24 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import './index.css'
-import App from './App'
+import './styles/index.css'
+import App from './routes/App'
 import {
   BrowserRouter as Router,
   Route,
-  Link
-
+  Routes,
 } from "react-router-dom";
-import Expenses from "./routes/vehicle";
-import Navbar from "./styles/navbar";
+import Navbar from "./components/navbar";
+import Vehicle from "./routes/vehicle";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Router>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<App />} />
+        <Route path="/vehicle" element={<Vehicle />} />
+      </Routes>
+    </Router>
 
   </React.StrictMode>,
   document.getElementById('root')

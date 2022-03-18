@@ -12,19 +12,18 @@ import {
   HeaderRowsDirective,
 } from "@syncfusion/ej2-react-schedule";
 import { useState } from 'react'
-// node_modules/@syncfusion/ej2-base/styles/tailwind.css
 import { DateTimePickerComponent } from "@syncfusion/ej2-react-calendars";
 import { DropDownListComponent } from "@syncfusion/ej2-react-dropdowns";
-import "../node_modules/@syncfusion/ej2-base/styles/tailwind.css"
-import "../node_modules/@syncfusion/ej2-buttons/styles/tailwind.css"
-import "../node_modules/@syncfusion/ej2-calendars/styles/tailwind.css"
-import "../node_modules/@syncfusion/ej2-dropdowns/styles/tailwind.css"
-import "../node_modules/@syncfusion/ej2-inputs/styles/tailwind.css"
-import "../node_modules/@syncfusion/ej2-lists/styles/tailwind.css"
-import "../node_modules/@syncfusion/ej2-navigations/styles/tailwind.css"
-import "../node_modules/@syncfusion/ej2-popups/styles/tailwind.css"
-import "../node_modules/@syncfusion/ej2-splitbuttons/styles/tailwind.css"
-import "../node_modules/@syncfusion/ej2-schedule/styles/tailwind.css"
+import "@syncfusion/ej2-base/styles/tailwind.css"
+import "@syncfusion/ej2-buttons/styles/tailwind.css"
+import "@syncfusion/ej2-calendars/styles/tailwind.css"
+import "@syncfusion/ej2-dropdowns/styles/tailwind.css"
+import "@syncfusion/ej2-inputs/styles/tailwind.css"
+import "@syncfusion/ej2-lists/styles/tailwind.css"
+import "@syncfusion/ej2-navigations/styles/tailwind.css"
+import "@syncfusion/ej2-popups/styles/tailwind.css"
+import "@syncfusion/ej2-splitbuttons/styles/tailwind.css"
+import "@syncfusion/ej2-schedule/styles/tailwind.css"
 
 
 function Schedular() {

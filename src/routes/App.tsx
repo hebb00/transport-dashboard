@@ -1,5 +1,5 @@
 // import './App.css'
-import Schedular from "./components/schedular"
+import Schedular from "../components/schedular"
 
 function App() {
   return (
