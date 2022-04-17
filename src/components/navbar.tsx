@@ -8,8 +8,10 @@ const Navbar = () => (
   <List>
     <ListItem>
       <Linking><Link to="/">Home</Link></Linking>
-      {/* <Linking><Link to="/">Jobs</Link></Linking> */}
+      <Linking><Link to="/jobs">Jobs</Link></Linking>
       <Linking><Link to="/vehicle" >Vehicle</Link></Linking>
+      <Linking><Link to="/drivers" >Drivers</Link></Linking>
+
     </ListItem>
   </List>
 );

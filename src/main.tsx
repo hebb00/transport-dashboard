@@ -9,6 +9,9 @@ import {
 } from "react-router-dom";
 import Navbar from "./components/navbar";
 import Vehicle from "./routes/vehicle";
+import Jobs from "./routes/jobs";
+import Driver from "./routes/driver";
+
 
 ReactDOM.render(
   <React.StrictMode>
@@ -16,7 +19,10 @@ ReactDOM.render(
       <Navbar />
       <Routes>
         <Route path="/" element={<App />} />
+        <Route path="/drivers" element={<Driver />} />
         <Route path="/vehicle" element={<Vehicle />} />
+        <Route path="/jobs" element={<Jobs />} />
+
       </Routes>
     </Router>
 

@@ -1,15 +1,12 @@
+import { DataTable } from "../components/DataTable";
+import { useTable, usePagination } from 'react-table'
+import makeData from '../makeData'
+import React, { useMemo, useState } from "react";
+import { Column } from "react-table";
 import { ChakraProvider } from "@chakra-ui/react"
 
-import React, { useMemo, useState } from "react";
-import { DataTable } from "../components/DataTable";
-import { Column } from "react-table";
 
-import {
-
-    Button,
-} from '@chakra-ui/react'
-
-export default function Vehicle() {
+export default function Drivers() {
     const columns: Column<UnitConversion>[] = [
         {
             Header: "vehicle",
@@ -50,30 +47,18 @@ export default function Vehicle() {
             factor: 0.91444
         }
     ];
-
     const [filter, setFilter] = useState("");
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { value } = e.currentTarget;
         setFilter(value);
     };
-    // const [data, setData] = React.useState(() => makeData(20))
     const [originalData] = React.useState(data)
     const [skipPageReset, setSkipPageReset] = React.useState(false)
     const updateMyData = (rowIndex: number, columnId: any, value: string) => {
         // We also turn on the flag to not reset the page
         setSkipPageReset(true)
-        // setData(data =>
-        //     data.map((row, index) => {
-        //         if (index === rowIndex) {
-        //             return {
-        //                 ...data[rowIndex],
-        //                 [columnId]: value,
-        //             }
-        //         }
-        //         return row
-        //     })
-        // )
+
         React.useEffect(() => {
             setSkipPageReset(false)
         }, [data])
@@ -81,13 +66,8 @@ export default function Vehicle() {
         // Let's add a data resetter/randomizer to help
         // illustrate that flow...
     }
-    // const resetData = () => setData(originalData)
-
     return (
         <ChakraProvider>
-
-            {/* <Button >Reset Data</Button> */}
-
             <DataTable
                 columns={columns}
                 data={data}
@@ -96,5 +76,6 @@ export default function Vehicle() {
 
             />
         </ChakraProvider>
-    )
-};
+
+    );
+}
