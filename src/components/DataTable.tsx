@@ -21,19 +21,22 @@ import {
 } from 'react-table'
 import GlobalFilter from "./globalFilter"
 // const yourfunc = ({destructuredProps}: {destructuredProps: type}) => {}
-
-// Create an editable cell renderer
-const EditableCell = ({
-    value: initialValue,
-    row: { index },
-    column: { id },
-    updateMyData, // This is a custom function that we supplied to our table instance
-}: {
-    value: string,
+type EditableCellInfo = {
+    value: any,
     row: any
     column: any,
     updateMyData: any
-}) => {
+};
+
+// Create an editable cell renderer
+const EditableCell = (options: EditableCellInfo) => {
+    const {
+        value: initialValue,
+        row: { index },
+        column: { id },
+        updateMyData, // This is a custom function that we supplied to our table instance
+    } = options;
+
     // We need to keep and update the state of the cell normally
     const [value, setValue] = React.useState(initialValue)
 
@@ -68,15 +71,21 @@ export type DataTableProps<Data extends object> = {
     columns: Column<Data>[];
     updateMyData: any;
     skipPageReset: any;
+    pageCount: any;
+    fetchData: any;
+    loading: any;
 
 };
 
 
 export function DataTable<Data extends object>({
+    pageCount: controlledPageCount,
     data,
     columns,
     updateMyData,
     skipPageReset,
+    fetchData,
+    loading,
 
 }: DataTableProps<Data>): React.ReactElement {
 
@@ -108,6 +117,9 @@ export function DataTable<Data extends object>({
             defaultColumn,
             // use the skipPageReset option to disable page resetting temporarily
             autoResetPage: !skipPageReset,
+            initialState: { pageIndex: 0 }, // Pass our hoisted table state
+            manualPagination: true,
+            pageCount: controlledPageCount,
             // updateMyData isn't part of the API, but
             // anything we put into these options will
             // automatically be available on the instance.
@@ -123,20 +135,38 @@ export function DataTable<Data extends object>({
 
     );
     const { globalFilter } = state
-
+    React.useEffect(() => {
+        fetchData({ pageIndex, pageSize })
+    }, [fetchData, pageIndex, pageSize])
     return (
         <>
+            <pre>
+                <code>
+                    {JSON.stringify(
+                        {
+                            pageIndex,
+                            pageSize,
+                            pageCount,
+                            canNextPage,
+                            canPreviousPage,
+                        },
+                        null,
+                        2
+                    )}
+                </code>
+            </pre>
             <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
             <Table {...getTableProps()}>
                 <Thead>
                     {headerGroups.map((headerGroup) => (
                         <Tr {...headerGroup.getHeaderGroupProps()}>
                             {headerGroup.headers.map((column) => (
+
                                 <Th
                                     {...column.getHeaderProps(
                                         column.getSortByToggleProps()
                                     )}
-                                    isNumeric={column.isNumeric}
+
                                 >
                                     {column.render("Header")}
                                     <chakra.span pl="4">
@@ -148,14 +178,17 @@ export function DataTable<Data extends object>({
                                                 )
                                         ) : null}
                                     </chakra.span>
+
                                 </Th>
                             ))}
                         </Tr>
                     ))}
                 </Thead>
                 <Tbody {...getTableBodyProps()}>
+                    {console.log(rows, "its rows")}
                     {rows.map((row) => {
                         prepareRow(row);
+                        console.log(row.cells, "ur row")
                         return (
                             <Tr {...row.getRowProps()}>
                                 {row.cells.map((cell) => (
@@ -169,6 +202,17 @@ export function DataTable<Data extends object>({
                             </Tr>
                         );
                     })}
+                    <tr>
+                        {loading ? (
+                            // Use our custom loading state to show a loading indicator
+                            <td colSpan="10000">Loading...</td>
+                        ) : (
+                                <td colSpan="10000">
+                                    Showing {page.length} of ~{controlledPageCount * pageSize}{' '}
+                results
+                                </td>
+                            )}
+                    </tr>
                 </Tbody>
             </Table>
             <div className="pagination">
@@ -215,6 +259,7 @@ export function DataTable<Data extends object>({
                     ))}
                 </select>
             </div>
+
         </>
     );
 }

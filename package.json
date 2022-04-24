@@ -8,7 +8,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "namor": "^1.1.2",
     "@chakra-ui/icons": "^1.1.7",
     "@chakra-ui/react": "^1.8.6",
     "@emotion/react": "^11.8.2",
@@ -19,8 +18,10 @@
     "@types/react-dom": "^17.0.13",
     "framer-motion": "^5.6.0",
     "match-sorter": "^6.3.1",
+    "namor": "^1.1.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-hook-form": "^7.30.0",
     "react-router-dom": "^6.2.2",
     "react-table": "^7.7.0",
     "styled-components": "^5.3.3"
