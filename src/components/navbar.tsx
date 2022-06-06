@@ -283,18 +283,18 @@ const NAV_ITEMS: Array<NavItem> = [
 
 
   {
-    label: 'Learn Design',
+    label: 'Home',
     href: '/',
   },
   {
-    label: 'Hire Designers',
+    label: 'Drivers',
     href: '/drivers',
   },
   {
-    label: 'Hire Designers',
+    label: 'Vehicle',
     href: '/vehicle',
   }, {
-    label: 'Hire Designers',
+    label: 'Jobs',
     href: '/jobs',
   },
 ];
