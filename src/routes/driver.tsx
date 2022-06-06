@@ -1,9 +1,7 @@
 import { DataTable } from "../components/DataTable";
-import { useTable, usePagination } from 'react-table'
-import makeData from '../makeData'
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import { Column } from "react-table";
-import { ChakraProvider, Button } from "@chakra-ui/react"
+import { ChakraProvider } from "@chakra-ui/react"
 import { DriverForm } from "../components/driver-form"
 import d from "../mock-data.json"
 const serverData = d;
@@ -99,6 +97,7 @@ export default function Drivers() {
             <DriverForm />
 
         </ChakraProvider>
+
 
     );
 }

@@ -3,53 +3,65 @@ import { ChakraProvider } from "@chakra-ui/react"
 import React, { useMemo, useState } from "react";
 import { DataTable } from "../components/DataTable";
 import { Column } from "react-table";
-
-import {
-
-    Button,
-} from '@chakra-ui/react'
+import d from "../mock-data.json"
+const serverData = d;
 
 export default function Vehicle() {
-    const columns: Column<UnitConversion>[] = [
+    const columns: Column[] = [
         {
-            Header: "vehicle",
-            accessor: "fromUnit"
+            Header: "id",
+            accessor: "id",
         },
+
+        {
+            Header: "Type",
+            accessor: "fullName",
+        },
+
         {
             Header: "driver",
-            accessor: "toUnit"
+            accessor: "email",
         },
         {
-            Header: "maintenance",
-            accessor: "factor",
-            isNumeric: true
+            Header: "number",
+            accessor: "phoneNumber",
+            isNumeric: true,
         }
     ];
+    const [data, setData] = React.useState([])
 
-    type UnitConversion = {
-        fromUnit: string;
-        toUnit: string;
-        factor: number;
-    };
+    const [loading, setLoading] = React.useState(false)
+    const [pageCount, setPageCount] = React.useState(0)
+    const fetchIdRef = React.useRef(0)
 
+    const fetchData = React.useCallback(({ pageSize, pageIndex }) => {
+        // This will get called when the table needs new data
+        // You could fetch your data from literally anywhere,
+        // even a server. But for this example, we'll just fake it.
 
-    const data: UnitConversion[] = [
-        {
-            fromUnit: "inches",
-            toUnit: "millimetres (mm)",
-            factor: 25.4
-        },
-        {
-            fromUnit: "feet",
-            toUnit: "centimetres (cm)",
-            factor: 30.48
-        },
-        {
-            fromUnit: "yards",
-            toUnit: "metres (m)",
-            factor: 0.91444
-        }
-    ];
+        // Give this fetch an ID
+        const fetchId = ++fetchIdRef.current
+
+        // Set the loading state
+        setLoading(true)
+
+        // We'll even set a delay to simulate a server here
+        setTimeout(() => {
+            // Only update the data if this is the latest fetch
+            if (fetchId === fetchIdRef.current) {
+                const startRow = pageSize * pageIndex
+                const endRow = startRow + pageSize
+                setData(serverData.slice(startRow, endRow))
+
+                // Your server could send back total page count.
+                // For now we'll just fake it, too
+                setPageCount(Math.ceil(serverData.length / pageSize))
+
+                setLoading(false)
+            }
+        }, 1000)
+    }, [])
+
 
     const [filter, setFilter] = useState("");
 
@@ -93,6 +105,9 @@ export default function Vehicle() {
                 data={data}
                 updateMyData={updateMyData}
                 skipPageReset={skipPageReset}
+                fetchData={fetchData}
+                loading={loading}
+                pageCount={pageCount}
 
             />
         </ChakraProvider>

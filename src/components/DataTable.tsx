@@ -64,8 +64,6 @@ const defaultColumn = {
 }
 
 
-
-
 export type DataTableProps<Data extends object> = {
     data: Data[];
     columns: Column<Data>[];
@@ -140,7 +138,7 @@ export function DataTable<Data extends object>({
     }, [fetchData, pageIndex, pageSize])
     return (
         <>
-            <pre>
+            {/* <pre>
                 <code>
                     {JSON.stringify(
                         {
@@ -154,7 +152,7 @@ export function DataTable<Data extends object>({
                         2
                     )}
                 </code>
-            </pre>
+            </pre> */}
             <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
             <Table {...getTableProps()}>
                 <Thead>
@@ -252,7 +250,7 @@ export function DataTable<Data extends object>({
                         setPageSize(Number(e.target.value))
                     }}
                 >
-                    {[10, 20, 30, 40, 50].map(pageSize => (
+                    {[5, 10, 20, 30, 40, 50].map(pageSize => (
                         <option key={pageSize} value={pageSize}>
                             Show {pageSize}
                         </option>

@@ -30,8 +30,9 @@ export function DriverForm() {
     const [drivers, setDrivers] = useState(data)
     const { isOpen, onOpen, onClose } = useDisclosure()
     return (
-        <ChakraProvider>
-            <Button colorScheme='blue' onClick={onOpen}>New Driver</Button>
+        <>
+            <Button colorScheme="teal"
+                onClick={onOpen}>New Driver</Button>
 
             <Modal isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay />
@@ -57,7 +58,7 @@ export function DriverForm() {
 
 
 
-        </ChakraProvider>
+        </>
 
     );
 }
