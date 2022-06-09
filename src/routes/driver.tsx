@@ -1,12 +1,43 @@
 import { DataTable } from "../components/DataTable";
 import React, { useState } from "react";
 import { Column } from "react-table";
-import { ChakraProvider } from "@chakra-ui/react"
+import { Button, ChakraProvider, FormControl, Input } from "@chakra-ui/react"
 import { DriverForm } from "../components/driver-form"
 import d from "../mock-data.json"
 const serverData = d;
+import { nanoid } from "nanoid";
+import { useForm } from 'react-hook-form';
 
 export default function Drivers() {
+    type FormInputs = {
+        fullName: string;
+        phoneNumber: string;
+        email: string;
+    };
+    const { handleSubmit: createHandleSubmit, register } = useForm<FormInputs>(
+        {
+            defaultValues: {
+                fullName: "",
+                phoneNumber: "",
+                email: "",
+            }
+        }
+    )
+    const handleSubmit = createHandleSubmit(values => {
+        const newContact: any = {
+            id: nanoid(),
+            fullName: values.fullName,
+            phoneNumber: values.phoneNumber,
+            email: values.email,
+        };
+        console.log(values, "valuees")
+
+        const newContacts = [...data, newContact];
+        setData(newContacts);
+        console.log(data, "ddd");
+
+
+    });
     const columns: Column[] = [
         {
             Header: "id",
@@ -26,9 +57,22 @@ export default function Drivers() {
             Header: "phone Number",
             accessor: "phoneNumber",
             isNumeric: true,
-        }
+        },
     ];
-    const [data, setData] = React.useState([])
+    const [data, setData] = React.useState([{
+        fullName: "",
+        phoneNumber: "",
+        email: "",
+    }
+
+    ])
+    const [editContactId, setEditContactId] = useState(null);
+    const [addFormData, setAddFormData] = useState({
+        fullName: "",
+        phoneNumber: "",
+        email: "",
+    });
+
 
     const [loading, setLoading] = React.useState(false)
     const [pageCount, setPageCount] = React.useState(0)
@@ -94,7 +138,18 @@ export default function Drivers() {
                 pageCount={pageCount}
 
             />
-            <DriverForm />
+            {/* <DriverForm {...serverData} /> */}
+            <form onSubmit={handleSubmit}>
+                <FormControl>
+                    <Input placeholder="name" type="text" {...register("fullName")} />
+                    <Input placeholder="phone number" type="text" {...register('phoneNumber')} />
+                    <Input placeholder="email" type="text"  {...register("email")} />
+                    <Button colorScheme="teal" type='submit'>add</Button>
+
+                </FormControl>
+            </form>
+
+
 
         </ChakraProvider>
 
