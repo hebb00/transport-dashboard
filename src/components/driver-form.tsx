@@ -1,10 +1,6 @@
 import { useState } from "react";
-import { useForm } from "react-hook-form";
 import {
-    ChakraProvider, Button, Input, Select, Textarea, FormControl,
-    FormLabel,
-    FormErrorMessage,
-    FormHelperText,
+    Button, Input, FormControl,
 } from "@chakra-ui/react"
 import {
     Modal,
@@ -15,19 +11,61 @@ import {
     ModalBody,
     ModalCloseButton,
     useDisclosure,
-} from '@chakra-ui/react'
-import data from "../mock-data.json"
+} from '@chakra-ui/react';
+import { useForm } from 'react-hook-form';
+import { nanoid } from "nanoid";
 
+export function DriverForm(): any {
+    const [data, setData] = useState(
+        [{
+            fullName: "",
+            phoneNumber: "",
+            email: "",
+        }
 
-export function DriverForm() {
-    const [addFormData, setAddFormData] = useState({
-        firstName: "",
-        lastName: "",
-        phoneNumber: "",
-        email: "",
+        ]
+    );
+
+    type FormInputs = {
+        fullName: string;
+        phoneNumber: string;
+        email: string;
+    };
+    const { handleSubmit: createHandleSubmit, register } = useForm<FormInputs>(
+        {
+            defaultValues: {
+                fullName: "",
+                phoneNumber: "",
+                email: "",
+            }
+        }
+    )
+    const handleSubmit = createHandleSubmit(values => {
+        const newDriver: any = {
+            id: nanoid(),
+            fullName: values.fullName,
+            phoneNumber: values.phoneNumber,
+            email: values.email,
+        };
+        console.log(values, "valuees")
+
+        const newDrivers = [...data, newDriver];
+        console.log(newDrivers, "newDriver")
+
+        setData(newDrivers);
+        console.log(data, "ddd");
+
 
     });
-    const [drivers, setDrivers] = useState(data)
+
+    const [addFormData, setAddFormData] = useState({
+        fullName: "",
+        phoneNumber: "",
+        email: "",
+    });
+
+
+
     const { isOpen, onOpen, onClose } = useDisclosure()
     return (
         <>
@@ -39,20 +77,23 @@ export function DriverForm() {
                 <ModalContent>
                     <ModalHeader>Add new driver</ModalHeader>
                     <ModalCloseButton />
-                    <ModalBody>
-                        <FormControl>
-                            <Input placeholder="First name" />
-                            <Input placeholder="last name" />
-                            <Input placeholder="phone number" />
-                            <Input id='email' type='email' placeholder="email" />
-                        </FormControl>
-                    </ModalBody>
-                    <ModalFooter>
-                        <Button colorScheme='blue' mr={3} onClick={onClose}>
-                            Close
+                    <form onSubmit={handleSubmit}>
+
+                        <ModalBody>
+                            <FormControl  >
+                                <Input placeholder="full name" type="text" {...register('fullName')} />
+                                <Input placeholder="phone number" type="text"  {...register('phoneNumber')} />
+                                <Input id='email' type='email' placeholder="email" {...register('email')} />
+                            </FormControl>
+                        </ModalBody>
+                        <ModalFooter>
+                            <Button colorScheme='blue' mr={3} onClick={onClose}>
+                                Close
                             </Button>
-                        <Button type="submit" variant='ghost'> Add</Button>
-                    </ModalFooter>
+                            <Button type="submit" variant='ghost'> Add</Button>
+                        </ModalFooter>
+
+                    </form>
                 </ModalContent>
             </Modal>
 
