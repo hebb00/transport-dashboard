@@ -1,5 +1,5 @@
 
-import { ChakraProvider, Input, } from "@chakra-ui/react"
+import { Box, ChakraProvider, Flex, Input, } from "@chakra-ui/react"
 import 'regenerator-runtime/runtime'
 import React, { useState } from 'react'
 import { useAsyncDebounce, } from 'react-table'
@@ -7,7 +7,7 @@ import { useAsyncDebounce, } from 'react-table'
 import matchSorter from 'match-sorter'
 
 export type GlobalFilter = {
-    filter: string;
+    filter: any;
     setFilter(v: string): void
 };
 
@@ -18,18 +18,28 @@ export default function GlobalFilter({ filter, setFilter }: GlobalFilter) {
     }, 1000)
 
     return (
-        <ChakraProvider>
-            <span> search:{""}
+        <Flex>
+            <Box w='70px' p="2">
+                <span> search:{" "}
+                </span>
+            </Box>
+
+            <Box w='300px'>
                 <Input
                     value={value || ''}
+                    placeholder="Search"
                     onChange={e => {
                         setValue(e.target.value);
                         onChange(e.target.value);
                     }}
                 />
-            </span>
+            </Box>
+        </Flex>
 
-        </ChakraProvider>
+
+
+
+
 
     );
 }

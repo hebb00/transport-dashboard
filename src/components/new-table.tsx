@@ -1,5 +1,5 @@
 import React from 'react'
-import { useTable, usePagination, Column } from 'react-table'
+import { useTable, usePagination, Column, useGlobalFilter, useFilters } from 'react-table'
 import {
     Button,
     Table,
@@ -8,7 +8,11 @@ import {
     Tr,
     Th,
     Td,
+    Flex,
+    Box,
 } from "@chakra-ui/react";
+import GlobalFilter from "./globalFilter"
+
 
 
 // Create an editable cell renderer
@@ -61,6 +65,9 @@ function EventTable({ columns, data, updateMyData, skipPageReset }: Ctype) {
     // The current page from resetting when our data changes
     // OTherwise, noThing is different here.
     const {
+        state,
+        preGlobalFilteredRows,
+        setGlobalFilter,
         getTableProps,
         getTableBodyProps,
         headerGroups,
@@ -89,13 +96,22 @@ function EventTable({ columns, data, updateMyData, skipPageReset }: Ctype) {
             // cell renderer!
             updateMyData,
         },
-        usePagination
+        useGlobalFilter,
+        useFilters,
+        usePagination,
+
+
     )
+    const { globalFilter } = state
+
 
     // Render The UI for your table
     return (
         <>
-
+            <GlobalFilter
+                filter={globalFilter}
+                setFilter={setGlobalFilter}
+            />
             <Table {...getTableProps()}>
                 <Thead>
                     {headerGroups.map(headerGroup => (
@@ -120,49 +136,58 @@ function EventTable({ columns, data, updateMyData, skipPageReset }: Ctype) {
                 </Tbody>
             </Table>
             <div className="pagination">
-                <Button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
-                    {'<<'}
-                </Button>{' '}
-                <Button onClick={() => previousPage()} disabled={!canPreviousPage}>
-                    {'<'}
-                </Button>{' '}
-                <Button onClick={() => nextPage()} disabled={!canNextPage}>
-                    {'>'}
-                </Button>{' '}
-                <Button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
-                    {'>>'}
-                </Button>{' '}
-                <span>
-                    Page{' '}
-                    <strong>
-                        {pageIndex + 1} of {pageOptions.length}
-                    </strong>{' '}
-                </span>
-                <span>
-                    | Go to page:{' '}
-                    <input
-                        type="number"
-                        defaultValue={pageIndex + 1}
-                        onChange={e => {
-                            const page = e.target.value ? Number(e.target.value) - 1 : 0
-                            gotoPage(page)
-                        }}
-                        style={{ width: '100px' }}
-                    />
-                </span>{' '}
-                <select
-                    value={pageSize}
-                    onChange={e => {
-                        setPageSize(Number(e.target.value))
-                    }}
-                >
-                    {[10, 20, 30, 40, 50].map(pageSize => (
-                        <option key={pageSize} value={pageSize}>
-                            Show {pageSize}
-                        </option>
-                    ))}
-                </select>
+                <Flex>
+                    <Box flex='1'>
+                        <Button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
+                            {'<<'}
+                        </Button>{' '}
+                        <Button onClick={() => previousPage()} disabled={!canPreviousPage}>
+                            {'<'}
+                        </Button>{' '}
+                        <Button onClick={() => nextPage()} disabled={!canNextPage}>
+                            {'>'}
+                        </Button>{' '}
+                        <Button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
+                            {'>>'}
+                        </Button>{' '}
+                        <span>
+                            Page{' '}
+                            <strong>
+                                {pageIndex + 1} of {pageOptions.length}
+                            </strong>{' '}
+                        </span>
+                        <span>
+                            | Go to page:{' '}
+                            <input
+                                type="number"
+                                defaultValue={pageIndex + 1}
+                                onChange={e => {
+                                    const page = e.target.value ? Number(e.target.value) - 1 : 0
+                                    gotoPage(page)
+                                }}
+                                style={{ width: '100px' }}
+                            />
+                        </span>{' '}
+                        <select
+                            value={pageSize}
+                            onChange={e => {
+                                setPageSize(Number(e.target.value))
+                            }}
+                        >
+                            {[10, 20, 30, 40, 50].map(pageSize => (
+                                <option key={pageSize} value={pageSize}>
+                                    Show {pageSize}
+                                </option>
+                            ))}
+                        </select>
+                    </Box>
+
+                </Flex>
+
+
             </div>
+
+
         </>
     )
 }
