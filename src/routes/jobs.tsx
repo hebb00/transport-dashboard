@@ -1,90 +1,93 @@
-import { DataTable } from "../components/DataTable";
 import { useTable, usePagination } from 'react-table'
-import makeData from '../makeData'
+import d from '../mock-data.json'
 import React, { useMemo, useState } from "react";
-import { Column } from "react-table";
 import { ChakraProvider } from "@chakra-ui/react"
+import EventTable from "../components/new-table"
 
 
 export default function jobs() {
-    const columns: Column<UnitConversion>[] = [
-        {
-            Header: "vehicle",
-            accessor: "fromUnit"
-        },
-        {
-            Header: "driver",
-            accessor: "toUnit"
-        },
-        {
-            Header: "maintenance",
-            accessor: "factor",
-            isNumeric: true
-        }
-    ];
 
-    type UnitConversion = {
-        fromUnit: string;
-        toUnit: string;
-        factor: number;
-    };
+    const columns = React.useMemo(
+        () => [
+
+            {
+                Header: 'id',
+                accessor: 'id',
+            },
+            {
+                Header: 'Full Name',
+                accessor: 'fullName',
+            },
+
+            {
+                Header: 'email',
+                accessor: 'email',
+            },
+            {
+                Header: 'phone number',
+                accessor: 'phoneNumber',
+            },
+            // {
+            //     Header: 'Profile Progress',
+            //     accessor: 'progress',
+            // },
+        ],
+
+        []
+    )
+
+    const [data, setData] = React.useState(
+        d
+    )
+    console.log(data, 'its data')
 
 
-    const data: UnitConversion[] = [
-        {
-            fromUnit: "inches",
-            toUnit: "millimetres (mm)",
-            factor: 25.4
-        },
-        {
-            fromUnit: "feet",
-            toUnit: "centimetres (cm)",
-            factor: 30.48
-        },
-        {
-            fromUnit: "yards",
-            toUnit: "metres (m)",
-            factor: 0.91444
-        }
-    ];
-    const [filter, setFilter] = useState("");
-
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { value } = e.currentTarget;
-        setFilter(value);
-    };
     const [originalData] = React.useState(data)
     const [skipPageReset, setSkipPageReset] = React.useState(false)
-    const updateMyData = (rowIndex: number, columnId: any, value: string) => {
+
+    // We need to keep the table from resetting the pageIndex when we
+    // Update data. So we can keep track of that flag with a ref.
+
+    // When our cell renderer calls updateMyData, we'll use
+    // the rowIndex, columnId and new value to update the
+    // original data
+    const updateMyData = (rowIndex: any, columnId: any, value: any) => {
         // We also turn on the flag to not reset the page
         setSkipPageReset(true)
-        // setData(data =>
-        //     data.map((row, index) => {
-        //         if (index === rowIndex) {
-        //             return {
-        //                 ...data[rowIndex],
-        //                 [columnId]: value,
-        //             }
-        //         }
-        //         return row
-        //     })
-        // )
-        React.useEffect(() => {
-            setSkipPageReset(false)
-        }, [data])
-
-        // Let's add a data resetter/randomizer to help
-        // illustrate that flow...
+        setData((old) =>
+            old.map((row, index) => {
+                if (index === rowIndex) {
+                    return {
+                        ...old[rowIndex],
+                        [columnId]: value,
+                    }
+                }
+                return row
+            })
+        )
     }
+
+    // After data chagnes, we turn the flag back off
+    // so that if data actually changes when we're not
+    // editing it, the page is reset
+    React.useEffect(() => {
+        setSkipPageReset(false)
+    }, [data])
+
+    // Let's add a data resetter/randomizer to help
+    // illustrate that flow...
+    const resetData = () => setData(originalData)
+
+
     return (
         <ChakraProvider>
-            <DataTable
+            <EventTable
                 columns={columns}
                 data={data}
                 updateMyData={updateMyData}
                 skipPageReset={skipPageReset}
-
             />
+
         </ChakraProvider>
 
     );

@@ -1,7 +1,7 @@
-import { DataTable } from "../components/DataTable";
+import EventTable from "../components/new-table"
 import React, { useState } from "react";
 import { Column } from "react-table";
-import { Button, ChakraProvider, FormControl, Input } from "@chakra-ui/react"
+import { Box, Button, ChakraProvider, Flex, FormControl, Input } from "@chakra-ui/react"
 import { DriverForm } from "../components/driver-form"
 import d from "../mock-data.json"
 const serverData = d;
@@ -38,116 +38,112 @@ export default function Drivers() {
 
 
     });
-    const columns: Column[] = [
-        {
-            Header: "id",
-            accessor: "id",
-        },
 
-        {
-            Header: "Name",
-            accessor: "fullName",
-        },
+    const columns = React.useMemo(
+        () => [
 
-        {
-            Header: "email",
-            accessor: "email",
-        },
-        {
-            Header: "phone Number",
-            accessor: "phoneNumber",
-            isNumeric: true,
-        },
-    ];
-    const [data, setData] = React.useState([{
-        fullName: "",
-        phoneNumber: "",
-        email: "",
-    }
+            {
+                Header: 'id',
+                accessor: 'id',
+            },
+            {
+                Header: 'Full Name',
+                accessor: 'fullName',
+            },
 
-    ])
-    const [editContactId, setEditContactId] = useState(null);
-    const [addFormData, setAddFormData] = useState({
-        fullName: "",
-        phoneNumber: "",
-        email: "",
-    });
+            {
+                Header: 'email',
+                accessor: 'email',
+            },
+            {
+                Header: 'phone number',
+                accessor: 'phoneNumber',
+            },
+            // {
+            //     Header: 'Profile Progress',
+            //     accessor: 'progress',
+            // },
+        ],
+
+        []
+    )
+
+    const [data, setData] = React.useState(
+        d
+    )
+    console.log(data, 'its data')
 
 
-    const [loading, setLoading] = React.useState(false)
-    const [pageCount, setPageCount] = React.useState(0)
-    const fetchIdRef = React.useRef(0)
-
-    const fetchData = React.useCallback(({ pageSize, pageIndex }) => {
-        // This will get called when the table needs new data
-        // You could fetch your data from literally anywhere,
-        // even a server. But for this example, we'll just fake it.
-
-        // Give this fetch an ID
-        const fetchId = ++fetchIdRef.current
-
-        // Set the loading state
-        setLoading(true)
-
-        // We'll even set a delay to simulate a server here
-        setTimeout(() => {
-            // Only update the data if this is the latest fetch
-            if (fetchId === fetchIdRef.current) {
-                const startRow = pageSize * pageIndex
-                const endRow = startRow + pageSize
-                setData(serverData.slice(startRow, endRow))
-
-                // Your server could send back total page count.
-                // For now we'll just fake it, too
-                setPageCount(Math.ceil(serverData.length / pageSize))
-
-                setLoading(false)
-            }
-        }, 1000)
-    }, [])
-
-    const [filter, setFilter] = useState("");
-
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { value } = e.currentTarget;
-        setFilter(value);
-    };
     const [originalData] = React.useState(data)
     const [skipPageReset, setSkipPageReset] = React.useState(false)
-    const updateMyData = (rowIndex: number, columnId: any, value: string) => {
+
+    // We need to keep the table from resetting the pageIndex when we
+    // Update data. So we can keep track of that flag with a ref.
+
+    // When our cell renderer calls updateMyData, we'll use
+    // the rowIndex, columnId and new value to update the
+    // original data
+    const updateMyData = (rowIndex: any, columnId: any, value: any) => {
         // We also turn on the flag to not reset the page
         setSkipPageReset(true)
-
-        React.useEffect(() => {
-            setSkipPageReset(false)
-        }, [data])
-
-        // Let's add a data resetter/randomizer to help
-        // illustrate that flow...
+        setData((old) =>
+            old.map((row, index) => {
+                if (index === rowIndex) {
+                    return {
+                        ...old[rowIndex],
+                        [columnId]: value,
+                    }
+                }
+                return row
+            })
+        )
     }
+
+    // After data chagnes, we turn the flag back off
+    // so that if data actually changes when we're not
+    // editing it, the page is reset
+    React.useEffect(() => {
+        setSkipPageReset(false)
+    }, [data])
+
+    // Let's add a data resetter/randomizer to help
+    // illustrate that flow...
+    const resetData = () => setData(originalData)
     console.log(data, "ur data")
     return (
         <ChakraProvider>
-            <DataTable
+            <EventTable
                 columns={columns}
                 data={data}
                 updateMyData={updateMyData}
                 skipPageReset={skipPageReset}
-                fetchData={fetchData}
-                loading={loading}
-                pageCount={pageCount}
-
             />
-            {/* <DriverForm {...serverData} /> */}
             <form onSubmit={handleSubmit}>
                 <FormControl>
-                    <Input placeholder="name" type="text" {...register("fullName")} />
-                    <Input placeholder="phone number" type="text" {...register('phoneNumber')} />
-                    <Input placeholder="email" type="text"  {...register("email")} />
-                    <Button colorScheme="teal" type='submit'>add</Button>
+                    <Flex>
+
+                        <Box flex='1' >
+                            <Input placeholder="name" type="text" {...register("fullName")} />
+
+                        </Box>
+                        <Box flex='1'>
+                            <Input placeholder="phone number" type="text" {...register('phoneNumber')} />
+
+                        </Box>
+                        <Box flex='1'>
+                            <Input placeholder="email" type="text"  {...register("email")} />
+
+                        </Box>
+                        <Box flex='1'>
+                            <Button colorScheme="teal" type='submit'>add</Button>
+
+                        </Box>
+                    </Flex>
 
                 </FormControl>
             </form>
+
+            <DriverForm />
 
 
 
