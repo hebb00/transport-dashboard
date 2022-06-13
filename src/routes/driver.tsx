@@ -110,6 +110,17 @@ export default function Drivers() {
     // illustrate that flow...
     const resetData = () => setData(originalData)
     console.log(data, "ur data")
+
+    const handleDeleteClick = (rowId: any) => {
+        const newContacts = [...data];
+
+        const index = data.findIndex((contact) => contact.id === rowId);
+
+        newContacts.splice(index, 1);
+
+        setData(newContacts);
+    };
+
     return (
         <ChakraProvider>
             <EventTable
@@ -117,6 +128,8 @@ export default function Drivers() {
                 data={data}
                 updateMyData={updateMyData}
                 skipPageReset={skipPageReset}
+                handleDeleteClick={handleDeleteClick}
+
             />
             <form onSubmit={handleSubmit}>
                 <FormControl>

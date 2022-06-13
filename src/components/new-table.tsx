@@ -1,17 +1,17 @@
 import React from 'react'
 import { useTable, usePagination, Column, useGlobalFilter, useFilters } from 'react-table'
 import {
-    Button,
+    IconButton,
     Table,
     Thead,
     Tbody,
     Tr,
     Th,
     Td,
-    Flex,
-    Box,
+
 } from "@chakra-ui/react";
 import GlobalFilter from "./globalFilter"
+import { DeleteIcon } from '@chakra-ui/icons';
 import Pagination from './pagination';
 
 
@@ -57,11 +57,12 @@ type Ctype = {
     data: Array<any>
     skipPageReset: any
     updateMyData: any
+    handleDeleteClick(id: any): void
 
 
 }
 // Be sure to pass our updateMyData and The skipPageReset option
-function EventTable({ columns, data, updateMyData, skipPageReset }: Ctype) {
+function EventTable({ columns, data, updateMyData, skipPageReset, handleDeleteClick }: Ctype) {
     // For This example, we're using pagination to illusTrate how to stop
     // The current page from resetting when our data changes
     // OTherwise, noThing is different here.
@@ -131,6 +132,11 @@ function EventTable({ columns, data, updateMyData, skipPageReset }: Ctype) {
                                 {row.cells.map(cell => {
                                     return <Td {...cell.getCellProps()}>{cell.render('Cell')}</Td>
                                 })}
+
+                                <Td><IconButton aria-label={'delete'}
+                                    type="button" icon={<DeleteIcon />}
+
+                                    onClick={() => handleDeleteClick(row.cells[0].value)}>Delete</IconButton></Td>
                             </Tr>
                         )
                     })}
