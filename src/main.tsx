@@ -22,15 +22,16 @@ ReactDOM.render(
       <ChakraProvider>
         <Navbar />
 
-      </ChakraProvider>
-      <Routes>
-        <Route path="/" element={<App />} />
-        <Route path="/drivers" element={<Driver />} />
-        <Route path="/vehicle" element={<Vehicle />} />
-        <Route path="/jobs" element={<Jobs />} />
-        <Route path="/login" element={<Login />} />
+        <Routes>
+          <Route path="/" element={<App />} />
+          <Route path="/drivers" element={<Driver />} />
+          <Route path="/vehicle" element={<Vehicle />} />
+          <Route path="/jobs" element={<Jobs />} />
+          <Route path="/login" element={<Login />} />
 
-      </Routes>
+        </Routes>
+      </ChakraProvider>
+
     </Router>
 
   </React.StrictMode>,

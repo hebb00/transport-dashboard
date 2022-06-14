@@ -4,7 +4,6 @@ import 'regenerator-runtime/runtime'
 import React, { useState } from 'react'
 import { useAsyncDebounce, } from 'react-table'
 // A great library for fuzzy filtering/sorting items
-import matchSorter from 'match-sorter'
 
 export type GlobalFilter = {
     filter: any;

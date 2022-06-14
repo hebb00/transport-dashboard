@@ -1,10 +1,8 @@
 import EventTable from "../components/new-table"
 import React, { useState } from "react";
-import { Column } from "react-table";
 import { Box, Button, ChakraProvider, Flex, FormControl, Input } from "@chakra-ui/react"
 import { DriverForm } from "../components/driver-form"
 import d from "../mock-data.json"
-const serverData = d;
 import { nanoid } from "nanoid";
 import { useForm } from 'react-hook-form';
 
@@ -123,43 +121,27 @@ export default function Drivers() {
 
     return (
         <ChakraProvider>
-            <EventTable
-                columns={columns}
-                data={data}
-                updateMyData={updateMyData}
-                skipPageReset={skipPageReset}
-                handleDeleteClick={handleDeleteClick}
+            <Flex flexDirection="column" >
+                <Box >
+                    <EventTable
+                        columns={columns}
+                        data={data}
+                        updateMyData={updateMyData}
+                        skipPageReset={skipPageReset}
+                        handleDeleteClick={handleDeleteClick}
 
-            />
-            <form onSubmit={handleSubmit}>
-                <FormControl>
-                    <Flex>
+                    />
 
-                        <Box flex='1' >
-                            <Input placeholder="name" type="text" {...register("fullName")} />
+                </Box>
+                <DriverForm
+                    data={data}
+                    setData={setData}
+                    handleSubmit={handleSubmit}
+                    register={register}
 
-                        </Box>
-                        <Box flex='1'>
-                            <Input placeholder="phone number" type="text" {...register('phoneNumber')} />
+                />
 
-                        </Box>
-                        <Box flex='1'>
-                            <Input placeholder="email" type="text"  {...register("email")} />
-
-                        </Box>
-                        <Box flex='1'>
-                            <Button colorScheme="teal" type='submit'>add</Button>
-
-                        </Box>
-                    </Flex>
-
-                </FormControl>
-            </form>
-
-            <DriverForm />
-
-
-
+            </Flex>
         </ChakraProvider>
 
 

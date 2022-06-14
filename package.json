@@ -21,7 +21,7 @@
     "namor": "^1.1.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-hook-form": "^7.30.0",
+    "react-hook-form": "^7.31.3",
     "react-icons": "^4.4.0",
     "react-router-dom": "^6.2.2",
     "react-table": "^7.7.0",

@@ -6,7 +6,7 @@ import {
 
 
 export default function Pagination({
-    page,
+
     canPreviousPage,
     canNextPage,
     pageOptions,

@@ -136,7 +136,9 @@ function EventTable({ columns, data, updateMyData, skipPageReset, handleDeleteCl
                                 <Td><IconButton aria-label={'delete'}
                                     type="button" icon={<DeleteIcon />}
 
-                                    onClick={() => handleDeleteClick(row.cells[0].value)}>Delete</IconButton></Td>
+                                    onClick={() => {
+                                        window.confirm('Are you sure you wish to delete this row?') ? handleDeleteClick(row.cells[0].value) : window.oncancel("cancel")
+                                    }}>Delete</IconButton></Td>
                             </Tr>
                         )
                     })}
@@ -147,7 +149,6 @@ function EventTable({ columns, data, updateMyData, skipPageReset, handleDeleteCl
                 <Pagination
                     nextPage={nextPage}
                     setPageSize={setPageSize}
-                    page={page}
                     pageIndex={pageIndex}
                     gotoPage={gotoPage}
                     canPreviousPage={canPreviousPage}

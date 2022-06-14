@@ -67,6 +67,17 @@ export default function jobs() {
         )
     }
 
+    const handleDeleteClick = (rowId: any) => {
+        const newContacts = [...data];
+
+        const index = data.findIndex((contact) => contact.id === rowId);
+
+        newContacts.splice(index, 1);
+
+        setData(newContacts);
+    };
+
+
     // After data chagnes, we turn the flag back off
     // so that if data actually changes when we're not
     // editing it, the page is reset
@@ -86,6 +97,8 @@ export default function jobs() {
                 data={data}
                 updateMyData={updateMyData}
                 skipPageReset={skipPageReset}
+                handleDeleteClick={handleDeleteClick}
+
             />
 
         </ChakraProvider>

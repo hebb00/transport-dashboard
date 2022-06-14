@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
     Button, Input, FormControl,
 } from "@chakra-ui/react"
@@ -12,59 +11,9 @@ import {
     ModalCloseButton,
     useDisclosure,
 } from '@chakra-ui/react';
-import { useForm } from 'react-hook-form';
-import { nanoid } from "nanoid";
-
-export function DriverForm(): any {
-    const [data, setData] = useState(
-        [{
-            fullName: "",
-            phoneNumber: "",
-            email: "",
-        }
-
-        ]
-    );
-
-    type FormInputs = {
-        fullName: string;
-        phoneNumber: string;
-        email: string;
-    };
-    const { handleSubmit: createHandleSubmit, register } = useForm<FormInputs>(
-        {
-            defaultValues: {
-                fullName: "",
-                phoneNumber: "",
-                email: "",
-            }
-        }
-    )
-    const handleSubmit = createHandleSubmit(values => {
-        const newDriver: any = {
-            id: nanoid(),
-            fullName: values.fullName,
-            phoneNumber: values.phoneNumber,
-            email: values.email,
-        };
-        console.log(values, "valuees")
-
-        const newDrivers = [...data, newDriver];
-        console.log(newDrivers, "newDriver")
-
-        setData(newDrivers);
-        console.log(data, "ddd");
 
 
-    });
-
-    const [addFormData, setAddFormData] = useState({
-        fullName: "",
-        phoneNumber: "",
-        email: "",
-    });
-
-
+export function DriverForm({ handleSubmit, register, data, setData }: any): any {
 
     const { isOpen, onOpen, onClose } = useDisclosure()
     return (
