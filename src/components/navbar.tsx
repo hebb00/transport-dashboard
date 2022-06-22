@@ -21,7 +21,10 @@ import {
   ChevronDownIcon,
   ChevronRightIcon,
 } from '@chakra-ui/icons';
+import {
 
+  Link as RouteLink
+} from "react-router-dom";
 export default function WithSubnavigation() {
   const { isOpen, onToggle } = useDisclosure();
 
@@ -102,18 +105,21 @@ const DesktopNav = () => {
         <Box key={navItem.label}>
           <Popover trigger={'hover'} placement={'bottom-start'}>
             <PopoverTrigger>
-              <Link
-                p={2}
-                href={navItem.href ?? '#'}
-                fontSize={'sm'}
-                fontWeight={500}
-                color={linkColor}
-                _hover={{
-                  textDecoration: 'none',
-                  color: linkHoverColor,
-                }}>
-                {navItem.label}
-              </Link>
+              <RouteLink to={navItem.href ?? '#'}>
+                <Link
+                  p={2}
+
+                  fontSize={'sm'}
+                  fontWeight={500}
+                  color={linkColor}
+                  _hover={{
+                    textDecoration: 'none',
+                    color: linkHoverColor,
+                  }}>
+                  {navItem.label}
+                </Link>
+              </RouteLink>
+
             </PopoverTrigger>
 
             {navItem.children && (
@@ -141,7 +147,7 @@ const DesktopNav = () => {
 const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
   return (
     <Link
-      href={href}
+      to={href}
       role={'group'}
       display={'block'}
       p={2}
@@ -287,8 +293,8 @@ const NAV_ITEMS: Array<NavItem> = [
     label: 'Vehicles',
     href: '/vehicle',
   }, {
-    label: 'Jobs',
-    href: '/jobs',
+    label: 'Clients',
+    href: '/cliesnts',
   },
 ];
 
