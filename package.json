@@ -8,6 +8,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "faker": "5.5.3",
     "@chakra-ui/icons": "^1.1.7",
     "@chakra-ui/react": "^1.8.6",
     "@emotion/react": "^11.8.2",
@@ -16,10 +17,12 @@
     "@syncfusion/ej2-react-dropdowns": "^19.4.54",
     "@syncfusion/ej2-react-schedule": "^19.4.52",
     "@types/react-dom": "^17.0.13",
+    "chart.js": "^3.8.0",
     "framer-motion": "^5.6.0",
     "match-sorter": "^6.3.1",
     "namor": "^1.1.2",
     "react": "^17.0.2",
+    "react-chartjs-2": "^4.2.0",
     "react-dom": "^17.0.2",
     "react-hook-form": "^7.31.3",
     "react-icons": "^4.4.0",
@@ -28,6 +31,7 @@
     "styled-components": "^5.3.3"
   },
   "devDependencies": {
+    "@types/faker": "5.5.3",
     "@types/react": "^17.0.33",
     "@types/react-table": "^7.7.10",
     "@types/styled-components": "^5.1.24",
