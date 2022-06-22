@@ -10,7 +10,7 @@ import {
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 import faker from 'faker';
-import { Box, Flex } from '@chakra-ui/react';
+import { Box, Flex, SimpleGrid } from '@chakra-ui/react';
 
 import { ArcElement } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
@@ -144,19 +144,43 @@ export const dd = {
 
 export function Dashboard() {
     return (
+        <SimpleGrid
+            h="100%"
+            w="100%"
+            bg='gray.50'
 
-        <Flex flexDirection="row">
-            <Box width={["40%", '50%', "80%"]}>
-                <Bar options={options} data={data} />
+            spacing='8'
+            p='10'
+            textAlign='center'
+            rounded='lg'
+            color='gray.400'
+        >
+            <Flex flexDirection="row"
+                justifyContent="center"
+            >
+                <Box
 
-            </Box>
-            <Box width={['20%', '40%', '50%']}>
-                <Pie data={d} />
-            </Box>
-            <Box width={["40%", '50%', "80%"]}>
-                <Line options={opt} data={dd} />
-            </Box>
-        </Flex>
+                    width="38%"
+                    m='2'
+                    h="40%"
+                    bg='white'>
+
+                    <Bar options={options} data={data} />
+
+                </Box>
+                <Box width='18%' h="40%" m='2' bg='white'>
+                    <Pie data={d} />
+                </Box>
+                <Box width="38%" m='2' h="40%" bg='white'>
+                    <Line options={opt} data={dd} />
+                </Box>
+
+            </Flex >
+
+        </SimpleGrid>
+
+
+
 
     )
 
