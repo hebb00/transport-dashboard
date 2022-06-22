@@ -1,5 +1,5 @@
 import React from 'react'
-import { useTable, usePagination, Column, useGlobalFilter, useFilters } from 'react-table'
+import { useTable, usePagination, useGlobalFilter, useFilters, useSortBy } from 'react-table'
 import {
     IconButton,
     Table,
@@ -8,10 +8,11 @@ import {
     Tr,
     Th,
     Td,
+    Box,
 
 } from "@chakra-ui/react";
 import GlobalFilter from "./globalFilter"
-import { DeleteIcon } from '@chakra-ui/icons';
+import { DeleteIcon, ChevronDownIcon, ChevronUpIcon } from '@chakra-ui/icons';
 import Pagination from './pagination';
 
 
@@ -68,7 +69,6 @@ function EventTable({ columns, data, updateMyData, skipPageReset, handleDeleteCl
     // OTherwise, noThing is different here.
     const {
         state,
-        preGlobalFilteredRows,
         setGlobalFilter,
         getTableProps,
         getTableBodyProps,
@@ -98,8 +98,10 @@ function EventTable({ columns, data, updateMyData, skipPageReset, handleDeleteCl
             // cell renderer!
             updateMyData,
         },
+
         useGlobalFilter,
         useFilters,
+        useSortBy,
         usePagination,
 
 
@@ -109,7 +111,9 @@ function EventTable({ columns, data, updateMyData, skipPageReset, handleDeleteCl
 
     // Render The UI for your table
     return (
-        <>
+        <Box
+
+        >
             <GlobalFilter
                 filter={globalFilter}
                 setFilter={setGlobalFilter}
@@ -119,8 +123,18 @@ function EventTable({ columns, data, updateMyData, skipPageReset, handleDeleteCl
                     {headerGroups.map(headerGroup => (
                         <Tr {...headerGroup.getHeaderGroupProps()}>
                             {headerGroup.headers.map(column => (
-                                <Th {...column.getHeaderProps()}>{column.render('Header')}</Th>
-                            ))}
+                                <Th {...column.getHeaderProps(column.getSortByToggleProps())}>
+                                    {column.render('Header')}
+                                    {column.isSorted ? (
+                                        column.isSortedDesc ? (
+                                            <ChevronDownIcon ml={1} w={4} h={4} />
+                                        ) : (
+                                                <ChevronUpIcon ml={1} w={4} h={4} />
+                                            )
+                                    ) : (
+                                            ""
+                                        )}
+                                </Th>))}
                         </Tr>
                     ))}
                 </Thead>
@@ -161,7 +175,7 @@ function EventTable({ columns, data, updateMyData, skipPageReset, handleDeleteCl
             </div>
 
 
-        </>
+        </Box>
     )
 }
 
