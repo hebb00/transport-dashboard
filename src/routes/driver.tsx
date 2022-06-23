@@ -1,10 +1,12 @@
 import EventTable from "../components/new-table"
 import React, { useState } from "react";
-import { Box, Button, ChakraProvider, Flex, FormControl, Input } from "@chakra-ui/react"
+import { Box, Flex, HStack, Link } from "@chakra-ui/react"
 import { DriverForm } from "../components/driver-form"
 import d from "../mock-data.json"
 import { nanoid } from "nanoid";
 import { useForm } from 'react-hook-form';
+import { CSVLink, CSVDownload } from "react-csv";
+import { ExternalLinkIcon } from '@chakra-ui/icons'
 
 export default function Drivers() {
     type FormInputs = {
@@ -43,19 +45,23 @@ export default function Drivers() {
             {
                 Header: 'id',
                 accessor: 'id',
+                sortType: 'basic',
             },
             {
                 Header: 'Full Name',
                 accessor: 'fullName',
+                sortType: 'basic',
             },
 
             {
                 Header: 'email',
                 accessor: 'email',
+                sortType: 'basic',
             },
             {
                 Header: 'phone number',
                 accessor: 'phoneNumber',
+                sortType: 'basic',
             },
             // {
             //     Header: 'Profile Progress',
@@ -120,29 +126,48 @@ export default function Drivers() {
     };
 
     return (
-        <ChakraProvider>
-            <Flex flexDirection="column" >
-                <Box >
-                    <EventTable
-                        columns={columns}
-                        data={data}
-                        updateMyData={updateMyData}
-                        skipPageReset={skipPageReset}
-                        handleDeleteClick={handleDeleteClick}
 
-                    />
-
-                </Box>
-                <DriverForm
+        <Flex flexDirection="column" >
+            <Box >
+                <EventTable
+                    columns={columns}
                     data={data}
-                    setData={setData}
-                    handleSubmit={handleSubmit}
-                    register={register}
+                    updateMyData={updateMyData}
+                    skipPageReset={skipPageReset}
+                    handleDeleteClick={handleDeleteClick}
 
                 />
 
-            </Flex>
-        </ChakraProvider>
+
+            </Box>
+            <HStack
+                spacing={8}
+            >
+                <Box
+                    flex={1}
+
+                >
+                    <DriverForm
+                        data={data}
+                        setData={setData}
+                        handleSubmit={handleSubmit}
+                        register={register}
+
+                    />
+                </Box>
+                <Box
+                    p={5}>
+                    <Link color='teal.500' >
+                        <CSVLink data={data}>Export to csv <ExternalLinkIcon mx='2px' /> </CSVLink>
+
+                    </Link>
+
+                </Box>
+            </HStack>
+
+
+
+        </Flex>
 
 
     );
