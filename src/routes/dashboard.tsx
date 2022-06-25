@@ -10,11 +10,11 @@ import {
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 import faker from 'faker';
-import { Box, Flex, SimpleGrid } from '@chakra-ui/react';
-
+import { Box, Flex, SimpleGrid, HStack, VStack } from '@chakra-ui/react';
+import BasicStatistics from "../components/card"
 import { ArcElement } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
-
+import ProgressTable from "../components/progressTable"
 import {
 
     PointElement,
@@ -48,7 +48,6 @@ export const opt = {
 };
 
 const label = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-
 
 
 
@@ -144,40 +143,94 @@ export const dd = {
 
 export function Dashboard() {
     return (
-        <SimpleGrid
+        // <SimpleGrid
+        //     h="100%"
+        //     w="100%"
+        //     bg='gray.50'
+        //     spacing='30'
+        //     p='5'
+        //     textAlign='center'
+        //     rounded='lg'
+        //     color='gray.400'
+        //     column='3'
+
+        // >
+        <Flex
+
+            direction="column"
             h="100%"
             w="100%"
             bg='gray.50'
 
-            spacing='8'
-            p='10'
             textAlign='center'
             rounded='lg'
             color='gray.400'
         >
-            <Flex flexDirection="row"
-                justifyContent="center"
+
+            <HStack
+
+                align="center"
             >
                 <Box
 
-                    width="38%"
+
+                    width="50%"
                     m='2'
-                    h="40%"
+                    h="70%"
                     bg='white'>
 
                     <Bar options={options} data={data} />
 
                 </Box>
-                <Box width='18%' h="40%" m='2' bg='white'>
-                    <Pie data={d} />
-                </Box>
-                <Box width="38%" m='2' h="40%" bg='white'>
+                <Box
+
+                    width="50%"
+                    m='3'
+                    h="70%"
+                    bg='white'>
                     <Line options={opt} data={dd} />
                 </Box>
 
-            </Flex >
 
-        </SimpleGrid>
+            </HStack>
+            <Box mt={5}>
+
+                <BasicStatistics />
+
+            </Box>
+            <HStack>
+
+                <Box
+                    width='30%' h="85%"
+                    p={5}
+                    mt='16'
+                    bg='white'
+                    mx={5}
+                >
+
+
+                    <Pie data={d} />
+
+                </Box>
+                <Box
+                    width='60%' h="70%"
+                    mx='5'
+                    p={5}
+                    bg='white'>
+                    <ProgressTable></ProgressTable>
+                </Box>
+            </HStack>
+
+
+        </Flex>
+
+
+
+        // {/* <Box width="50%"
+        //         m='2'
+        //         h="30%" bg='white'>
+        //     </Box> */}
+
 
 
 
