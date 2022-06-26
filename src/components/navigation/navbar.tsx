@@ -25,6 +25,9 @@ import {
 
   Link as RouteLink
 } from "react-router-dom";
+import { Avatar } from '@chakra-ui/react'
+import UserProfile from './profileList';
+
 export default function WithSubnavigation() {
   const { isOpen, onToggle } = useDisclosure();
 
@@ -64,6 +67,11 @@ export default function WithSubnavigation() {
           justify={'flex-end'}
           direction={'row'}
           spacing={6}>
+          <Box  >
+            {/* <Avatar size="sm" name='Heba Khayat' src="avatar-1.jpg" /> */}
+            <UserProfile />
+          </Box>
+
           <Button
             as={'a'}
             fontSize={'sm'}
@@ -72,7 +80,7 @@ export default function WithSubnavigation() {
             href={'/login'}>
             Sign In
           </Button>
-          <Button
+          {/* <Button
             display={{ base: 'none', md: 'inline-flex' }}
             fontSize={'sm'}
             fontWeight={600}
@@ -83,7 +91,7 @@ export default function WithSubnavigation() {
               bg: 'pink.300',
             }}>
             Sign Up
-          </Button>
+          </Button> */}
         </Stack>
       </Flex>
 
@@ -281,21 +289,21 @@ const NAV_ITEMS: Array<NavItem> = [
   // }
 
 
-  {
-    label: 'Trips',
-    href: '/',
-  },
-  {
-    label: 'Drivers',
-    href: '/drivers',
-  },
-  {
-    label: 'Vehicles',
-    href: '/vehicle',
-  }, {
-    label: 'Clients',
-    href: '/cliesnts',
-  },
+  // {
+  //   label: 'Profile',
+  //   href: '/profile',
+  // },
+  // {
+  //   label: 'Drivers',
+  //   href: '/drivers',
+  // },
+  // {
+  //   label: 'Vehicles',
+  //   href: '/vehicle',
+  // }, {
+  //   label: 'Clients',
+  //   href: '/cliesnts',
+  // },
 ];
 
 

@@ -8,7 +8,7 @@ import {
     MenuButton,
     MenuList
 } from '@chakra-ui/react'
-import NavHoverBox from '../components/nav-hover'
+import NavHoverBox from './nav-hover'
 import {
 
     Link as RouteLink

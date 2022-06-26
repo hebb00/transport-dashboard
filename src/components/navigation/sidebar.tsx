@@ -14,18 +14,21 @@ import {
     FiUser,
     FiDollarSign,
     FiBriefcase,
+    FiTablet,
     FiSettings
 } from 'react-icons/fi'
 import { IoPawOutline } from 'react-icons/io5'
-import NavItem from '../components/nav-item'
-
+import NavItem from './nav-item'
+import {
+    CalendarIcon
+} from '@chakra-ui/icons';
 export default function Sidebar() {
     const [navSize, changeNavSize] = useState("large")
     return (
         <Flex
             pos="sticky"
             left="5"
-            h="95vh"            // marginTop="2.5vh"
+            h="120vh"            // marginTop="2.5vh"
             boxShadow="0 4px 12px 0 rgba(0, 0, 0, 0.05)"
             borderRadius={navSize == "small" ? "15px" : "30px"}
             w={navSize == "small" ? "75px" : "200px"}
@@ -54,15 +57,16 @@ export default function Sidebar() {
 
                 />
                 <NavItem navSize={navSize} icon={FiHome} title="Dashboard" description="This is the description for the dashboard." href="/dashboard" />
-                {/* <NavItem navSize={navSize} icon={FiCalendar} title='Trips' active href="/" /> */}
                 <NavItem navSize={navSize} icon={FiUser} title="Clients" href="/clients" />
-                <NavItem navSize={navSize} icon={IoPawOutline} title='Drivers' href="/drivers" />
+                <NavItem navSize={navSize} icon={FiTablet} title='Drivers' href="/drivers" />
                 <NavItem navSize={navSize} icon={FiDollarSign} title="Vehicles" href="/vehicle" />
+                <NavItem navSize={navSize} icon={FiCalendar} title="Reservations" href="/" />
                 <NavItem navSize={navSize} icon={FiBriefcase} title="Reports" href="/" />
                 <NavItem navSize={navSize} icon={FiSettings} title="Settings" href="/" />
+
             </Flex>
 
-            <Flex
+            {/* <Flex
                 p="5%"
                 flexDir="column"
                 w="100%"
@@ -77,7 +81,7 @@ export default function Sidebar() {
                         <Text color="gray">Admin</Text>
                     </Flex>
                 </Flex>
-            </Flex>
+            </Flex> */}
         </Flex>
     )
 }
