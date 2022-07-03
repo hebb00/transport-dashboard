@@ -24,10 +24,12 @@ function Teams() {
     let iconColor = useColorModeValue("brand.200", "white");
     return (
         <Flex
+            shadow={'xl'}
+
             borderRadius='20px'
             bg={boxBg}
             p='20px'
-            h='345px'
+            h="470px"
             w={{ base: "315px", md: "100%" }}
             alignItems='center'
             direction='column'>

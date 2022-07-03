@@ -1,9 +1,9 @@
 import { Box, Flex, HStack } from '@chakra-ui/react'
 import React from 'react'
 import Teams from '../components/profile/teamCard'
+import UserForm from '../components/profile/UserInfo'
 import SocialProfileWithImage from '../components/profile/userProfile'
 import Switch from '../components/switch'
-
 export default function Profile() {
     return (
         <Flex
@@ -16,7 +16,10 @@ export default function Profile() {
             rounded='lg'
             color='gray.400'
         >
-            <HStack>
+            <HStack
+                align="center"
+
+            >
 
                 <Box
                     w="40%"
@@ -25,23 +28,37 @@ export default function Profile() {
                     <SocialProfileWithImage />
 
                 </Box>
-                <Box
-                    shadow={'xl'}
-                    h="400px"
-                    w="50%"
 
+
+
+                <Switch />
+            </HStack>
+            <HStack
+                align="center"
+
+            >
+
+                <Box
+                    ml="14"
+                    w="65%"
                 >
                     <Teams />
                 </Box>
+                <Box
+                    ml="14"
+                    h="400px"
+                    w="400px"
+
+
+
+                >
+                    <UserForm />
+                </Box>
 
             </HStack>
-            <Box
-                ml="9"
-                w="90%"
 
-            >
-                <Switch />
-            </Box>
+
+
 
         </Flex>
     )

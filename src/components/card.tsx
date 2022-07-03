@@ -23,10 +23,11 @@ function StatsCard(props: StatsCardProps) {
     const { title, stat, icon, per } = props;
     return (
         <Stat
+
             px={{ base: 2, md: 4 }}
-            py={'5'}
+            py={'4'}
             shadow={'xl'}
-            border={'1px solid'}
+
             borderColor={useColorModeValue('gray.800', 'gray.500')}
             rounded={'lg'}>
             <Flex justifyContent={'space-between'}>

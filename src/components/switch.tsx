@@ -1,16 +1,24 @@
 import React from 'react'
-import { Switch as SwitchInput, FormControl, FormLabel, Box, Table, Tbody, Td, Tr } from '@chakra-ui/react'
+import { Switch as SwitchInput, FormControl, FormLabel, Box, Table, Tbody, Td, Tr, Th, Thead } from '@chakra-ui/react'
 
 export default function Switch() {
     return (
         <Box
             shadow={'xl'}
+            w="55%"
             p="9"
             m='9'
-            h="70%"
+            h="80%"
             bg='white'>
+
             <FormControl >
                 <Table>
+                    <Thead>
+                        <Tr>
+                            <Th>Notivication Setting </Th>
+
+                        </Tr>
+                    </Thead>
                     <Tbody>
                         <Tr>
                             <Td>

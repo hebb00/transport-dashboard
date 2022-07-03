@@ -1,5 +1,3 @@
-
-
 import {
     Heading,
     Avatar,
@@ -17,7 +15,7 @@ export default function SocialProfileWithImage() {
     return (
         <Center py={6}>
             <Box
-                maxW={'400px'}
+                maxW={'450px'}
                 w={'full'}
                 bg={useColorModeValue('white', 'gray.800')}
                 shadow={'xl'}
@@ -70,14 +68,14 @@ export default function SocialProfileWithImage() {
                     <Button
                         w={'full'}
                         mt={8}
-                        bg={useColorModeValue('#151f21', 'gray.900')}
+                        bg={'teal'}
                         color={'white'}
                         rounded={'md'}
                         _hover={{
                             transform: 'translateY(-2px)',
                             boxShadow: 'lg',
                         }}>
-                        Follow
+                        Change
             </Button>
                 </Box>
             </Box>
