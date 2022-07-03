@@ -1,10 +1,15 @@
 import { ChakraProvider } from "@chakra-ui/react"
-import EventTable from "../components/new-table"
-
+import EventTable from "../components/table/new-table"
+import { Box, Flex, HStack, Link, Text } from "@chakra-ui/react"
 import React, { useMemo, useState } from "react";
 import { Column } from "react-table";
-import d from "../mock-data.json"
-const serverData = d;
+import { serverData } from "../components/drivers/driver-service"
+import { nanoid } from "nanoid";
+import { FormInputs } from "../types/react-table-config"
+import { useForm } from 'react-hook-form';
+import { CSVLink, CSVDownload } from "react-csv";
+import { ExternalLinkIcon } from '@chakra-ui/icons'
+import VehicleForm from "../components/vehicles/VehicleForm"
 
 export default function Vehicle() {
     const columns: Column[] = [
@@ -29,12 +34,37 @@ export default function Vehicle() {
         }
     ];
     const [data, setData] = React.useState(
-        d
+        serverData
     )
+    const { handleSubmit: createHandleSubmit, register } = useForm<FormInputs>(
+        {
+            defaultValues: {
+                fullName: "",
+                phoneNumber: "",
+                email: "",
+            }
+        }
+    )
+    const handleSubmit = createHandleSubmit(values => {
+        const newContact: any = {
+            id: nanoid(),
+            fullName: values.fullName,
+            phoneNumber: values.phoneNumber,
+            email: values.email,
+        };
+        console.log(values, "valuees")
+
+        const newContacts = [...data, newContact];
+        setData(newContacts);
+        console.log(data, "ddd");
+
+
+    });
 
 
 
-    const [originalData] = React.useState(d)
+
+    const [originalData] = React.useState(serverData)
     const [skipPageReset, setSkipPageReset] = React.useState(false)
     const updateMyData = (rowIndex: any, columnId: any, value: any) => {
         // We also turn on the flag to not reset the page
@@ -52,10 +82,21 @@ export default function Vehicle() {
         )
     }
 
-    // Let's add a data resetter/randomizer to help
-    // illustrate that flow...
+    React.useEffect(() => {
+        setSkipPageReset(false)
+    }, [data])
+    const resetData = () => setData(originalData);
 
-    // const resetData = () => setData(originalData)
+    const handleDeleteClick = (rowId: any) => {
+        const newContacts = [...data];
+
+        const index = data.findIndex((contact) => contact.id === rowId);
+
+        newContacts.splice(index, 1);
+
+        setData(newContacts);
+    };
+
 
     return (
         <ChakraProvider>
@@ -67,9 +108,31 @@ export default function Vehicle() {
                 data={data}
                 updateMyData={updateMyData}
                 skipPageReset={skipPageReset}
+                handleDeleteClick={handleDeleteClick}
 
 
             />
+            <HStack
+                spacing={'auto'}
+            >
+                <Box
+                    ml="3"
+                >
+                    <VehicleForm
+                        data={data}
+                        setData={setData}
+                        handleSubmit={handleSubmit}
+                        register={register}
+
+                    />
+
+                </Box>
+                <Box p={5}>
+                    <CSVLink data={data}> <Text color="teal">Export to csv  <ExternalLinkIcon mx='2px' /> </Text> </CSVLink>
+
+
+                </Box>
+            </HStack>
         </ChakraProvider>
     )
 };

@@ -14,7 +14,7 @@ import { Box, Flex, SimpleGrid, HStack, VStack } from '@chakra-ui/react';
 import BasicStatistics from "../components/card"
 import { ArcElement } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
-import ProgressTable from "../components/progressTable"
+import ProgressTable from "../components/table/progressTable"
 import {
 
     PointElement,
@@ -60,20 +60,20 @@ export const d = {
             label: '# of Votes',
             data: [12, 19, 3, 5, 2, 3],
             backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)',
+                'rgba(79, 227, 193, 1)',
+                'rgba(0, 88, 156, 1)',
+                'rgba(60, 180, 178, 1)',
+                'rgba(48, 192, 218, 1)',
+                'rgba(24, 146, 195, 1)',
+                'rgba(0, 111, 200, 1)',
             ],
             borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)',
+                'rgba(79, 227, 193, 1)',
+                'rgba(0, 88, 156, 1)',
+                'rgba(60, 180, 178, 1)',
+                'rgba(48, 192, 218, 1)',
+                'rgba(24, 146, 195, 1)',
+                'rgba(0, 111, 200, 1)',
             ],
             borderWidth: 1,
         },
@@ -111,12 +111,12 @@ export const data = {
         {
             label: 'Dataset 1',
             data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-            backgroundColor: 'rgba(255, 99, 132, 0.5)',
+            backgroundColor: 'rgba(79, 227, 193, 1)',
         },
         {
             label: 'Dataset 2',
             data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-            backgroundColor: 'rgba(53, 162, 235, 0.5)',
+            backgroundColor: 'rgba(0, 88, 156, 1)',
         },
     ],
 };
@@ -128,14 +128,14 @@ export const dd = {
         {
             label: 'Dataset 1',
             data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
-            borderColor: 'rgb(255, 99, 132)',
-            backgroundColor: 'rgba(255, 99, 132, 0.5)',
+            borderColor: 'rgba(79, 227, 193, 1)',
+            backgroundColor: 'rgba(79, 227, 193, 1)',
         },
         {
             label: 'Dataset 2',
             data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
-            borderColor: 'rgb(53, 162, 235)',
-            backgroundColor: 'rgba(53, 162, 235, 0.5)',
+            borderColor: 'rgba(0, 88, 156, 1)',
+            backgroundColor: 'rgba(0, 88, 156, 1)',
         },
     ],
 };
@@ -170,42 +170,50 @@ export function Dashboard() {
             <HStack
 
                 align="center"
+                mt={7}
+
             >
                 <Box
-
+                    shadow={'xl'}
 
                     width="50%"
-                    m='2'
-                    h="70%"
+                    m='5'
+                    h="96%"
                     bg='white'>
 
                     <Bar options={options} data={data} />
 
                 </Box>
                 <Box
+                    shadow={'xl'}
 
-                    width="50%"
-                    m='3'
-                    h="70%"
+                    width="45%"
+                    m='7'
+                    h="96%"
                     bg='white'>
                     <Line options={opt} data={dd} />
                 </Box>
 
 
             </HStack>
-            <Box mt={5}>
+            <Box mt={5} w="100%">
 
                 <BasicStatistics />
 
             </Box>
-            <HStack>
+            <HStack
+                mt='6'
+                h="90%"
+
+            >
 
                 <Box
-                    width='30%' h="85%"
+                    width='30%' h="90%"
                     p={5}
-                    mt='16'
                     bg='white'
                     mx={5}
+                    shadow={'xl'}
+
                 >
 
 
@@ -213,7 +221,8 @@ export function Dashboard() {
 
                 </Box>
                 <Box
-                    width='60%' h="70%"
+                    shadow={'xl'}
+                    width='65%' h="83%"
                     mx='5'
                     p={5}
                     bg='white'>
