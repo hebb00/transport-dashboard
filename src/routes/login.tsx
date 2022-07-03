@@ -16,13 +16,26 @@ import {
     InputRightElement
 } from "@chakra-ui/react";
 import { ChakraProvider } from "@chakra-ui/react"
-
+import { useNavigate } from "react-router-dom";
 import { FaUserAlt, FaLock } from "react-icons/fa";
+import {
+
+    Link as RouteLink
+} from "react-router-dom";
 
 const CFaUserAlt = chakra(FaUserAlt);
 const CFaLock = chakra(FaLock);
 
 const Login = () => {
+    let navigate = useNavigate();
+
+    async function handleSubmit(event: any) {
+        event.preventDefault();
+        // await submitForm(event.target);
+        navigate("../");
+    }
+
+
     const [showPassword, setShowPassword] = useState(false);
 
     const handleShowClick = () => setShowPassword(!showPassword);
@@ -33,7 +46,7 @@ const Login = () => {
                 flexDirection="column"
                 width="100wh"
                 height="100vh"
-                backgroundColor="gray.200"
+                bg='gray.50'
                 justifyContent="center"
                 alignItems="center"
             >
@@ -46,7 +59,7 @@ const Login = () => {
                     <Avatar bg="teal.500" />
                     <Heading color="teal.400">Welcome</Heading>
                     <Box minW={{ base: "90%", md: "468px" }}>
-                        <form>
+                        <form onSubmit={handleSubmit}>
                             <Stack
                                 spacing={4}
                                 p="1rem"
@@ -98,9 +111,10 @@ const Login = () => {
                 </Stack>
                 <Box>
                     New to us?{" "}
-                    <Link color="teal.500" href="#">
-                        Sign Up
-        </Link>
+                    <Link as={RouteLink} to="/register" color="teal.500" href="#">
+                        register
+                  </Link>
+
                 </Box>
             </Flex>
         </ChakraProvider >
