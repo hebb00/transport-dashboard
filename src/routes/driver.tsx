@@ -1,19 +1,17 @@
-import EventTable from "../components/new-table"
+import EventTable from "../components/table/new-table"
 import React, { useState } from "react";
-import { Box, Flex, HStack, Link } from "@chakra-ui/react"
-import { DriverForm } from "../components/driver-form"
-import d from "../mock-data.json"
+import { Box, Flex, HStack, Link, Text } from "@chakra-ui/react"
+import { DriverForm } from "../components/drivers/driver-form"
+import { serverData } from "../components/drivers/driver-service"
 import { nanoid } from "nanoid";
 import { useForm } from 'react-hook-form';
 import { CSVLink, CSVDownload } from "react-csv";
 import { ExternalLinkIcon } from '@chakra-ui/icons'
-
+import { FormInputs } from "../types/react-table-config"
 export default function Drivers() {
-    type FormInputs = {
-        fullName: string;
-        phoneNumber: string;
-        email: string;
-    };
+    const [data, setData] = React.useState(
+        serverData
+    )
     const { handleSubmit: createHandleSubmit, register } = useForm<FormInputs>(
         {
             defaultValues: {
@@ -72,10 +70,7 @@ export default function Drivers() {
         []
     )
 
-    const [data, setData] = React.useState(
-        d
-    )
-    console.log(data, 'its data')
+
 
 
     const [originalData] = React.useState(data)
@@ -112,8 +107,7 @@ export default function Drivers() {
 
     // Let's add a data resetter/randomizer to help
     // illustrate that flow...
-    const resetData = () => setData(originalData)
-    console.log(data, "ur data")
+    const resetData = () => setData(originalData);
 
     const handleDeleteClick = (rowId: any) => {
         const newContacts = [...data];
@@ -141,10 +135,10 @@ export default function Drivers() {
 
             </Box>
             <HStack
-                spacing={8}
+                spacing={'auto'}
             >
                 <Box
-                    flex={1}
+                    ml="3"
 
                 >
                     <DriverForm
@@ -155,12 +149,11 @@ export default function Drivers() {
 
                     />
                 </Box>
-                <Box
-                    p={5}>
-                    <Link color='teal.500' >
-                        <CSVLink data={data}>Export to csv <ExternalLinkIcon mx='2px' /> </CSVLink>
+                <Box p={5}>
 
-                    </Link>
+                    <CSVLink data={data}> <Text color="teal">Export to csv  <ExternalLinkIcon mx='2px' /> </Text> </CSVLink>
+
+
 
                 </Box>
             </HStack>

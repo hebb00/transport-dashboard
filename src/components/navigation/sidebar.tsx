@@ -15,7 +15,11 @@ import {
     FiDollarSign,
     FiBriefcase,
     FiTablet,
-    FiSettings
+    FiSettings,
+    FiUsers,
+    FiPieChart,
+    FiMapPin,
+    FiHardDrive
 } from 'react-icons/fi'
 import { IoPawOutline } from 'react-icons/io5'
 import NavItem from './nav-item'
@@ -57,11 +61,11 @@ export default function Sidebar() {
 
                 />
                 <NavItem navSize={navSize} icon={FiHome} title="Dashboard" description="This is the description for the dashboard." href="/dashboard" />
-                <NavItem navSize={navSize} icon={FiUser} title="Clients" href="/clients" />
-                <NavItem navSize={navSize} icon={FiTablet} title='Drivers' href="/drivers" />
-                <NavItem navSize={navSize} icon={FiDollarSign} title="Vehicles" href="/vehicle" />
+                <NavItem navSize={navSize} icon={FiUsers} title="Clients" href="/clients" />
+                <NavItem navSize={navSize} icon={FiMapPin} title='Drivers' href="/drivers" />
+                <NavItem navSize={navSize} icon={FiHardDrive} title="Vehicles" href="/vehicle" />
                 <NavItem navSize={navSize} icon={FiCalendar} title="Reservations" href="/" />
-                <NavItem navSize={navSize} icon={FiBriefcase} title="Reports" href="/" />
+                {/* <NavItem navSize={navSize} icon={FiBriefcase} title="Reports" href="/" /> */}
                 <NavItem navSize={navSize} icon={FiSettings} title="Settings" href="/" />
 
             </Flex>
