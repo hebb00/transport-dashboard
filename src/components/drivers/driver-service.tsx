@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
-
-
+import info from "/home/heba/my_transport/client/src/mock-data.json"
+export const serverData = info
 
 export function fetchData() {
 
