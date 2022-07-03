@@ -12,6 +12,7 @@ import {
   HeaderRowsDirective,
 } from "@syncfusion/ej2-react-schedule";
 import { useState } from 'react'
+import { useNavigate } from "react-router-dom";
 import "@syncfusion/ej2-base/styles/tailwind.css"
 import "@syncfusion/ej2-buttons/styles/tailwind.css"
 import "@syncfusion/ej2-calendars/styles/tailwind.css"
@@ -23,22 +24,39 @@ import "@syncfusion/ej2-popups/styles/tailwind.css"
 import "@syncfusion/ej2-splitbuttons/styles/tailwind.css"
 import "@syncfusion/ej2-schedule/styles/tailwind.css"
 import { createElement } from '@syncfusion/ej2-base';
+import { ExternalLinkIcon } from '@chakra-ui/icons';
+import { Link } from '@chakra-ui/react'
+import { EventSettingsModel } from "@syncfusion/ej2-react-schedule";
+import reservations from "/home/heba/my_transport/client/src/reservation-data.json"
+import {
 
+  Link as RouteLink
+} from "react-router-dom";
 import { Button } from "@chakra-ui/react"
 
 function Schedular() {
   const [count, setCount] = useState(0)
 
-  let resourceData = [
-    {
+  let localData: EventSettingsModel = {
+    dataSource: [
+      {
+        Title: 'hey',
+        Repeat: 'never',
+        Vehicle: 'vehicle',
+        Driver: 'nancy',
+        Id: 3,
+        Subject: 'Testing',
+        StartTime: new Date(2022, 8, 29),
+        EndTime: new Date(2022, 8, 30),
+        IsAllDay: false,
+        Location: 'india',
+        Description: 'whatever'
 
-      StartTime: new Date(2022, 1, 15, 10, 0),
-    },
-    {
+      }
 
-      EndTime: new Date(2022, 1, 15, 12, 30),
-    },
-  ];
+    ]
+  };
+
 
   var roomData = [
     { RoomText: "vehicle 1", Id: 1, RoomColor: "#cb6bb2" },
@@ -70,86 +88,6 @@ function Schedular() {
       type: "Conference",
     },
   ];
-
-
-  // const editorWindowTemplate = (props: any): any => {
-  //   return (
-  //     <Table className="custom-event-editor">
-  //       <Tbody>
-
-  //         <Tr>
-  //           <Td className="e-text-label">
-  //             Client Name
-
-  //           </Td>
-  //           <Td>
-  //             <Input id="client-name" className="e-field" name="subject" type="text" />
-  //           </Td>
-  //         </Tr>
-
-  //         <Tr>
-  //           <Td className="e-text-label">
-  //             From
-  //           </Td>
-  //           <Td>
-  //             <Input className="e-field" id="from" name="from" />
-  //           </Td>
-  //         </Tr>
-
-  //         <Tr>
-  //           <Td className="e-text-label">
-  //             To
-  //           </Td>
-  //           <Td>
-  //             <Input className="e-field" id="to" name="to" />
-  //           </Td>
-  //         </Tr>
-
-  //         <Tr>
-  //           <Td className="e-text-label">
-  //             Start Time
-  //           </Td>
-  //           <Td>
-  //             <DateTimePickerComponent className="e-field" id="StartTime" data-name="StartTime"
-  //               value={new Date(props.startTime || props.StartTime)}
-  //               format="dd/mm/yy hh:mm a"
-
-  //             />
-  //           </Td>
-  //         </Tr>
-  //         <Tr>
-  //           <Td className="e-text-label">
-  //             End Time
-  //           </Td>
-  //           <Td>
-  //             <DateTimePickerComponent className="e-field" id="EndTime" data-name="EndTime"
-  //               value={new Date(props.endTime || props.EndTime)}
-  //               format="dd/mm/yy hh:mm a"
-
-  //             />
-  //           </Td>
-
-  //         </Tr>
-  //         <Tr>
-  //           <Td className="e-text-label">
-  //             Price
-  //           </Td>
-  //           <Td>
-  //             <Input className="e-field" id="price" name="price" />
-  //           </Td>
-  //         </Tr>
-  //       </Tbody>
-
-
-
-  //     </Table>
-
-  //   );
-
-
-
-  // }
-
 
   const onPopupOpen = (args: any) => {
     if (args.type === 'Editor') {
@@ -195,37 +133,51 @@ function Schedular() {
     }
   }
 
+  function ViewTable() {
+    return (
+
+      <Link
+
+        as={RouteLink}
+        color='teal.500'
+        to="/reservation" >Reservations Table  <ExternalLinkIcon mx='2px' /></Link>
+    );
+  }
+
   return (
 
     <ScheduleComponent
-      popupOpen={onPopupOpen}
-      // editorTemplate={editorWindowTemplate}
+      // popupOpen={onPopupOpen}
       // showQuickInfo={false} its the first event popup
-      eventSettings={{
-        dataSource: resourceData,
-        fields: {
-          id: 'Id',
-          subject: { name: 'Subject', title: 'From' },
-          location: { name: 'Location', title: 'To' },
-          description: { name: 'Description', title: 'Event Description' },
-          startTime: { name: 'StartTime', title: 'Start Duration' },
-          endTime: { name: 'EndTime', title: 'End Duration' },
+      // eventSettings={
+      //   localData
+      // fields: {
+      //   id: 'Id',
+      //   subject: { name: 'Subject', title: 'From' },
+      //   location: { name: 'Location', title: 'To' },
+      //   // description: { name: 'Description', title: 'Event Description' },
+      //   startTime: { name: 'StartTime', title: 'Start Duration' },
+      //   endTime: { name: 'EndTime', title: 'End Duration' },
 
-        }
-      }}
+      // },
+
+
+      // }
       rowAutoHeight={true}
       allowResizing={true}
       width="100%"
       height="550px"
       currentView="TimelineWeek"
-      selectedDate={new Date(2022, 3, 1)}
-      // eventSettings={{ dataSource: data }}
+      eventSettings={localData}
       group={{ resources: ["Rooms", "Owners"] }}
     >
 
       <HeaderRowsDirective  >
+        <HeaderRowDirective option="Year" template={ViewTable} />
+
         {/* <HeaderRowDirective option="Week" /> */}
         <HeaderRowDirective option="Date" />
+
       </HeaderRowsDirective>
       <ViewsDirective>
         {/* <ViewDirective option="TimelineDay" /> */}
