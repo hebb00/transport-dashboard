@@ -18,6 +18,8 @@ import Sidebar from './components/navigation/sidebar'
 import { Text, IconButton } from '@chakra-ui/react'
 import { FiMenu } from 'react-icons/fi'
 import Profile from './routes/profile';
+import Reservation from './routes/reservation';
+import Register from './routes/Register';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -47,8 +49,10 @@ ReactDOM.render(
               <Route path="/vehicle" element={<Vehicle />} />
               <Route path="/clients" element={<Clients />} />
               <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
               <Route path="/dashboard" element={< Dashboard />} />
               <Route path="/profile" element={< Profile />} />
+              <Route path="/reservation" element={<Reservation />} />
 
             </Routes>
 
