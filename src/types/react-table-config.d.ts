@@ -48,9 +48,15 @@ import {
     UseSortByState
   } from 'react-table'
   
+  // export function fetchData(): any;
+//u can declare types here and import it
+export type FormInputs = {
+  fullName: string;
+  phoneNumber: string;
+  email: string;
+};
   declare module 'react-table' {
     // take this file as-is, or comment out the sections that don't apply to your plugin configuration
-  
     export interface TableOptions<D extends Record<string, unknown>>
       extends UseExpandedOptions<D>,
         UseFiltersOptions<D>,
