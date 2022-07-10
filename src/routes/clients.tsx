@@ -1,13 +1,15 @@
-import { useTable, usePagination } from 'react-table'
-import d from '../mock-data.json'
 import React, { useMemo, useState } from "react";
-import { ChakraProvider } from "@chakra-ui/react"
+import { useForm } from 'react-hook-form';
+
+import { nanoid } from "nanoid";
+import { FormInputs } from "../types/react-table-config"
+import { Box, Flex, HStack } from "@chakra-ui/react"
+import ClientForm from "../components/clients/ClientForm"
 import EventTable from "../components/table/new-table"
-
-
+import { clientsData } from "../components/clients/client-service"
 export default function Clients() {
 
-    const columns = React.useMemo(
+    const columns = useMemo(
         () => [
 
             {
@@ -36,14 +38,10 @@ export default function Clients() {
         []
     )
 
-    const [data, setData] = React.useState(
-        d
-    )
-    console.log(data, 'its data')
+    const { data, setData } = clientsData()
 
-
-    const [originalData] = React.useState(data)
-    const [skipPageReset, setSkipPageReset] = React.useState(false)
+    const [originalData] = useState(data)
+    const [skipPageReset, setSkipPageReset] = useState(false)
 
     // We need to keep the table from resetting the pageIndex when we
     // Update data. So we can keep track of that flag with a ref.
@@ -88,19 +86,62 @@ export default function Clients() {
     // Let's add a data resetter/randomizer to help
     // illustrate that flow...
     const resetData = () => setData(originalData)
+    const { handleSubmit: createHandleSubmit, register } = useForm<FormInputs>(
+        {
+            defaultValues: {
+                fullName: "",
+                phoneNumber: "",
+                email: "",
+            }
+        }
+    )
+    const handleSubmit = createHandleSubmit(values => {
+        const newContact: any = {
+            id: nanoid(),
+            fullName: values.fullName,
+            phoneNumber: values.phoneNumber,
+            email: values.email,
+        };
 
+        const newContacts = [...data, newContact];
+        setData(newContacts);
+
+
+    });
 
     return (
+        <Flex flexDirection="column" >
+            <Box >
+                <EventTable
+                    columns={columns}
+                    data={data}
+                    updateMyData={updateMyData}
+                    skipPageReset={skipPageReset}
+                    handleDeleteClick={handleDeleteClick}
 
-        <EventTable
-            columns={columns}
-            data={data}
-            updateMyData={updateMyData}
-            skipPageReset={skipPageReset}
-            handleDeleteClick={handleDeleteClick}
-
-        />
+                />
 
 
+            </Box>
+            <HStack
+                spacing={'auto'}
+            >
+                <Box
+                    ml="3"
+
+                >
+                    <ClientForm
+                        data={data}
+                        setData={setData}
+                        handleSubmit={handleSubmit}
+                        register={register}
+
+                    />
+                </Box>
+            </HStack>
+
+
+
+        </Flex>
     );
 }
