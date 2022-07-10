@@ -1,14 +1,18 @@
 import { useState, useEffect } from "react";
 
-import info from "/home/heba/my_transport/client/src/mock-data.json"
-export const serverData = info
+import info from "../../mock-data.json"
+
+export function driversData() {
+    const [data, setData] = useState(info);
+
+    return { data, setData };
+}
+
 
 export function fetchData() {
 
-
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [data, setData] = useState(null);
 
 
     useEffect(() => {

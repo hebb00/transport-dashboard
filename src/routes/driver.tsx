@@ -1,17 +1,20 @@
-import EventTable from "../components/table/new-table"
 import React, { useState } from "react";
-import { Box, Flex, HStack, Link, Text } from "@chakra-ui/react"
-import { DriverForm } from "../components/drivers/driver-form"
-import { serverData } from "../components/drivers/driver-service"
-import { nanoid } from "nanoid";
 import { useForm } from 'react-hook-form';
 import { CSVLink, CSVDownload } from "react-csv";
+
+import { Box, Flex, HStack, Link, Text } from "@chakra-ui/react"
 import { ExternalLinkIcon } from '@chakra-ui/icons'
+
+import EventTable from "../components/table/new-table"
+import { DriverForm } from "../components/drivers/driver-form"
+import { driversData } from "../components/drivers/driver-service"
+import { nanoid } from "nanoid";
 import { FormInputs } from "../types/react-table-config"
+
+
 export default function Drivers() {
-    const [data, setData] = React.useState(
-        serverData
-    )
+    const { data, setData } = driversData()
+
     const { handleSubmit: createHandleSubmit, register } = useForm<FormInputs>(
         {
             defaultValues: {
