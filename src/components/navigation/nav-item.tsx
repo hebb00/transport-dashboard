@@ -6,16 +6,17 @@ import {
     Link,
     Menu,
     MenuButton,
-    MenuList
+    MenuList,
+    color
 } from '@chakra-ui/react'
 import NavHoverBox from './nav-hover'
 import {
 
-    Link as RouteLink
+    NavLink as RouteLink
 } from "react-router-dom";
 type NavLinkProps = { text: string };
 
-export default function NavItem({ icon, title, description, active, navSize, href }: any) {
+export default function NavItem({ icon, title, description, navSize, href }: any) {
     return (
         <Flex
             mt={30}
@@ -27,7 +28,7 @@ export default function NavItem({ icon, title, description, active, navSize, hre
                 <Link
                     to={href}
                     as={RouteLink}
-                    backgroundColor={active && "#AEC8CA"}
+                    _activeLink={{ backgroundColor: "#AEC8CA" }}
                     p={3}
                     borderRadius={8}
                     _hover={{ textDecor: 'none', backgroundColor: "#AEC8CA" }}
@@ -35,7 +36,7 @@ export default function NavItem({ icon, title, description, active, navSize, hre
                 >
                     <MenuButton w="100%">
                         <Flex>
-                            <Icon as={icon} fontSize="xl" color={active ? "#82AAAD" : "gray.500"} />
+                            <Icon as={icon} fontSize="xl" />
                             <Text ml={5} display={navSize == "small" ? "none" : "flex"}>{title}</Text>
                         </Flex>
                     </MenuButton>
@@ -52,6 +53,6 @@ export default function NavItem({ icon, title, description, active, navSize, hre
                     <NavHoverBox title={title} icon={icon} description={description} />
                 </MenuList> */}
             </Menu>
-        </Flex>
+        </Flex >
     )
 }

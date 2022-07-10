@@ -66,7 +66,7 @@ export default function Sidebar() {
                 <NavItem navSize={navSize} icon={FiHardDrive} title="Vehicles" href="/vehicle" />
                 <NavItem navSize={navSize} icon={FiCalendar} title="Reservations" href="/" />
                 {/* <NavItem navSize={navSize} icon={FiBriefcase} title="Reports" href="/" /> */}
-                <NavItem navSize={navSize} icon={FiSettings} title="Settings" href="/" />
+                {/* <NavItem navSize={navSize} icon={FiSettings} title="Settings" href="/" /> */}
 
             </Flex>
 
