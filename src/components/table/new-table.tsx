@@ -12,12 +12,14 @@ import {
     TableCaption,
     TableContainer,
     HStack,
+    Text,
 
 } from "@chakra-ui/react";
 import GlobalFilter from "./globalFilter"
 import { DeleteIcon, ChevronDownIcon, ChevronUpIcon } from '@chakra-ui/icons';
 import Pagination from './pagination';
-
+import { CSVLink, CSVDownload } from "react-csv";
+import { ExternalLinkIcon } from '@chakra-ui/icons'
 
 
 // Create an editable cell renderer
@@ -166,6 +168,11 @@ function EventTable({ columns, data, updateMyData, skipPageReset, handleDeleteCl
                                                 ""
                                             )}
                                     </Th>))}
+                                <Th>
+                                    <CSVLink data={data}> <Text color="teal">Export to csv  <ExternalLinkIcon mx='2px' /> </Text> </CSVLink>
+
+
+                                </Th>
                             </Tr>
                         ))}
                     </Thead>
