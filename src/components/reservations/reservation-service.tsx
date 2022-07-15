@@ -1,4 +1,4 @@
-import * as dataSource from '/home/heba/my_transport/client/src/datasource.json';
+import * as dataSource from '../../datasource.json';
 import { extend } from '@syncfusion/ej2-base';
 import { useState } from 'react'
 

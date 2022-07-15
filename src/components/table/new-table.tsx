@@ -64,8 +64,6 @@ type Ctype = {
     skipPageReset: any
     updateMyData: any
     handleDeleteClick(id: any): void
-
-
 }
 // Be sure to pass our updateMyData and The skipPageReset option
 function EventTable({ columns, data, updateMyData, skipPageReset, handleDeleteClick }: Ctype) {
@@ -103,54 +101,43 @@ function EventTable({ columns, data, updateMyData, skipPageReset, handleDeleteCl
             // cell renderer!
             updateMyData,
         },
-
         useGlobalFilter,
         useFilters,
         useSortBy,
         usePagination,
 
-
     )
     const { globalFilter } = state
 
-
     // Render The UI for your table
     return (
-        <Box m="19px"
-
-        >
-            <GlobalFilter
-
-                filter={globalFilter}
-                setFilter={setGlobalFilter}
-            />
+        <Box m="19px" >
+            <HStack
+                justifyContent="space-between"  >
+                <GlobalFilter
+                    filter={globalFilter}
+                    setFilter={setGlobalFilter} />
+                <CSVLink data={data}> <Text color="teal">Export to csv  <ExternalLinkIcon mx='2px' /> </Text> </CSVLink>
+            </HStack>
             <TableContainer m="10px">
                 <Table {...getTableProps()}>
                     <TableCaption>
                         <HStack>
-
-                            <Box >
-                                <div className="pagination">
-                                    <Pagination
-                                        nextPage={nextPage}
-                                        setPageSize={setPageSize}
-                                        pageIndex={pageIndex}
-                                        gotoPage={gotoPage}
-                                        canPreviousPage={canPreviousPage}
-                                        previousPage={previousPage}
-                                        canNextPage={canNextPage}
-                                        pageCount={pageCount}
-                                        pageOptions={pageOptions}
-                                        pageSize={pageSize}
-                                    ></Pagination>
-                                </div>
-                            </Box>
-
-
+                            <div className="pagination">
+                                <Pagination
+                                    nextPage={nextPage}
+                                    setPageSize={setPageSize}
+                                    pageIndex={pageIndex}
+                                    gotoPage={gotoPage}
+                                    canPreviousPage={canPreviousPage}
+                                    previousPage={previousPage}
+                                    canNextPage={canNextPage}
+                                    pageCount={pageCount}
+                                    pageOptions={pageOptions}
+                                    pageSize={pageSize}
+                                ></Pagination>
+                            </div>
                         </HStack>
-
-
-
                     </TableCaption>
                     <Thead>
                         {headerGroups.map(headerGroup => (
@@ -169,9 +156,7 @@ function EventTable({ columns, data, updateMyData, skipPageReset, handleDeleteCl
                                             )}
                                     </Th>))}
                                 <Th>
-                                    <CSVLink data={data}> <Text color="teal">Export to csv  <ExternalLinkIcon mx='2px' /> </Text> </CSVLink>
-
-
+                                    Actions
                                 </Th>
                             </Tr>
                         ))}
@@ -184,25 +169,17 @@ function EventTable({ columns, data, updateMyData, skipPageReset, handleDeleteCl
                                     {row.cells.map(cell => {
                                         return <Td {...cell.getCellProps()}>{cell.render('Cell')}</Td>
                                     })}
-
                                     <Td><IconButton aria-label={'delete'}
                                         type="button" icon={<DeleteIcon />}
-
                                         onClick={() => {
                                             window.confirm('Are you sure you wish to delete this row?') ? handleDeleteClick(row.cells[0].value) : window.oncancel("cancel")
                                         }}>Delete</IconButton></Td>
                                 </Tr>
                             )
                         })}
-
                     </Tbody>
                 </Table>
-
             </TableContainer>
-
-
-
-
         </Box >
     )
 }

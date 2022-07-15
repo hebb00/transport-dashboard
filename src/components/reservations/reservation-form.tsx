@@ -19,12 +19,12 @@ export function ReservationForm({ handleSubmit, register, data, setData }: any):
     return (
         <>
             <Button colorScheme="teal"
-                onClick={onOpen}>New Driver</Button>
+                onClick={onOpen}>New reservation</Button>
 
             <Modal isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay />
                 <ModalContent>
-                    <ModalHeader>Add new driver</ModalHeader>
+                    <ModalHeader>Add new reservation</ModalHeader>
                     <ModalCloseButton />
                     <form onSubmit={handleSubmit}>
 

@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import { useForm } from 'react-hook-form';
-import { CSVLink, CSVDownload } from "react-csv";
 
 import { Box, Flex, HStack, Link, Text } from "@chakra-ui/react"
-import { ExternalLinkIcon } from '@chakra-ui/icons'
 
 import EventTable from "../components/table/new-table"
 import { DriverForm } from "../components/drivers/driver-form"
@@ -32,12 +30,9 @@ export default function Drivers() {
             email: values.email,
         };
         console.log(values, "valuees")
-
         const newContacts = [...data, newContact];
         setData(newContacts);
         console.log(data, "ddd");
-
-
     });
 
     const columns = React.useMemo(
@@ -73,12 +68,8 @@ export default function Drivers() {
         []
     )
 
-
-
-
     const [originalData] = React.useState(data)
     const [skipPageReset, setSkipPageReset] = React.useState(false)
-
     // We need to keep the table from resetting the pageIndex when we
     // Update data. So we can keep track of that flag with a ref.
 
@@ -114,16 +105,12 @@ export default function Drivers() {
 
     const handleDeleteClick = (rowId: any) => {
         const newContacts = [...data];
-
         const index = data.findIndex((contact) => contact.id === rowId);
-
         newContacts.splice(index, 1);
-
         setData(newContacts);
     };
 
     return (
-
         <Flex flexDirection="column" >
             <Box >
                 <EventTable
@@ -131,40 +118,17 @@ export default function Drivers() {
                     data={data}
                     updateMyData={updateMyData}
                     skipPageReset={skipPageReset}
-                    handleDeleteClick={handleDeleteClick}
-
-                />
-
-
+                    handleDeleteClick={handleDeleteClick} />
             </Box>
-            <HStack
-                spacing={'auto'}
-            >
-                <Box
-                    ml="3"
-
-                >
+            <HStack spacing={'auto'} >
+                <Box ml="3" >
                     <DriverForm
                         data={data}
                         setData={setData}
                         handleSubmit={handleSubmit}
-                        register={register}
-
-                    />
-                </Box>
-                <Box p={5}>
-
-                    <CSVLink data={data}> <Text color="teal">Export to csv  <ExternalLinkIcon mx='2px' /> </Text> </CSVLink>
-
-
-
+                        register={register} />
                 </Box>
             </HStack>
-
-
-
         </Flex>
-
-
     );
 }

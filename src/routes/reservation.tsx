@@ -1,14 +1,12 @@
-import { ChakraProvider } from "@chakra-ui/react"
 import EventTable from "../components/table/new-table"
 import { Box, Flex, HStack, Link, Text } from "@chakra-ui/react"
 import React, { useMemo, useState } from "react";
 import { Column } from "react-table";
-import { serverData } from "../components/drivers/driver-service"
+import { driversData } from "../components/drivers/driver-service"
 import { nanoid } from "nanoid";
 import { FormInputs } from "../types/react-table-config"
 import { useForm } from 'react-hook-form';
-import { CSVLink, CSVDownload } from "react-csv";
-import { ExternalLinkIcon } from '@chakra-ui/icons'
+import { ReservationForm } from "../components/reservations/reservation-form"
 export default function Reservation() {
     // const columns = React.useMemo(
     //     () => [
@@ -90,9 +88,7 @@ export default function Reservation() {
             isNumeric: true,
         }
     ];
-    const [data, setData] = React.useState(
-        serverData
-    )
+    const { data, setData } = driversData()
     const { handleSubmit: createHandleSubmit, register } = useForm<FormInputs>(
         {
             defaultValues: {
@@ -110,7 +106,6 @@ export default function Reservation() {
             email: values.email,
         };
         console.log(values, "valuees")
-
         const newContacts = [...data, newContact];
         setData(newContacts);
         console.log(data, "ddd");
@@ -118,10 +113,7 @@ export default function Reservation() {
 
     });
 
-
-
-
-    const [originalData] = React.useState(serverData)
+    const [originalData] = React.useState(data)
     const [skipPageReset, setSkipPageReset] = React.useState(false)
     const updateMyData = (rowIndex: any, columnId: any, value: any) => {
         // We also turn on the flag to not reset the page
@@ -146,11 +138,8 @@ export default function Reservation() {
 
     const handleDeleteClick = (rowId: any) => {
         const newContacts = [...data];
-
         const index = data.findIndex((contact) => contact.id === rowId);
-
         newContacts.splice(index, 1);
-
         setData(newContacts);
     };
 
@@ -162,21 +151,11 @@ export default function Reservation() {
                 updateMyData={updateMyData}
                 skipPageReset={skipPageReset}
                 handleDeleteClick={handleDeleteClick}
-
-
             />
             <HStack
-                spacing={'auto'}
-            >
-                <Box
-                    ml="3"
-                >
-
-
-                </Box>
-                <Box p={5}>
-                    <CSVLink data={data}> <Text color="teal">Export to csv  <ExternalLinkIcon mx='2px' /> </Text> </CSVLink>
-
+                spacing={'auto'} >
+                <Box ml="3" >
+                    < ReservationForm />
                 </Box>
             </HStack>
         </>

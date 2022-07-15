@@ -55,6 +55,22 @@ export type FormInputs = {
   phoneNumber: string;
   email: string;
 };
+
+export type FormUserInputs = {
+  firstName: string;
+  lastName: string;
+  userName: string;
+  password: string;
+  phoneNumber: string;
+  // email: string;
+};
+export type FormUserLogin = {
+
+  userName: string;
+  password: string;
+ 
+};
+
   declare module 'react-table' {
     // take this file as-is, or comment out the sections that don't apply to your plugin configuration
     export interface TableOptions<D extends Record<string, unknown>>

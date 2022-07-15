@@ -13,21 +13,19 @@ import {
 } from '@chakra-ui/react';
 
 
-export function DriverForm({ handleSubmit, register, data, setData }: any): any {
+export function DriverForm({ handleSubmit, register }: any): any {
 
     const { isOpen, onOpen, onClose } = useDisclosure()
     return (
         <>
             <Button colorScheme="teal"
-                onClick={onOpen}>New Driver</Button>
-
+                onClick={onOpen}>Add New Driver</Button>
             <Modal isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay />
                 <ModalContent>
-                    <ModalHeader>Add new driver</ModalHeader>
+                    <ModalHeader> new driver</ModalHeader>
                     <ModalCloseButton />
                     <form onSubmit={handleSubmit}>
-
                         <ModalBody>
                             <FormControl  >
                                 <Input placeholder="full name" type="text" {...register('fullName')} />
@@ -41,14 +39,9 @@ export function DriverForm({ handleSubmit, register, data, setData }: any): any 
                             </Button>
                             <Button type="submit" variant='ghost'> Add</Button>
                         </ModalFooter>
-
                     </form>
                 </ModalContent>
             </Modal>
-
-
-
         </>
-
     );
 }

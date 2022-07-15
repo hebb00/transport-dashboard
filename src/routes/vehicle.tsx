@@ -1,15 +1,14 @@
-import { ChakraProvider } from "@chakra-ui/react"
-import EventTable from "../components/table/new-table"
-import { Box, Flex, HStack, Link, Text } from "@chakra-ui/react"
+import { useForm } from 'react-hook-form';
 import React, { useMemo, useState } from "react";
+
+import { ChakraProvider } from "@chakra-ui/react"
+import { Box, Flex, HStack, Link, Text } from "@chakra-ui/react"
 import { Column } from "react-table";
-import { serverData } from "../components/drivers/driver-service"
+import EventTable from "../components/table/new-table"
 import { nanoid } from "nanoid";
 import { FormInputs } from "../types/react-table-config"
-import { useForm } from 'react-hook-form';
-import { CSVLink, CSVDownload } from "react-csv";
-import { ExternalLinkIcon } from '@chakra-ui/icons'
 import VehicleForm from "../components/vehicles/VehicleForm"
+import { vehicleData } from "../components/vehicles/vehicle-service"
 
 export default function Vehicle() {
     const columns: Column[] = [
@@ -33,9 +32,8 @@ export default function Vehicle() {
             isNumeric: true,
         }
     ];
-    const [data, setData] = React.useState(
-        serverData
-    )
+    const { data, setData } = vehicleData()
+
     const { handleSubmit: createHandleSubmit, register } = useForm<FormInputs>(
         {
             defaultValues: {
@@ -64,7 +62,7 @@ export default function Vehicle() {
 
 
 
-    const [originalData] = React.useState(serverData)
+    const [originalData] = React.useState(data)
     const [skipPageReset, setSkipPageReset] = React.useState(false)
     const updateMyData = (rowIndex: any, columnId: any, value: any) => {
         // We also turn on the flag to not reset the page
@@ -125,11 +123,6 @@ export default function Vehicle() {
                         register={register}
 
                     />
-
-                </Box>
-                <Box p={5}>
-                    <CSVLink data={data}> <Text color="teal">Export to csv  <ExternalLinkIcon mx='2px' /> </Text> </CSVLink>
-
 
                 </Box>
             </HStack>

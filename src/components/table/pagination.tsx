@@ -24,7 +24,7 @@ export default function Pagination({
 
 
         <Flex>
-            <Box flex='1'>
+            <Box>
                 <Button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
                     {'<<'}
                 </Button>{' '}
