@@ -2,12 +2,17 @@ import {
     IconButton, Avatar, Box, Flex, HStack, VStack, Text, Menu, MenuButton, MenuDivider,
     MenuItem, MenuList,
 } from "@chakra-ui/react";
-import { FiChevronDown, FiBell } from "react-icons/fi";
-import {
-
-    Link as RouteLink
-} from "react-router-dom";
+import { FiChevronDown, FiBell, FiLogOut } from "react-icons/fi";
+import { NavLink as RouteLink } from "react-router-dom";
+import { useAuth } from "../../routes/login";
 export default function UserProfile() {
+    const auth = useAuth()
+    function logout() {
+        auth.signout(() => {
+            localStorage.clear();
+            window.location.href = '/login';
+        });
+    }
     return (
         <HStack spacing={{ base: "0", md: "6" }} h="50px">
             <IconButton
@@ -34,28 +39,25 @@ export default function UserProfile() {
                                 display={{ base: "none", md: "flex" }}
                                 alignItems="flex-start"
                                 spacing="1px"
-                                ml="2"
-                            >
+                                ml="2"  >
                                 <Text fontSize="sm" color="gray.600">
-                                    Admin
-                                  </Text>
-                                {/* <Text fontSize="sm">Ademola Jones</Text> */}
-
+                                    {auth.user ? auth.user.username : ""}
+                                </Text>
                             </VStack>
                             <Box display={{ base: "none", md: "flex" }}>
                                 <FiChevronDown />
                             </Box>
                         </HStack>
                     </MenuButton>
-                    <MenuList fontSize="lg" bg="white" borderColor="gray.200">
-                        <RouteLink to="/profile"><MenuItem> Profile</MenuItem></RouteLink>
+                    <MenuList fontSize="lg" bg="white" borderColor="gray.200"                    >
+                        <RouteLink to="/profile" ><MenuItem> Profile</MenuItem></RouteLink>
                         <MenuItem>Settings</MenuItem>
                         <MenuItem>Billing</MenuItem>
                         <MenuDivider />
-                        <MenuItem>Sign out</MenuItem>
+                        <RouteLink to="#" onClick={() => logout()}><MenuItem> Sign out</MenuItem></RouteLink>
                     </MenuList>
                 </Menu>
             </Flex>
         </HStack>
-    );
+    )
 }

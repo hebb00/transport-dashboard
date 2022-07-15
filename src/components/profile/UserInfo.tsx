@@ -15,16 +15,14 @@ import {
     FormLabel,
     Divider,
 } from '@chakra-ui/react';
+import { useAuth } from '../../routes/login';
 
 
-export default function UserForm() {
+export default function UserInfo() {
+    const auth = useAuth()
+    const user = auth.user
     return (
-        <Center
-
-
-
-
-        >
+        <Center >
             <Box
                 bg={useColorModeValue('white', 'gray.800')}
                 shadow={'xl'}
@@ -32,14 +30,12 @@ export default function UserForm() {
                 overflow={'hidden'}
                 p='20px'
                 h="450px"
-                w="350px"
-
-            >
+                w="350px">
                 <Heading m="33">User info</Heading>
-
-                <Text>username: Heba </Text>
-                <Text>password: 0000</Text>
-                <Text>phone number: 09077654 </Text>
+                <Text>username: {user?.username} </Text>
+                <Text>first name: {user?.firstname} </Text>
+                <Text>last name: {user?.firstname} </Text>
+                <Text>phone number: {user?.phone_num} </Text>
                 <Divider></Divider>
                 <Button
                     w={'full'}
@@ -53,8 +49,6 @@ export default function UserForm() {
                     }}>
                     Edit
             </Button>
-
-
             </Box>
         </Center>
 
