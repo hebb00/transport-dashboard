@@ -1,72 +1,76 @@
-import React, { useState } from "react";
-import { useForm } from 'react-hook-form';
-
-import { Box, Flex, HStack, Link, Text } from "@chakra-ui/react"
-
+import React, { useEffect, useState } from "react";
+import { Box, Flex, HStack } from "@chakra-ui/react"
 import EventTable from "../components/table/new-table"
 import { DriverForm } from "../components/drivers/driver-form"
-import { driversData } from "../components/drivers/driver-service"
-import { nanoid } from "nanoid";
-import { FormInputs } from "../types/react-table-config"
+import { getData } from "../components/drivers/driver-service";
+
 
 
 export default function Drivers() {
-    const { data, setData } = driversData()
 
-    const { handleSubmit: createHandleSubmit, register } = useForm<FormInputs>(
-        {
-            defaultValues: {
-                fullName: "",
-                phoneNumber: "",
-                email: "",
+    const [data, setData] = useState<any>([{}])
+    function getDriver() {
+        getData("driver").then(async res => {
+            if (res.status == 200) {
+                const drivers = await res.json();
+                setData(drivers)
+                console.log(" drivers inside getDriver: ", drivers);
+            } else {
+                console.log(" error inside getDriver: ", res.status);
+
             }
-        }
-    )
-    const handleSubmit = createHandleSubmit(values => {
-        const newContact: any = {
-            id: nanoid(),
-            fullName: values.fullName,
-            phoneNumber: values.phoneNumber,
-            email: values.email,
-        };
-        console.log(values, "valuees")
-        const newContacts = [...data, newContact];
-        setData(newContacts);
-        console.log(data, "ddd");
-    });
+        })
+
+    }
 
     const columns = React.useMemo(
         () => [
-
             {
-                Header: 'id',
-                accessor: 'id',
+                Header: 'First Name',
+                accessor: 'firstname',
                 sortType: 'basic',
             },
             {
-                Header: 'Full Name',
-                accessor: 'fullName',
-                sortType: 'basic',
-            },
-
-            {
-                Header: 'email',
-                accessor: 'email',
+                Header: 'Last Name',
+                accessor: 'lastname',
                 sortType: 'basic',
             },
             {
-                Header: 'phone number',
-                accessor: 'phoneNumber',
+                Header: 'Phone Number',
+                accessor: 'phone_num',
                 sortType: 'basic',
             },
-            // {
-            //     Header: 'Profile Progress',
-            //     accessor: 'progress',
-            // },
+            {
+                Header: 'License Number',
+                accessor: 'license_num',
+                sortType: 'basic',
+            },
+            {
+                Header: 'License Type',
+                accessor: 'license_type',
+                sortType: 'basic',
+            },
+            {
+                Header: 'License Expire Date',
+                accessor: 'license_exp_date',
+                sortType: 'basic',
+            },
         ],
-
         []
     )
+    useEffect(() => {
+        getData("driver").then(async res => {
+            if (res.status == 200) {
+                const drivers = await res.json();
+                setData(drivers)
+                console.log(" drivers: ", drivers);
+            } else {
+                console.log(" error ", res.status);
+
+            }
+        })
+
+    }, [])
 
     const [originalData] = React.useState(data)
     const [skipPageReset, setSkipPageReset] = React.useState(false)
@@ -79,8 +83,8 @@ export default function Drivers() {
     const updateMyData = (rowIndex: any, columnId: any, value: any) => {
         // We also turn on the flag to not reset the page
         setSkipPageReset(true)
-        setData((old) =>
-            old.map((row, index) => {
+        setData((old: any) =>
+            old.map((row: any, index: any) => {
                 if (index === rowIndex) {
                     return {
                         ...old[rowIndex],
@@ -105,11 +109,10 @@ export default function Drivers() {
 
     const handleDeleteClick = (rowId: any) => {
         const newContacts = [...data];
-        const index = data.findIndex((contact) => contact.id === rowId);
+        const index = data.findIndex((contact: any) => contact.id === rowId);
         newContacts.splice(index, 1);
         setData(newContacts);
     };
-
     return (
         <Flex flexDirection="column" >
             <Box >
@@ -122,13 +125,10 @@ export default function Drivers() {
             </Box>
             <HStack spacing={'auto'} >
                 <Box ml="3" >
-                    <DriverForm
-                        data={data}
-                        setData={setData}
-                        handleSubmit={handleSubmit}
-                        register={register} />
+                    <DriverForm data={data} getDriver={getDriver} />
                 </Box>
             </HStack>
         </Flex>
+
     );
 }

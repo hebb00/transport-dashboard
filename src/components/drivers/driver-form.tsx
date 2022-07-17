@@ -1,6 +1,5 @@
-import {
-    Button, Input, FormControl,
-} from "@chakra-ui/react"
+import { Button, Input, FormControl } from "@chakra-ui/react"
+import React, { useState } from "react";
 import {
     Modal,
     ModalOverlay,
@@ -11,9 +10,45 @@ import {
     ModalCloseButton,
     useDisclosure,
 } from '@chakra-ui/react';
+import { fetchData } from "./driver-service"
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../routes/login";
+import { useForm } from 'react-hook-form';
 
+export function DriverForm({ data, getDriver }: any) {
 
-export function DriverForm({ handleSubmit, register }: any): any {
+    const { handleSubmit: createHandleSubmit, register } = useForm(
+        {
+            defaultValues: {
+                firstName: "",
+                lastName: "",
+                phoneNumber: "",
+                licenseNum: "",
+                licenseType: "",
+                licenseExpDate: "",
+            }
+        }
+    )
+    const handleSubmit = createHandleSubmit(values => {
+        var driver = {
+            firstName: values.firstName,
+            lastName: values.lastName,
+            phoneNumber: values.phoneNumber,
+            licenseNum: values.licenseNum,
+            licenseType: values.licenseType,
+            licenseExpDate: values.licenseExpDate,
+        };
+        fetchData(driver, `driver`).then(async res => {
+            if (res.status == 200) {
+                const result = await res.json();
+                console.log("result is ", result)
+                getDriver()
+                onClose();
+            } else {
+                console.log("error ", res.status)
+            }
+        })
+    })
 
     const { isOpen, onOpen, onClose } = useDisclosure()
     return (
@@ -27,10 +62,14 @@ export function DriverForm({ handleSubmit, register }: any): any {
                     <ModalCloseButton />
                     <form onSubmit={handleSubmit}>
                         <ModalBody>
-                            <FormControl  >
-                                <Input placeholder="full name" type="text" {...register('fullName')} />
-                                <Input placeholder="phone number" type="text"  {...register('phoneNumber')} />
-                                <Input id='email' type='email' placeholder="email" {...register('email')} />
+                            <FormControl>
+                                <Input type="text" mb="3" placeholder="first Name"  {...register('firstName')} />
+                                <Input type="text" mb="3" placeholder="last Name"  {...register('lastName')} />
+                                <Input type="text" mb="3" placeholder="phone number"  {...register('phoneNumber')} />
+                                <Input type="text" mb="3" placeholder="License Number"  {...register('licenseNum')} />
+                                <Input type="text" mb="3" placeholder="License Type"  {...register('licenseType')} />
+                                <Input mb="3" type="date" placeholder="License Expire Date" {...register('licenseExpDate')} />
+
                             </FormControl>
                         </ModalBody>
                         <ModalFooter>
