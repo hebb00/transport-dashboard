@@ -1,21 +1,7 @@
 import { useState } from "react";
 import { FormUserInputs, FormUserLogin } from "../../types/react-table-config";
 
-export function userData() {
-    const [newUser, setNewUser] = useState(
-        {
-            firstName: "",
-            lastName: "",
-            userName: "",
-            password: "",
-            phoneNumber: "",
-        }
-    );
-    return { newUser, setNewUser };
-};
-
-
-export function fetchData(user: FormUserInputs | FormUserLogin, path: string) {
+export function fetchData(user: any, path: string) {
     return fetch(
         `http://localhost:9000/users/${path}`,
         {
@@ -26,3 +12,17 @@ export function fetchData(user: FormUserInputs | FormUserLogin, path: string) {
             body: JSON.stringify(user)
         })
 }
+
+
+export function getData(path: string) {
+    return fetch(
+        `http://localhost:9000/users/${path}`,
+        {
+            method: "GET",
+            headers: {
+                'Content-type': 'application/json'
+            },
+
+        })
+}
+

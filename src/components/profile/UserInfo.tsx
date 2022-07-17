@@ -1,21 +1,7 @@
 import React from 'react'
-import {
-    Heading,
-    Avatar,
-    Box,
-    Center,
-    Image,
-    Flex,
-    Text,
-    Stack,
-    Button,
-    useColorModeValue,
-    Input,
-    FormControl,
-    FormLabel,
-    Divider,
-} from '@chakra-ui/react';
+import { Heading, Box, Center, Text, useColorModeValue, Divider, } from '@chakra-ui/react';
 import { useAuth } from '../../routes/login';
+import UserForm from '../users/UserForm';
 
 
 export default function UserInfo() {
@@ -34,21 +20,10 @@ export default function UserInfo() {
                 <Heading m="33">User info</Heading>
                 <Text>username: {user?.username} </Text>
                 <Text>first name: {user?.firstname} </Text>
-                <Text>last name: {user?.firstname} </Text>
+                <Text>last name: {user?.lastname} </Text>
                 <Text>phone number: {user?.phone_num} </Text>
                 <Divider></Divider>
-                <Button
-                    w={'full'}
-                    mt={8}
-                    bg={'teal'}
-                    color={'white'}
-                    rounded={'md'}
-                    _hover={{
-                        transform: 'translateY(-2px)',
-                        boxShadow: 'lg',
-                    }}>
-                    Edit
-            </Button>
+                <UserForm />
             </Box>
         </Center>
 
