@@ -1,5 +1,5 @@
+import { Input, Table, Tbody, Td, Tr, IconButton, Button, Th } from '@chakra-ui/react'
 import React from 'react'
-import { Button, Input, FormControl } from "@chakra-ui/react"
 import {
     Modal,
     ModalOverlay,
@@ -10,10 +10,11 @@ import {
     ModalCloseButton,
     useDisclosure,
 } from '@chakra-ui/react';
+import { EditIcon } from '@chakra-ui/icons';
 import { useForm } from 'react-hook-form';
-import { fetchData } from "./client-service"
+import { fetchData, getData } from "./client-service"
 
-export default function ClientForm({ getClient }: any) {
+export default function ModifyClient({ id, getData }: any) {
 
     const { handleSubmit: createHandleSubmit, register } = useForm(
         {
@@ -30,37 +31,45 @@ export default function ClientForm({ getClient }: any) {
             lastName: values.lastName,
             phoneNumber: values.phoneNumber,
         };
-        fetchData(client, `client`).then(async res => {
+        fetchData(client, `modify-client/${id}`).then(async res => {
             if (res.status == 200) {
                 const result = await res.json();
+                getData();
                 console.log("result is ", result)
-                getClient()
                 onClose();
             } else {
                 console.log("error ", res.status)
             }
         })
     })
+
     const { isOpen, onOpen, onClose } = useDisclosure()
+
     return (
         <>
-            <Button colorScheme="teal" onClick={onOpen}>Add New Client</Button>
+            <IconButton m="1" aria-label={'edit'} onClick={onOpen} type="button" icon={<EditIcon />}>edidt</IconButton >
             <Modal isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay />
                 <ModalContent>
-                    <ModalHeader> new client</ModalHeader>
+                    <ModalHeader> modify client info </ModalHeader>
                     <ModalCloseButton />
                     <form onSubmit={handleSubmit}>
                         <ModalBody>
-                            <FormControl  >
-                                <Input mb="3" placeholder="first name" type="text" {...register('firstName')} />
-                                <Input mb="3" placeholder="last name" type="text" {...register('lastName')} />
-                                <Input mb="3" placeholder="phone number" type="text"  {...register('phoneNumber')} />
-                            </FormControl>
+                            <Table size="sm">
+                                <Tbody>
+                                    <Tr><Th>First Name</Th><Th>Last Name</Th><Th>Phone Number</Th>
+                                    </Tr>
+                                    <Tr>
+                                        <Td><Input placeholder="First Name"  {...register('firstName')} /></Td>
+                                        <Td><Input placeholder="Last Name" {...register('lastName')} /></Td>
+                                        <Td><Input placeholder="Phone Number"  {...register('phoneNumber')} /></Td>
+                                    </Tr>
+                                </Tbody>
+                            </Table>
                         </ModalBody>
                         <ModalFooter>
                             <Button colorScheme='blue' mr={3} onClick={onClose}> Close  </Button>
-                            <Button type="submit" variant='ghost'> Add</Button>
+                            <Button type="submit" variant='ghost'> save</Button>
                         </ModalFooter>
                     </form>
                 </ModalContent>
