@@ -11,8 +11,6 @@ import {
     useDisclosure,
 } from '@chakra-ui/react';
 import { fetchData } from "./driver-service"
-import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../routes/login";
 import { useForm } from 'react-hook-form';
 
 export function DriverForm({ data, getDriver }: any) {
@@ -69,7 +67,6 @@ export function DriverForm({ data, getDriver }: any) {
                                 <Input type="text" mb="3" placeholder="License Number"  {...register('licenseNum')} />
                                 <Input type="text" mb="3" placeholder="License Type"  {...register('licenseType')} />
                                 <Input mb="3" type="date" placeholder="License Expire Date" {...register('licenseExpDate')} />
-
                             </FormControl>
                         </ModalBody>
                         <ModalFooter>
