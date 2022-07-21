@@ -13,7 +13,6 @@ import {
     TableContainer,
     HStack,
     Text,
-
 } from "@chakra-ui/react";
 import GlobalFilter from "./globalFilter"
 import { DeleteIcon, ChevronDownIcon, ChevronUpIcon } from '@chakra-ui/icons';
@@ -22,54 +21,16 @@ import { CSVLink, CSVDownload } from "react-csv";
 import { ExternalLinkIcon } from '@chakra-ui/icons'
 
 
-// Create an editable cell renderer
-const EditableCell = ({
-    value: initialValue,
-    row: { index },
-    column: { id },
-    updateMyData, // This is a custom function That we supplied to our table instance
-}: {
-    value: any;
-    row: any;
-    column: any;
-    updateMyData: any;
-}) => {
-    // We need to keep and update The state of The cell normally
-    const [value, setValue] = React.useState(initialValue)
-
-    const onChange = (e: any) => {
-        setValue(e.target.value)
-    }
-
-    // We'll only update The external data when The input is blurred
-    const onBlur = () => {
-        updateMyData(index, id, value)
-    }
-
-    // If The initialValue is changed external, sync it up wiTh our state
-    React.useEffect(() => {
-        setValue(initialValue)
-    }, [initialValue])
-
-    return <input value={value} onChange={onChange} onBlur={onBlur} />
-}
-
-// Set our editable cell renderer as The default Cell renderer
-const defaultColumn = {
-    Cell: EditableCell,
-}
 type Ctype = {
     columns: Array<any>
     data: Array<any>
-    skipPageReset: any
-    updateMyData: any
     handleDeleteClick(id: any): void
+    modify(id: any, getData: any): any
+    getData(): any
 }
-// Be sure to pass our updateMyData and The skipPageReset option
-function EventTable({ columns, data, updateMyData, skipPageReset, handleDeleteClick }: Ctype) {
-    // For This example, we're using pagination to illusTrate how to stop
-    // The current page from resetting when our data changes
-    // OTherwise, noThing is different here.
+function EventTable({ columns, data, handleDeleteClick, modify, getData }: Ctype) {
+
+    const initialState = { hiddenColumns: ['id'] };
     const {
         state,
         setGlobalFilter,
@@ -91,15 +52,7 @@ function EventTable({ columns, data, updateMyData, skipPageReset, handleDeleteCl
         {
             columns,
             data,
-            defaultColumn,
-            // use The skipPageReset option to disable page resetting temporarily
-            autoResetPage: !skipPageReset,
-            // updateMyData isn't part of The API, but
-            // anyThing we put into These options will
-            // automatically be available on The instance.
-            // That way we can call This function from our
-            // cell renderer!
-            updateMyData,
+            initialState,
         },
         useGlobalFilter,
         useFilters,
@@ -109,7 +62,6 @@ function EventTable({ columns, data, updateMyData, skipPageReset, handleDeleteCl
     )
     const { globalFilter } = state
 
-    // Render The UI for your table
     return (
         <Box m="19px" >
             <HStack
@@ -117,10 +69,10 @@ function EventTable({ columns, data, updateMyData, skipPageReset, handleDeleteCl
                 <GlobalFilter
                     filter={globalFilter}
                     setFilter={setGlobalFilter} />
-                <CSVLink data={data}> <Text color="teal">Export to csv  <ExternalLinkIcon mx='2px' /> </Text> </CSVLink>
+                <CSVLink data={data}><Text color="teal">Export to csv <ExternalLinkIcon mx='2px' /> </Text></CSVLink>
             </HStack>
             <TableContainer m="10px">
-                <Table {...getTableProps()}>
+                <Table size="sm"{...getTableProps()}>
                     <TableCaption>
                         <HStack>
                             <div className="pagination">
@@ -143,7 +95,7 @@ function EventTable({ columns, data, updateMyData, skipPageReset, handleDeleteCl
                         {headerGroups.map(headerGroup => (
                             <Tr {...headerGroup.getHeaderGroupProps()}>
                                 {headerGroup.headers.map(column => (
-                                    <Th {...column.getHeaderProps(column.getSortByToggleProps())}>
+                                    <Th  {...column.getHeaderProps(column.getSortByToggleProps())}>
                                         {column.render('Header')}
                                         {column.isSorted ? (
                                             column.isSortedDesc ? (
@@ -155,7 +107,7 @@ function EventTable({ columns, data, updateMyData, skipPageReset, handleDeleteCl
                                                 ""
                                             )}
                                     </Th>))}
-                                <Th>
+                                <Th >
                                     Actions
                                 </Th>
                             </Tr>
@@ -169,11 +121,13 @@ function EventTable({ columns, data, updateMyData, skipPageReset, handleDeleteCl
                                     {row.cells.map(cell => {
                                         return <Td {...cell.getCellProps()}>{cell.render('Cell')}</Td>
                                     })}
-                                    <Td><IconButton aria-label={'delete'}
-                                        type="button" icon={<DeleteIcon />}
+                                    <Td><IconButton m="1" aria-label={'delete'} type="button" color="tomato"
+                                        icon={<DeleteIcon />}
                                         onClick={() => {
-                                            window.confirm('Are you sure you wish to delete this row?') ? handleDeleteClick(row.cells[0].value) : window.oncancel("cancel")
-                                        }}>Delete</IconButton></Td>
+                                            window.confirm('Are you sure you wish to delete this row?') ? handleDeleteClick(row.allCells[0].value) : window.oncancel("cancel")
+                                        }}>Delete</IconButton>
+                                        {modify(row.allCells[0].value, getData)}
+                                    </Td>
                                 </Tr>
                             )
                         })}
