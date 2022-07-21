@@ -1,5 +1,5 @@
 import { Input, Table, Tbody, Td, Tr, IconButton, Button, Th } from '@chakra-ui/react'
-import React from 'react'
+import React, { useState } from 'react'
 import {
     Modal,
     ModalOverlay,
@@ -12,9 +12,23 @@ import {
 } from '@chakra-ui/react';
 import { EditIcon } from '@chakra-ui/icons';
 import { useForm } from 'react-hook-form';
-import { fetchData, getData } from "./client-service"
+import { fetchData, getData as getClient } from "./client-service"
 
 export default function ModifyClient({ id, getData }: any) {
+    const [client, setClient] = useState<any>({});
+    const showClient = () => {
+        getClient(`modify-client/${id}`).then(async res => {
+            if (res.status == 200) {
+                const info = await res.json();
+                setClient(info)
+                console.log(" client inside getClient in modify : ", info);
+            } else {
+                console.log(" error inside getClient: ", res.status);
+            }
+        });
+
+    }
+
 
     const { handleSubmit: createHandleSubmit, register } = useForm(
         {
@@ -47,7 +61,7 @@ export default function ModifyClient({ id, getData }: any) {
 
     return (
         <>
-            <IconButton m="1" aria-label={'edit'} onClick={onOpen} type="button" icon={<EditIcon />}>edidt</IconButton >
+            <IconButton m="1" aria-label={'edit'} onClick={() => { showClient(); onOpen(); }} color="teal" type="button" icon={<EditIcon />}>edidt</IconButton >
             <Modal isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay />
                 <ModalContent>
@@ -60,9 +74,9 @@ export default function ModifyClient({ id, getData }: any) {
                                     <Tr><Th>First Name</Th><Th>Last Name</Th><Th>Phone Number</Th>
                                     </Tr>
                                     <Tr>
-                                        <Td><Input placeholder="First Name"  {...register('firstName')} /></Td>
-                                        <Td><Input placeholder="Last Name" {...register('lastName')} /></Td>
-                                        <Td><Input placeholder="Phone Number"  {...register('phoneNumber')} /></Td>
+                                        <Td><Input placeholder={client.firstname} {...register('firstName', { required: true })} /></Td>
+                                        <Td><Input placeholder={client.lastname} {...register('lastName', { required: true })} /></Td>
+                                        <Td><Input placeholder={client.phone_num} {...register('phoneNumber', { required: true })} /></Td>
                                     </Tr>
                                 </Tbody>
                             </Table>

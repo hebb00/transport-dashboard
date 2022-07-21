@@ -18,10 +18,8 @@ export default function Drivers() {
                 console.log(" drivers inside getDriver: ", drivers);
             } else {
                 console.log(" error inside getDriver: ", res.status);
-
             }
         })
-
     }
     const columns = React.useMemo(
         () => [

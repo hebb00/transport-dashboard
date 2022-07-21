@@ -30,8 +30,6 @@ export default function Clients() {
     );
     const [data, setData] = useState<any>([{}])
     console.log(data, "clients data ")
-    const [skipPageReset, setSkipPageReset] = useState(false);
-
     function getClient() {
         getData("client").then(async res => {
             if (res.status == 200) {
@@ -81,7 +79,6 @@ export default function Clients() {
                 <EventTable
                     columns={columns}
                     data={data}
-                    skipPageReset={skipPageReset}
                     handleDeleteClick={handleDeleteClick}
                     modify={modifyClient}
                     getData={getClient} />
