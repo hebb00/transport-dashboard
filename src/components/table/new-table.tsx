@@ -30,7 +30,7 @@ type Ctype = {
 }
 function EventTable({ columns, data, handleDeleteClick, modify, getData }: Ctype) {
 
-    const initialState = { hiddenColumns: ['id'] };
+    const initialState = { hiddenColumns: ['id', 'Id'] };
     const {
         state,
         setGlobalFilter,

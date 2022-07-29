@@ -188,7 +188,6 @@ function Schedular() {
         });
         dropDownList.appendTo(InputEle);
         InputEle.setAttribute('name', 'client_id');
-
       }
     }
   }
