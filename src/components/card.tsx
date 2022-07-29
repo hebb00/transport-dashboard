@@ -10,24 +10,24 @@ import {
     StatHelpText,
     StatArrow,
 } from '@chakra-ui/react';
+import { filterProps } from 'framer-motion/types/render/dom/utils/filter-props';
 import { ReactNode } from 'react';
+import { FcAssistant, FcBusinesswoman, FcInTransit, FcBusinessman } from 'react-icons/fc';
 
-import { FcAssistant, FcDonate, FcInTransit } from 'react-icons/fc';
+
 interface StatsCardProps {
     title: string;
     stat: string;
     icon: ReactNode;
     per: any;
 }
-function StatsCard(props: StatsCardProps) {
+function StatsCard(props: any) {
     const { title, stat, icon, per } = props;
     return (
         <Stat
-
             px={{ base: 2, md: 4 }}
             py={'4'}
             shadow={'xl'}
-
             borderColor={useColorModeValue('gray.800', 'gray.500')}
             rounded={'lg'}>
             <Flex justifyContent={'space-between'}>
@@ -54,35 +54,27 @@ function StatsCard(props: StatsCardProps) {
     );
 }
 
-export default function BasicStatistics() {
+
+export default function BasicStatistics({ driver, vehicle, client }: any) {
     return (
         <Box maxW="7xl" mx={'auto'} pt={12} px={{ base: 2, sm: 12, md: 17 }}>
-            {/* <chakra.h1
-          textAlign={'center'}
-          fontSize={'4xl'}
-          py={10}
-          fontWeight={'bold'}>
-          Our company is expanding, you could be too.
-        </chakra.h1> */}
             <SimpleGrid columns={{ base: 1, md: 3 }} spacing={{ base: 5, lg: 8 }}>
                 <StatsCard
-                    title={'Users'}
-                    stat={'5,000'}
+                    title={'Drivers'}
+                    stat={driver}
                     per={30}
-                    icon={<FcAssistant size={'3em'} />}
+                    icon={<FcBusinessman size={'3em'} />}
                 />
                 <StatsCard
-                    title={'Servers'}
-                    stat={'1,000'}
+                    title={'Clients'}
+                    stat={client}
                     per={60}
-
-                    icon={<FcDonate size={'3em'} />}
+                    icon={<FcBusinesswoman size={'3em'} />}
                 />
                 <StatsCard
-                    title={'Datacenters'}
-                    stat={'7'}
+                    title={'Vehicles'}
+                    stat={vehicle}
                     per={90}
-
                     icon={< FcInTransit size={'3em'} />}
                 />
             </SimpleGrid>
