@@ -1,16 +1,17 @@
-import { useForm } from 'react-hook-form';
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 
 import { ChakraProvider } from "@chakra-ui/react"
 import { Box, Flex, HStack, Link, Text } from "@chakra-ui/react"
 import { Column } from "react-table";
 import EventTable from "../components/table/new-table"
-import { nanoid } from "nanoid";
-import { FormInputs } from "../types/react-table-config"
+
 import VehicleForm from "../components/vehicles/VehicleForm"
-import { vehicleData } from "../components/vehicles/vehicle-service"
+import { fetchData, getData } from "../components/vehicles/vehicle-service"
+import ModifyVehicle from "../components/vehicles/ModifyVehicle";
+
 
 export default function Vehicle() {
+    const [data, setData] = useState<any>([{}])
     const columns: Column[] = [
         {
             Header: "id",
@@ -18,113 +19,67 @@ export default function Vehicle() {
         },
 
         {
-            Header: "Type",
-            accessor: "fullName",
+            Header: "plate number",
+            accessor: "plate_num",
         },
 
         {
-            Header: "driver",
-            accessor: "email",
+            Header: "model",
+            accessor: "model",
         },
-        {
-            Header: "number",
-            accessor: "phoneNumber",
-            isNumeric: true,
-        }
+
     ];
-    const { data, setData } = vehicleData()
+    function getVehicles() {
+        getData("vehicle").then(async res => {
+            if (res.status == 200) {
+                const vehicles = await res.json();
+                setData(vehicles)
+                console.log(" vehicles inside getvehicles: ", vehicles);
+            } else {
+                console.log(" error inside getvehicles: ", res.status);
 
-    const { handleSubmit: createHandleSubmit, register } = useForm<FormInputs>(
-        {
-            defaultValues: {
-                fullName: "",
-                phoneNumber: "",
-                email: "",
             }
-        }
-    )
-    const handleSubmit = createHandleSubmit(values => {
-        const newContact: any = {
-            id: nanoid(),
-            fullName: values.fullName,
-            phoneNumber: values.phoneNumber,
-            email: values.email,
-        };
-        console.log(values, "valuees")
+        })
 
-        const newContacts = [...data, newContact];
-        setData(newContacts);
-        console.log(data, "ddd");
-
-
-    });
-
-
-
-
-    const [originalData] = React.useState(data)
-    const [skipPageReset, setSkipPageReset] = React.useState(false)
-    const updateMyData = (rowIndex: any, columnId: any, value: any) => {
-        // We also turn on the flag to not reset the page
-        setSkipPageReset(true)
-        setData((old) =>
-            old.map((row, index) => {
-                if (index === rowIndex) {
-                    return {
-                        ...old[rowIndex],
-                        [columnId]: value,
-                    }
-                }
-                return row
-            })
-        )
     }
+    useEffect(() => {
+        getData("vehicle").then(async res => {
+            if (res.status == 200) {
+                const clients = await res.json();
+                setData(clients)
+                console.log(" vehicles: ", clients);
+            } else {
+                console.log(" error ", res.status);
 
-    React.useEffect(() => {
-        setSkipPageReset(false)
-    }, [data])
-    const resetData = () => setData(originalData);
+            }
+        })
 
+    }, [])
     const handleDeleteClick = (rowId: any) => {
-        const newContacts = [...data];
-
-        const index = data.findIndex((contact) => contact.id === rowId);
-
-        newContacts.splice(index, 1);
-
-        setData(newContacts);
+        getData(`vehicle/${rowId}`).then(async res => {
+            if (res.status == 200) {
+                getVehicles()
+                console.log(" vehicle inside handelDelete: ");
+            } else {
+                console.log(" error inside  handelDelete: ", res.status);
+            }
+        })
     };
+    function modifyVehicles(id: any, getData: any) {
+        return (<ModifyVehicle id={id} getData={getData} />);
+    }
 
 
     return (
         <ChakraProvider>
-
-            {/* <Button >Reset Data</Button> */}
-
             <EventTable
                 columns={columns}
                 data={data}
-                updateMyData={updateMyData}
-                skipPageReset={skipPageReset}
                 handleDeleteClick={handleDeleteClick}
-
-
-            />
-            <HStack
-                spacing={'auto'}
-            >
-                <Box
-                    ml="3"
-                >
-                    <VehicleForm
-                        data={data}
-                        setData={setData}
-                        handleSubmit={handleSubmit}
-                        register={register}
-
-                    />
-
-                </Box>
+                modify={modifyVehicles}
+                getData={getVehicles} />
+            <HStack spacing={'auto'} >
+                <Box ml="3"><VehicleForm getVehicles={getVehicles} /> </Box>
             </HStack>
         </ChakraProvider>
     )

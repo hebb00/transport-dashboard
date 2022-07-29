@@ -1,7 +1,6 @@
 import React from 'react'
-import {
-    Button, Input, FormControl, Checkbox, Table, Tbody, Tr, Td, Text, InputGroup, InputLeftElement
-} from "@chakra-ui/react"
+import { useForm } from 'react-hook-form';
+import { Button, Input, FormControl, Table, Tbody, Tr, Td, Text } from "@chakra-ui/react"
 import {
     Modal,
     ModalOverlay,
@@ -12,61 +11,67 @@ import {
     ModalCloseButton,
     useDisclosure,
 } from '@chakra-ui/react';
+import { fetchData } from "./vehicle-service"
 
 
-export default function VehicleForm({ handleSubmit, register, data, setData }: any) {
+export default function VehicleForm({ getVehicles }: any) {
+
+    const { handleSubmit: createHandleSubmit, register } = useForm(
+        {
+            defaultValues: {
+                model: "",
+                plateNum: "",
+
+            }
+        }
+    )
+    const handleSubmit = createHandleSubmit(values => {
+        var vehicle = {
+            model: values.model,
+            plateNum: values.plateNum
+
+        };
+        fetchData(vehicle, `vehicle`).then(async res => {
+            if (res.status == 200) {
+                const result = await res.json();
+                console.log("result is ", result)
+                getVehicles()
+                onClose();
+            } else {
+                console.log("error ", res.status)
+            }
+        })
+    })
     const { isOpen, onOpen, onClose } = useDisclosure()
 
     return (
         <>
             <Button colorScheme="teal"
                 onClick={onOpen}>New Vehicle</Button>
-
             <Modal isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay />
                 <ModalContent>
                     <ModalHeader>Add new Vehicle</ModalHeader>
                     <ModalCloseButton />
                     <form onSubmit={handleSubmit}>
-
                         <ModalBody>
                             <FormControl  >
                                 <Table>
                                     <Tbody>
                                         <Tr>
-                                            <Td><Text >number</Text></Td>
+                                            <Td><Text >Model</Text></Td>
                                             <Td>
-                                                <Input placeholder="car number" type="text" {...register('id')} />
+                                                <Input placeholder="model" type="text" {...register('model')} />
                                             </Td>
-
                                         </Tr>
                                         <Tr>
-                                            <Td><Text>model</Text></Td>
+                                            <Td><Text>plate number</Text></Td>
                                             <Td>
-                                                <Input placeholder="model" type="text"  {...register('model')} />
+                                                <Input placeholder="plateNum" type="text"  {...register('plateNum')} />
                                             </Td>
-
-                                        </Tr>
-                                        <Tr>
-                                            <Td><Text>rent price</Text></Td>
-                                            <Td>
-                                                <InputGroup>
-                                                    <InputLeftElement
-                                                        pointerEvents='none'
-                                                        color='gray.300'
-                                                        fontSize='1.2em'
-                                                        children='$'
-                                                    />
-                                                    <Input id='price' type='email' placeholder="price" {...register('rentPrice')} />
-                                                </InputGroup>
-
-                                            </Td>
-
                                         </Tr>
                                     </Tbody>
                                 </Table>
-
-
                             </FormControl>
                         </ModalBody>
                         <ModalFooter>
@@ -75,7 +80,6 @@ export default function VehicleForm({ handleSubmit, register, data, setData }: a
                             </Button>
                             <Button type="submit" variant='ghost'> Add</Button>
                         </ModalFooter>
-
                     </form>
                 </ModalContent>
             </Modal>
