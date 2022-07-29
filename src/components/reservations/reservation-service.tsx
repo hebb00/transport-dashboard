@@ -3,13 +3,31 @@ import { extend } from '@syncfusion/ej2-base';
 import { useState } from 'react'
 
 
-export let serverData: Record<string, any>[] = extend([], (dataSource as Record<string, any>).resourceData.concat((dataSource as Record<string, any>).timelineResourceData), undefined, true) as Record<string, any>[]
-// export let serverData: Record<string, any>[] = extend([], (dataSource as Record<string, any>).roomData, undefined, true) as Record<string, any>[];
-export function reservationData() {
-    const [data, setData] = useState(serverData);
 
-    return { data, setData };
+
+export function fetchData(user: any, path: string) {
+    return fetch(
+        `http://localhost:9000/reservations/${path}`,
+        {
+            method: "POST",
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
 }
 
+
+export function getData(path: string) {
+    return fetch(
+        `http://localhost:9000/reservations/${path}`,
+        {
+            method: "GET",
+            headers: {
+                'Content-type': 'application/json'
+            },
+
+        })
+}
 
 
