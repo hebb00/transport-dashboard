@@ -33,20 +33,6 @@ ChartJS.register(
     Tooltip,
     Legend
 );
-
-export const opt = {
-    responsive: true,
-    plugins: {
-        legend: {
-            position: 'top' as const,
-        },
-        title: {
-            display: true,
-            text: 'Chart.js Line Chart',
-        },
-    },
-};
-const label = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 ChartJS.register(
@@ -65,52 +51,22 @@ export const options = {
         },
         title: {
             display: true,
-            text: 'Chart.js Bar Chart',
+            text: 'reservations Bar Chart',
         },
     },
 };
-const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-export const data = {
-    labels,
-    datasets: [
-        {
-            label: 'Dataset 1',
-            data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-            backgroundColor: 'rgba(79, 227, 193, 1)',
-        },
-        {
-            label: 'Dataset 2',
-            data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-            backgroundColor: 'rgba(0, 88, 156, 1)',
-        },
-    ],
-};
 
-export const dd = {
-    labels,
-    datasets: [
-        {
-            label: 'Dataset 1',
-            data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
-            borderColor: 'rgba(79, 227, 193, 1)',
-            backgroundColor: 'rgba(79, 227, 193, 1)',
-        },
-        {
-            label: 'Dataset 2',
-            data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
-            borderColor: 'rgba(0, 88, 156, 1)',
-            backgroundColor: 'rgba(0, 88, 156, 1)',
-        },
-    ],
-};
 
 
 export function Dashboard() {
     const [drivers, setDrivers] = useState<any>({});
+    const [license, setLicense] = useState<any>({});
     const [clients, setClients] = useState<any>({});
     const [vehicles, setVehicles] = useState<any>({});
     const [reservations, setReservation] = useState<any>({});
     const [book, setBooks] = useState<any>({});
+    const [graph, setGraph] = useState<any>([]);
+
 
     useEffect(() => {
         getData("statistic").then(async res => {
@@ -118,6 +74,17 @@ export function Dashboard() {
                 const driver = await res.json();
                 setDrivers(driver)
                 console.log(" drivers inside getDriver: ", driver);
+            } else {
+                console.log(" error inside getDriver: ", res.status);
+            }
+        })
+    }, []);
+    useEffect(() => {
+        getData("pie").then(async res => {
+            if (res.status == 200) {
+                const license = await res.json();
+                setLicense(license)
+                console.log(" drivers inside getDriver: ", license);
             } else {
                 console.log(" error inside getDriver: ", res.status);
             }
@@ -167,20 +134,74 @@ export function Dashboard() {
             }
         })
     }, []);
+    useEffect(() => {
+        getReservations("graph").then(async res => {
+            if (res.status == 200) {
+                const graph = await res.json();
+                setGraph(graph)
+                console.log(" my first graph: ", graph);
+            } else {
+                console.log(" error inside graph: ", res.status);
+            }
+        })
+    }, []);
     var labels = [];
     var i = 0;
     for (var val of graph) {
         labels[i] = dayjs(val.day).format('DD/MM/YYYY');
         i++;
     }
+    const data = {
+        labels,
+        datasets: [
+            {
+                label: 'Reservatins hours ',
+                data: graph.map((graph: any) => graph.hours),
+                backgroundColor: 'rgba(79, 227, 193, 1)',
+            },
+            // {
+            //     label: 'Dataset 2',
+            //     data: labels.map(() => ),
+            //     backgroundColor: 'rgba(0, 88, 156, 1)',
+            // },
+        ],
+    };
 
-
+    const dd = {
+        labels,
+        datasets: [
+            // {
+            //     label: 'Dataset 1',
+            //     data: graph.map((graph: any) => graph.hours),
+            //     borderColor: 'rgba(79, 227, 193, 1)',
+            //     backgroundColor: 'rgba(79, 227, 193, 1)',
+            // },
+            {
+                label: 'Reservatins hours ',
+                data: graph.map((graph: any) => graph.hours),
+                borderColor: 'rgba(0, 88, 156, 1)',
+                backgroundColor: 'rgba(0, 88, 156, 1)',
+            },
+        ],
+    };
+    const opt = {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'top' as const,
+            },
+            title: {
+                display: true,
+                text: 'reservations Line Chart',
+            },
+        },
+    };
     const d = {
-        labels: ['clients', 'vehicles', 'drivers', 'reservations'],
+        labels: ['big cars', 'small cars', 'drivers'],
         datasets: [
             {
                 label: 'number of ',
-                data: [`${clients.num}`, `${vehicles.num}`, `${drivers.num}`, `${reservations.num}`],
+                data: [`${license.num}`, `${drivers.num - license.num}`, `${drivers.num}`],
                 backgroundColor: [
                     'rgba(79, 227, 193, 1)',
                     'rgba(0, 88, 156, 1)',

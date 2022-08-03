@@ -28,7 +28,7 @@ export default function progressTable({ books }: any) {
                     {Object.keys(books).map((key, index) => {
                         return (
                             <Tr key={key} >
-                                <Td >{books[key].firstname + " " + books[key].lastname}</Td>
+                                <Td >{books[key].clientname}</Td>
                                 <Td >{books[key].num_books}</Td>
                                 <Td ><Progress hasStripe value={books[key].num_books} /></Td>
                             </Tr>
