@@ -1,163 +1,120 @@
 import EventTable from "../components/table/new-table"
 import { Box, Flex, HStack, Link, Text } from "@chakra-ui/react"
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import { Column } from "react-table";
-import { driversData } from "../components/drivers/driver-service"
-import { nanoid } from "nanoid";
-import { FormInputs } from "../types/react-table-config"
-import { useForm } from 'react-hook-form';
-import { ReservationForm } from "../components/reservations/reservation-form"
+
+import { ModifyBooking } from "../components/reservations/ModifyBooking"
+import { getData } from "../components/reservations/reservation-service"
+
+
 export default function Reservation() {
-    // const columns = React.useMemo(
-    //     () => [
+    const [data, setData] = useState<any>([{}])
 
-    //         {
-    //             Header: 'id',
-    //             accessor: 'id',
-    //             sortType: 'basic',
-    //         },
-    //         {
-    //             Header: 'Client Name',
-    //             accessor: 'client-name',
-    //             sortType: 'basic',
-    //         },
-    //         {
-    //             Header: 'From',
-    //             accessor: 'from',
-    //             sortType: 'basic',
-    //         },
+    const columns = React.useMemo(
+        () => [
+            {
+                Header: 'id',
+                accessor: 'Id',
+            },
+            {
+                Header: 'Clients',
+                accessor: 'clientname',
+                sortType: 'basic',
+            },
+            {
+                Header: 'source',
+                accessor: 'source',
+                sortType: 'basic',
+            },
 
-    //         {
-    //             Header: 'To',
-    //             accessor: 'to',
-    //             sortType: 'basic',
-    //         },
+            {
+                Header: 'destination',
+                accessor: 'Location',
+                sortType: 'basic',
+            },
 
-    //         {
-    //             Header: 'vehicle',
-    //             accessor: 'vehicle',
-    //             sortType: 'basic',
+            {
+                Header: 'vehicles',
+                accessor: 'plate_num',
+                sortType: 'basic',
 
-    //         },
-    //         {
-    //             Header: 'price',
-    //             accessor: 'price',
-    //             sortType: 'basic',
+            },
+            {
+                Header: 'price',
+                accessor: 'price',
+                sortType: 'basic',
 
-    //         },
-    //         {
-    //             Header: 'Date',
-    //             accessor: 'date',
-    //             sortType: 'basic',
+            },
+            {
+                Header: 'start Time',
+                accessor: 'StartTime',
+                sortType: 'basic',
 
-    //         },
-    //         {
-    //             Header: 'Driver',
-    //             accessor: 'driver',
-    //             sortType: 'basic',
+            },
+            {
+                Header: 'end time',
+                accessor: 'EndTime',
+                sortType: 'basic',
 
-    //         },
-    //         {
-    //             Header: 'booked',
-    //             accessor: 'booked',
-    //             sortType: 'basic',
+            },
+            {
+                Header: 'Drivers',
+                accessor: 'drivername',
+                sortType: 'basic',
 
-    //         },
-    //     ],
+            },
+        ],
 
-    //     []
-    // )
-    const columns: Column[] = [
-        {
-            Header: "id",
-            accessor: "id",
-        },
-
-        {
-            Header: "Type",
-            accessor: "fullName",
-        },
-
-        {
-            Header: "driver",
-            accessor: "email",
-        },
-        {
-            Header: "number",
-            accessor: "phoneNumber",
-            isNumeric: true,
-        }
-    ];
-    const { data, setData } = driversData()
-    const { handleSubmit: createHandleSubmit, register } = useForm<FormInputs>(
-        {
-            defaultValues: {
-                fullName: "",
-                phoneNumber: "",
-                email: "",
-            }
-        }
+        []
     )
-    const handleSubmit = createHandleSubmit(values => {
-        const newContact: any = {
-            id: nanoid(),
-            fullName: values.fullName,
-            phoneNumber: values.phoneNumber,
-            email: values.email,
-        };
-        console.log(values, "valuees")
-        const newContacts = [...data, newContact];
-        setData(newContacts);
-        console.log(data, "ddd");
+    useEffect(() => {
+        getData("reservation/table").then(async res => {
+            if (res.status == 200) {
+                const booking = await res.json();
+                setData(booking)
+                console.log(" bookings: ", booking);
+            } else {
+                console.log(" error ", res.status);
 
+            }
+        })
 
-    });
-
-    const [originalData] = React.useState(data)
-    const [skipPageReset, setSkipPageReset] = React.useState(false)
-    const updateMyData = (rowIndex: any, columnId: any, value: any) => {
-        // We also turn on the flag to not reset the page
-        setSkipPageReset(true)
-        setData((old) =>
-            old.map((row, index) => {
-                if (index === rowIndex) {
-                    return {
-                        ...old[rowIndex],
-                        [columnId]: value,
-                    }
-                }
-                return row
-            })
-        )
+    }, [])
+    function getReservation() {
+        getData("reservation/table").then(async res => {
+            if (res.status == 200) {
+                const reservation = await res.json();
+                setData(reservation)
+                console.log(" drivers inside getDriver: ", reservation);
+            } else {
+                console.log(" error inside getDriver: ", res.status);
+            }
+        })
     }
-
-    React.useEffect(() => {
-        setSkipPageReset(false)
-    }, [data])
-    const resetData = () => setData(originalData);
-
     const handleDeleteClick = (rowId: any) => {
-        const newContacts = [...data];
-        const index = data.findIndex((contact) => contact.id === rowId);
-        newContacts.splice(index, 1);
-        setData(newContacts);
+        getData(`delete-reservation/${rowId}`).then(async res => {
+            if (res.status == 200) {
+                getReservation()
+                console.log(" client inside handelDelete: ");
+            } else {
+                console.log(" error inside  handelDelete: ", res.status);
+            }
+        })
     };
+    function modifyBooking(id: any, getData: any) {
+        return (<ModifyBooking id={id} getData={getData} />);
+    }
 
     return (
         <>
             <EventTable
                 columns={columns}
                 data={data}
-                updateMyData={updateMyData}
-                skipPageReset={skipPageReset}
                 handleDeleteClick={handleDeleteClick}
+                modify={modifyBooking}
+                getData={getReservation}
             />
-            <HStack
-                spacing={'auto'} >
-                <Box ml="3" >
-                    < ReservationForm />
-                </Box>
-            </HStack>
+
         </>
     )
 }
