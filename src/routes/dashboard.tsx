@@ -23,6 +23,7 @@ import { getData as getVehicles } from "../components/vehicles/vehicle-service"
 import { getData as getBooks } from "../components/reservations/reservation-service"
 import { getData as getReservations } from "../components/reservations/reservation-service"
 import { InfoOutlineIcon } from '@chakra-ui/icons';
+import dayjs from "dayjs"
 ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -166,6 +167,12 @@ export function Dashboard() {
             }
         })
     }, []);
+    var labels = [];
+    var i = 0;
+    for (var val of graph) {
+        labels[i] = dayjs(val.day).format('DD/MM/YYYY');
+        i++;
+    }
 
 
     const d = {
