@@ -1,5 +1,5 @@
 import React, { createContext, useState } from 'react'
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, useNavigate } from "react-router-dom";
 import { Flex, Box } from '@chakra-ui/react';
 
 import App from './routes/App'
@@ -16,6 +16,7 @@ import ProtectedRoutes from "./components/ProtectedRoutes"
 import Sidebar from './components/navigation/sidebar'
 import { CookiesProvider } from 'react-cookie';
 import { useCookies } from 'react-cookie';
+import Users from './routes/users';
 
 export const AuthContext = createContext<any>(null!);
 
@@ -32,6 +33,7 @@ export default function Views() {
     setUser(null);
     callback();
   };
+
   let value = { user, signin, signout };
   return (
     <AuthContext.Provider value={value}>
@@ -54,8 +56,13 @@ export default function Views() {
                   <Route path="/clients" element={<Clients />} />
                   <Route path="/dashboard" element={< Dashboard />} />
                   <Route path="/profile" element={< Profile />} />
+                  {value.user?.role == "admin" ?
+                    <>
+                      <Route path="/register" element={<Register />} />
+                      <Route path="/users" element={<Users />} />
+                    </>
+                    : ""}
                 </Route>
-                <Route path="/register" element={<Register />} />
                 <Route path="/login" element={<Login />} />
               </Routes>
             </Box>
