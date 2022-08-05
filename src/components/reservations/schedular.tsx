@@ -32,14 +32,13 @@ import './timeline-resources.css';
 import { createElement } from '@syncfusion/ej2-base';
 import { DropDownList } from '@syncfusion/ej2-dropdowns';
 import { ExternalLinkIcon } from '@chakra-ui/icons';
-import { HStack, Link, Box, Flex } from '@chakra-ui/react';
+import { HStack, Link, Box } from '@chakra-ui/react';
 
 import { fetchData, getData } from "./reservation-service";
 import { getData as vehiclesInfo } from "../vehicles/vehicle-service";
 import { getData as driversInfo } from "../drivers/driver-service"
 import { getData as clientsInfo } from "../clients/client-service"
 
-import ReactDOM from "react-dom";
 import React, { useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
 
@@ -65,16 +64,16 @@ function Schedular() {
       if (res.status == 200) {
         var clients = await res.json();
         console.log("on popup clients", clients);
-
-        setClients([
-          { text: `${clients[0]?.firstname}`, value: clients[0]?.id },
-          { text: `${clients[1]?.firstname}`, value: clients[1]?.id },
-          { text: `${clients[2]?.firstname}`, value: clients[2]?.id },
-        ])
+        var clientsData = [];
+        for (let i = 0; i < clients.length; i++) {
+          clientsData[i] = {
+            text: `${clients[i]?.firstname}`, value: clients[i]?.id
+          }
+        }
+        setClients(clientsData)
         console.log("on popup otpipns", client);
       } else {
         console.log(" error inside getClient: ", res.status);
-
       }
     })
 
@@ -105,7 +104,8 @@ function Schedular() {
   }, []);
 
   var vehiclesData: Record<string, any>[] = [];
-  var colors = ['#cb6bb2', '#56ca85', '#df5286']
+  var colors = ['#cb6bb2', '#56ca85', '#df5286', '#7fa900',
+    '#ea7a57', '#5978ee', '#56ca85', '#df5286']
   for (var i = 0; i < vehicles.length; i++) {
     vehiclesData[i] = {
       text: `${vehicles[i]?.plate_num}`, id: vehicles[i]?.id, color: colors[i]
@@ -116,27 +116,31 @@ function Schedular() {
       if (res.status == 200) {
         const person = await res.json();
         setDrivers(person)
-        console.log(" driver inside driverInfo: ", person);
+        console.log(" driver inside driverInfo: ", drivers);
       } else {
         console.log(" error inside Driverinfo: ", res.status);
       }
 
     })
   }, []);
+
+  let l = 0;
+  var group = [];
+  for (var val of vehicles) {
+    group[l] = val?.id;
+    group[++l] = val?.id;
+    l++;
+  }
+
+  var colors = ['#df5286', '#7fa900', '#ea7a57', '#5978ee', '#cb6bb2',
+    '#56ca85', '#df5286', '#7fa900', '#ea7a57', '#5978ee'];
   var driversData: Record<string, any>[] = [];
-  var colors = ['#df5286', '#7fa900', '#ea7a57', '#5978ee'];
-  var group = [vehicles[0]?.id, vehicles[0]?.id, vehicles[1]?.id, vehicles[1]?.id]
   for (let j = 0; j < drivers.length; j++) {
     driversData[j] = {
       text: `${drivers[j]?.firstname}`, id: drivers[j]?.id, groupId: group[j], color: colors[j]
     }
   }
-
-
-
   const onPopupOpen = (args: any) => {
-
-
     if (args.type === 'Editor') {
       if (!args.element.querySelector('.custom-field-row')) {
         let row = createElement('div', { className: 'custom-field-row' })
@@ -191,7 +195,7 @@ function Schedular() {
       }
     }
   }
-
+  console.log(client, "clients in scheduler")
   function ViewTable() {
     return (
       <HStack>

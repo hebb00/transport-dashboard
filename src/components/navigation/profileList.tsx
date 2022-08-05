@@ -15,12 +15,12 @@ export default function UserProfile() {
     }
     return (
         <HStack spacing={{ base: "0", md: "6" }} h="50px">
-            <IconButton
+            {/* <IconButton
                 size="lg"
                 variant="ghost"
                 aria-label="open menu"
                 icon={<FiBell />}
-            />
+            /> */}
             <Flex alignItems="center">
                 <Menu>
                     <MenuButton
@@ -49,10 +49,10 @@ export default function UserProfile() {
                             </Box>
                         </HStack>
                     </MenuButton>
-                    <MenuList fontSize="lg" bg="white" borderColor="gray.200"                    >
+                    <MenuList fontSize="lg" bg="white" borderColor="gray.200" >
                         <RouteLink to="/profile" ><MenuItem> Profile</MenuItem></RouteLink>
-                        <MenuItem>Settings</MenuItem>
-                        <MenuItem>Billing</MenuItem>
+                        {/* <MenuItem>Settings</MenuItem>
+                        <MenuItem>Billing</MenuItem> */}
                         <MenuDivider />
                         <RouteLink to="#" onClick={() => logout()}><MenuItem> Sign out</MenuItem></RouteLink>
                     </MenuList>

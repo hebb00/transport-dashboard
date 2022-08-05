@@ -62,7 +62,7 @@ export type FormUserInputs = {
   userName: string;
   password: string;
   phoneNumber: string;
-  // email: string;
+   role: string;
 };
 export type FormUserLogin = {
 

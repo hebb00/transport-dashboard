@@ -45,9 +45,9 @@ export default function Vehicle() {
     useEffect(() => {
         getData("vehicle").then(async res => {
             if (res.status == 200) {
-                const clients = await res.json();
-                setData(clients)
-                console.log(" vehicles: ", clients);
+                const vehicle = await res.json();
+                setData(vehicle)
+                console.log(" vehicles: ", vehicle);
             } else {
                 console.log(" error ", res.status);
 

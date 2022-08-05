@@ -33,7 +33,7 @@ export const useAuth = () => {
     return React.useContext(AuthContext);
 }
 const Login = () => {
-    const [cookies, setCookie] = useCookies(['user']);
+    const [cookies, setCookie] = useCookies(['user', 'admin']);
     const auth = useAuth();
     console.log(auth);
     const { handleSubmit: createHandleLogin, register } = useForm(
@@ -145,10 +145,6 @@ const Login = () => {
                         </form>
                     </Box>
                 </Stack>
-                <Box>
-                    New to us?{" "}
-                    <Link as={RouteLink} to="/register" color="teal.500" href="#">register </Link>
-                </Box>
             </Flex>
         </ChakraProvider >
     );

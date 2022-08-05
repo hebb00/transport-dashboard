@@ -5,6 +5,6 @@ import { Outlet } from "react-router"
 
 
 export default function ProtectedRoutes() {
-    const auth = useAuth()
+    const auth = useAuth();
     return auth.user ? <Outlet /> : <Login />
 }
