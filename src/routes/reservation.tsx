@@ -5,6 +5,7 @@ import { Column } from "react-table";
 
 import { ModifyBooking } from "../components/reservations/ModifyBooking"
 import { getData } from "../components/reservations/reservation-service"
+import BookingForm from "../components/reservations/BookingForm";
 
 
 export default function Reservation() {
@@ -114,7 +115,11 @@ export default function Reservation() {
                 modify={modifyBooking}
                 getData={getReservation}
             />
-
+            <HStack spacing={'auto'} >
+                <Box ml="3" >
+                    <BookingForm getReservation={getReservation} />
+                </Box>
+            </HStack>
         </>
     )
 }
