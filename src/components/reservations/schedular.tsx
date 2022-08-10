@@ -48,15 +48,7 @@ function Schedular() {
   const [cookies, setCookie] = useCookies()
   var [vehicles, setVehicles] = useState<any>([]);
   var [drivers, setDrivers] = useState<any>([]);
-  const [data, setData] = useState<any>([{
-    Id: 3,
-    Subject: "collage trip",
-    StartTime: "2022-08-10T04:30:00.000Z",
-    EndTime: "2022-08-10T07:00:00.000Z",
-    IsAllDay: false,
-    vehicle_id: 2,
-    driver_id: 4
-  }]);
+  const [data, setData] = useState<any>([]);
   var [client, setClients] = useState<any>([{ text: "test", value: 1 }]);
   useEffect(() => {
 
@@ -262,7 +254,7 @@ function Schedular() {
         rowAutoHeight={true}
         allowResizing={false}
         actionComplete={onActionComplete}
-        width='100%' height='650px'
+        width='100%' height='850px'
         currentView="TimelineWeek"
         group={{ resources: ['vehicles', 'drivers'] }}
       >

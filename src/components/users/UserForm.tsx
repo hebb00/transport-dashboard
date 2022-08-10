@@ -18,10 +18,14 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../routes/login";
 const CFaUserAlt = chakra(FaUserAlt);
 const CFaLock = chakra(FaLock);
+import { useCookies } from 'react-cookie';
+
 
 export default function UserForm() {
     const nav = useNavigate();
-    const auth = useAuth()
+    const auth = useAuth();
+    const [cookies, setCookie] = useCookies(['user']);
+
     const { handleSubmit: createHandleSubmit, register } = useForm(
         {
             defaultValues: {
@@ -35,20 +39,22 @@ export default function UserForm() {
         }
     )
     const handleSubmit = createHandleSubmit(values => {
-        var user: any = {
+        var User: any = {
             firstName: values.firstName,
             lastName: values.lastName,
             userName: values.userName,
             password: values.newPass,
             phoneNumber: values.phoneNumber,
         };
-        fetchData(user, `modify/${auth.user.id}`).then(async res => {
+        fetchData(User, `modify/${auth.user.id}`).then(async res => {
 
             if (res.status == 200) {
                 const user = await res.json();
-                console.log("updated user ", user)
-                auth.setUser(user);
-                nav(`/profile?${auth.user.id}`)
+                console.log("updated user ", user);
+                setCookie('user', user);
+                auth.signin(user, () => {
+                    nav(`/profile?id=${user.id}`);
+                });
             } else {
                 nav(`/login?valid=false`, { state: "incorrect username or password" })
             }
@@ -89,7 +95,7 @@ export default function UserForm() {
                         </InputGroup>
                     </FormControl>
                 </Stack>
-                <Button type="submit" w="90px" color={'white'} bg="teal" > save</Button>
+                <Button type="submit" w="90px" colorScheme="teal" > save</Button>
             </form>
         </>
     )
