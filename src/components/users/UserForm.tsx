@@ -77,6 +77,7 @@ export default function UserForm() {
                         <Input type="text" mb="3" placeholder="last Name"  {...register('lastName')} />
                         <Input type="text" mb="3" placeholder="userName"  {...register('userName')} />
                         <Input type="text" mb="3" placeholder="phone number"  {...register('phoneNumber')} />
+                        <Text color={'gray'} align="start" mb="3"> change password</Text>
                         <Input type={"password"} mb="3"  {...register('oldPass')} />
                         <InputGroup>
                             <InputLeftElement
