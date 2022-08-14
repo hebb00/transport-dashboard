@@ -15,7 +15,7 @@ import { Progress } from '@chakra-ui/react'
 export default function progressTable({ books }: any) {
     return (
         <TableContainer>
-            <Table variant='simple'>
+            <Table>
                 <TableCaption>Clients and their reservation progress</TableCaption>
                 <Thead>
                     <Tr>

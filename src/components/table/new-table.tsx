@@ -72,7 +72,7 @@ function EventTable({ columns, data, handleDeleteClick, modify, getData }: Ctype
                 <CSVLink data={data}><Text color="teal">Export to csv <ExternalLinkIcon mx='2px' /> </Text></CSVLink>
             </HStack>
             <TableContainer m="10px">
-                <Table size="sm"{...getTableProps()}>
+                <Table variant='striped' colorScheme={"blackAlpha"} size="sm"{...getTableProps()}>
                     <TableCaption>
                         <HStack>
                             <div className="pagination">
