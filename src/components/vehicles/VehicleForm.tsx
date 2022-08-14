@@ -47,7 +47,7 @@ export default function VehicleForm({ getVehicles }: any) {
     return (
         <>
             <Button colorScheme="teal"
-                onClick={onOpen}>New Vehicle</Button>
+                onClick={onOpen}>Add Vehicle</Button>
             <Modal isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay />
                 <ModalContent>

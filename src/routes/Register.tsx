@@ -89,7 +89,7 @@ export default function Register({ getUser }: any) {
     return (
         <>
             <Button m="1" onClick={() => { onOpen() }} color={"white"} variant="solid"
-                colorScheme="teal">new user</Button >
+                colorScheme="teal">Add User</Button >
             <Modal isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay />
                 <ModalContent>

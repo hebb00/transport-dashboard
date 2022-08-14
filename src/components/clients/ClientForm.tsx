@@ -44,7 +44,7 @@ export default function ClientForm({ getClient }: any) {
     const { isOpen, onOpen, onClose } = useDisclosure()
     return (
         <>
-            <Button colorScheme="teal" onClick={onOpen}>Add New Client</Button>
+            <Button colorScheme="teal" onClick={onOpen}>Add Client</Button>
             <Modal isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay />
                 <ModalContent>

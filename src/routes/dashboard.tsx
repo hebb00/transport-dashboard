@@ -197,7 +197,7 @@ export function Dashboard() {
         },
     };
     const d = {
-        labels: ['big cars', 'small cars', 'drivers'],
+        labels: [' big cars licesnse', 'small cars license', 'drivers'],
         datasets: [
             {
                 label: 'number of ',

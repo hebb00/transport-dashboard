@@ -52,7 +52,7 @@ export function DriverForm({ data, getDriver }: any) {
     return (
         <>
             <Button colorScheme="teal"
-                onClick={onOpen}>Add New Driver</Button>
+                onClick={onOpen}>Add Driver</Button>
             <Modal isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay />
                 <ModalContent>

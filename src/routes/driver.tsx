@@ -88,7 +88,6 @@ export default function Drivers() {
     function modifyDriver(id: any, getData: any) {
         return (<ModifyDriver id={id} getData={getData} />);
     }
-
     return (
         <Flex flexDirection="column" >
             <Box >

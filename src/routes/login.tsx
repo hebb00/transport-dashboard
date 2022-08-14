@@ -33,7 +33,7 @@ export const useAuth = () => {
     return React.useContext(AuthContext);
 }
 const Login = () => {
-    const [cookies, setCookie] = useCookies(['user', 'admin']);
+    const [cookies, setCookie] = useCookies(['user']);
     const auth = useAuth();
     console.log(auth);
     const { handleSubmit: createHandleLogin, register } = useForm(
@@ -59,7 +59,6 @@ const Login = () => {
                 const user = await res.json();
                 userCookie = user
                 auth.signin(user, () => {
-                    console.log(user);
                     nav(`/profile?id=${user.id}`);
                 });
                 if (userInfo.check) {

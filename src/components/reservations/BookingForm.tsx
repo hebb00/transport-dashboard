@@ -99,7 +99,7 @@ export default function BookingForm({ getReservation }: any) {
     return (
         <>
             <Button colorScheme="teal"
-                onClick={onOpen}>New Reservation</Button>
+                onClick={onOpen}>Add Reservation</Button>
             <Modal isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay />
                 <ModalContent>
