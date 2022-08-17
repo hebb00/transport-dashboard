@@ -1,4 +1,6 @@
-import { Button, Input, FormControl } from "@chakra-ui/react"
+import {
+    Button, Input, FormControl, InputLeftElement, InputGroup
+} from "@chakra-ui/react"
 import React, { useState } from "react";
 import {
     Modal,
@@ -9,9 +11,23 @@ import {
     ModalBody,
     ModalCloseButton,
     useDisclosure,
+    chakra,
+
 } from '@chakra-ui/react';
 import { fetchData } from "./driver-service"
 import { useForm } from 'react-hook-form';
+import { FaUserAlt, FaLock, FaPhone, FaClipboard, FaTruck, FaCalendar } from "react-icons/fa";
+
+
+const CFaUserAlt = chakra(FaUserAlt);
+const CFaLock = chakra(FaLock);
+const CFaphone = chakra(FaPhone);
+const CFtruck = chakra(FaTruck);
+const CFcal = chakra(FaCalendar);
+const CFclip = chakra(FaClipboard);
+
+
+
 
 export function DriverForm({ data, getDriver }: any) {
 
@@ -61,12 +77,46 @@ export function DriverForm({ data, getDriver }: any) {
                     <form onSubmit={handleSubmit}>
                         <ModalBody>
                             <FormControl>
-                                <Input type="text" mb="3" placeholder="first Name"  {...register('firstName')} />
-                                <Input type="text" mb="3" placeholder="last Name"  {...register('lastName')} />
-                                <Input type="text" mb="3" placeholder="phone number"  {...register('phoneNumber')} />
-                                <Input type="text" mb="3" placeholder="License Number"  {...register('licenseNum')} />
-                                <Input type="text" mb="3" placeholder="License Type"  {...register('licenseType')} />
-                                <Input mb="3" type="date" placeholder="License Expire Date" {...register('licenseExpDate')} />
+                                <InputGroup>
+                                    <InputLeftElement
+                                        pointerEvents="none"
+                                        children={<CFaUserAlt color="gray.400" />} />
+                                    <Input type="text" mb="3" placeholder="first Name"  {...register('firstName')} />
+                                </InputGroup>
+                                <InputGroup>
+                                    <InputLeftElement
+                                        pointerEvents="none"
+                                        children={<CFaUserAlt color="gray.400" />} />
+                                    <Input type="text" mb="3" placeholder="last Name"  {...register('lastName')} />
+                                </InputGroup>
+                                <InputGroup >
+                                    <InputLeftElement
+                                        pointerEvents="none"
+                                        children={<CFaphone color="gray.400" />}
+                                    />
+                                    <Input type="text" mb="3" placeholder="phone number"  {...register('phoneNumber')} />
+                                </InputGroup>
+                                <InputGroup >
+                                    <InputLeftElement
+                                        pointerEvents="none"
+                                        children={<CFclip color="gray.400" />}
+                                    />
+                                    <Input type="text" mb="3" placeholder="License Number"  {...register('licenseNum')} />
+                                </InputGroup>
+                                <InputGroup >
+                                    <InputLeftElement
+                                        pointerEvents="none"
+                                        children={<CFtruck color="gray.400" />}
+                                    />
+                                    <Input type="text" mb="3" placeholder="License Type"  {...register('licenseType')} />
+                                </InputGroup>
+                                <InputGroup >
+                                    <InputLeftElement
+                                        pointerEvents="none"
+                                        children={<CFcal color="gray.400" />}
+                                    />
+                                    <Input mb="3" type="date" placeholder="License Expire Date" {...register('licenseExpDate')} />
+                                </InputGroup>
                             </FormControl>
                         </ModalBody>
                         <ModalFooter>

@@ -102,7 +102,7 @@ const Login = () => {
                                     <InputGroup>
                                         <InputLeftElement
                                             pointerEvents="none"
-                                            children={<CFaUserAlt color="gray.300" />}
+                                            children={<CFaUserAlt color="gray.400" />}
                                         />
                                         <Input type="text" placeholder="userName"  {...register('userName')} />
                                     </InputGroup>
@@ -112,7 +112,7 @@ const Login = () => {
                                         <InputLeftElement
                                             pointerEvents="none"
                                             color="gray.300"
-                                            children={<CFaLock color="gray.300" />} />
+                                            children={<CFaLock color="gray.400" />} />
                                         <Input
                                             type={showPassword ? "text" : "password"}
                                             placeholder="Password"

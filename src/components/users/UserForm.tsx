@@ -12,14 +12,16 @@ import {
     InputRightElement
 } from "@chakra-ui/react";
 import { useForm } from 'react-hook-form';
-import { FaUserAlt, FaLock } from "react-icons/fa";
+import { FaUserAlt, FaLock, FaPhone } from "react-icons/fa";
 import { fetchData } from "./user-service"
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../routes/login";
-const CFaUserAlt = chakra(FaUserAlt);
-const CFaLock = chakra(FaLock);
 import { useCookies } from 'react-cookie';
 
+
+const CFaUserAlt = chakra(FaUserAlt);
+const CFaLock = chakra(FaLock);
+const CFaphone = chakra(FaPhone);
 
 export default function UserForm() {
     const nav = useNavigate();
@@ -73,17 +75,47 @@ export default function UserForm() {
                     backgroundColor="whiteAlpha.900">
                     <Heading m="3" > change info</Heading>
                     <FormControl>
-                        <Input type="text" mb="3" placeholder="first Name"  {...register('firstName')} />
-                        <Input type="text" mb="3" placeholder="last Name"  {...register('lastName')} />
-                        <Input type="text" mb="3" placeholder="userName"  {...register('userName')} />
-                        <Input type="text" mb="3" placeholder="phone number"  {...register('phoneNumber')} />
+                        <InputGroup>
+                            <InputLeftElement
+                                pointerEvents="none"
+                                children={<CFaUserAlt color="gray.400" />}
+                            />
+                            <Input type="text" mb="3" placeholder="first Name"  {...register('firstName')} />
+                        </InputGroup>
+                        <InputGroup>
+                            <InputLeftElement
+                                pointerEvents="none"
+                                children={<CFaUserAlt color="gray.400" />}
+                            />
+                            <Input type="text" mb="3" placeholder="last Name"  {...register('lastName')} />
+                        </InputGroup>
+                        <InputGroup>
+                            <InputLeftElement
+                                pointerEvents="none"
+                                children={<CFaUserAlt color="gray.400" />}
+                            />
+                            <Input type="text" mb="3" placeholder="userName"  {...register('userName')} />
+                        </InputGroup>
+                        <InputGroup>
+                            <InputLeftElement
+                                pointerEvents="none"
+                                children={<CFaphone color="gray.400" />}
+                            />
+                            <Input type="text" mb="3" placeholder="phone number"  {...register('phoneNumber')} />
+                        </InputGroup>
                         <Text color={'gray'} align="start" mb="3"> change password</Text>
-                        <Input type={"password"} mb="3"  {...register('oldPass')} />
                         <InputGroup>
                             <InputLeftElement
                                 pointerEvents="none"
                                 color="gray.300"
-                                children={<CFaLock color="gray.300" />} />
+                                children={<CFaLock color="gray.400" />} />
+                            <Input type={"password"} mb="3"  {...register('oldPass')} />
+                        </InputGroup>
+                        <InputGroup>
+                            <InputLeftElement
+                                pointerEvents="none"
+                                color="gray.300"
+                                children={<CFaLock color="gray.400" />} />
                             <Input
                                 type={showPassword ? "text" : "password"}
                                 placeholder="New Password"

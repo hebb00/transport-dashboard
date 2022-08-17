@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Input, FormControl } from "@chakra-ui/react"
+import { Button, Input, FormControl, InputGroup, chakra, InputLeftElement } from "@chakra-ui/react"
 import {
     Modal,
     ModalOverlay,
@@ -11,7 +11,12 @@ import {
     useDisclosure,
 } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
-import { fetchData } from "./client-service"
+import { fetchData } from "./client-service";
+import { FaUserAlt, FaPhone } from "react-icons/fa";
+
+
+const CFaUserAlt = chakra(FaUserAlt);
+const CFaphone = chakra(FaPhone);
 
 export default function ClientForm({ getClient }: any) {
 
@@ -52,10 +57,25 @@ export default function ClientForm({ getClient }: any) {
                     <ModalCloseButton />
                     <form onSubmit={handleSubmit}>
                         <ModalBody>
-                            <FormControl  >
-                                <Input mb="3" placeholder="first name" type="text" {...register('firstName')} />
-                                <Input mb="3" placeholder="last name" type="text" {...register('lastName')} />
-                                <Input mb="3" placeholder="phone number" type="text"  {...register('phoneNumber')} />
+                            <FormControl >
+                                <InputGroup>
+                                    <InputLeftElement
+                                        pointerEvents="none"
+                                        children={<CFaUserAlt color="gray.400" />} />
+                                    <Input mb="3" placeholder="first name" type="text" {...register('firstName')} />
+                                </InputGroup>
+                                <InputGroup>
+                                    <InputLeftElement
+                                        pointerEvents="none"
+                                        children={<CFaUserAlt color="gray.400" />} />
+                                    <Input mb="3" placeholder="last name" type="text" {...register('lastName')} />
+                                </InputGroup>
+                                <InputGroup>
+                                    <InputLeftElement
+                                        pointerEvents="none"
+                                        children={<CFaphone color="gray.400" />} />
+                                    <Input mb="3" placeholder="phone number" type="text"  {...register('phoneNumber')} />
+                                </InputGroup>
                             </FormControl>
                         </ModalBody>
                         <ModalFooter>
