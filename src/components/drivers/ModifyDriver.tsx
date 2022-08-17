@@ -84,7 +84,7 @@ export default function ModifyDriver({ id, getData }: any) {
                             <Input placeholder={driver.phone_num}  {...register('phoneNumber', { required: true })} />
                             <Text>  license number</Text>
                             <Input type="text" placeholder={driver.license_num} {...register('licenseNum', { required: true })} />
-                            <Text> icense Type</Text>
+                            <Text> license Type</Text>
                             <Input type="text" placeholder={driver.license_type}  {...register('licenseType', { required: true })} />
                             <Text>license expire date</Text>
                             <Input type="date" placeholder={driver.license_exp_date} {...register('licenseExpDate', { required: true })} />

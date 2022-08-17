@@ -29,19 +29,6 @@ export function ModifyBooking({ id, getData }: any) {
     const [driver, setDriver] = useState<any>([]);
     const [vehicle, setVehicle] = useState<any>([]);
 
-    useEffect(() => {
-        getReservation(`reservation/table`).then(async res => {
-            if (res.status == 200) {
-                const reser = await res.json();
-                setClient(reser);
-                console.log(" reservation: ", reser);
-            } else {
-                console.log(" error ", res.status);
-
-            }
-        });
-
-    }, []);
     const showBooking = () => {
         getBooking(`reservation/table/${id}`).then(async res => {
             if (res.status == 200) {

@@ -62,7 +62,7 @@ export default function BasicStatistics({ driver, vehicle, client }: any) {
                 <StatsCard
                     title={'Drivers'}
                     stat={driver}
-                    per={30}
+                    per={20}
                     icon={<FcBusinessman size={'3em'} />}
                 />
                 <StatsCard
@@ -74,7 +74,7 @@ export default function BasicStatistics({ driver, vehicle, client }: any) {
                 <StatsCard
                     title={'Vehicles'}
                     stat={vehicle}
-                    per={90}
+                    per={30}
                     icon={< FcInTransit size={'3em'} />}
                 />
             </SimpleGrid>
