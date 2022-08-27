@@ -9,7 +9,6 @@ import {
     Legend,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
-import faker from 'faker';
 import { Box, Flex, SimpleGrid, HStack, Text, VStack } from '@chakra-ui/react';
 import BasicStatistics from "../components/card"
 import { ArcElement } from 'chart.js';
@@ -59,10 +58,12 @@ export const options = {
 
 
 export function Dashboard() {
+
     const [drivers, setDrivers] = useState<any>({});
     const [license, setLicense] = useState<any>({});
     const [clients, setClients] = useState<any>({});
     const [vehicles, setVehicles] = useState<any>({});
+    const [Users, setUsers] = useState<any>({});
     const [reservations, setReservation] = useState<any>({});
     const [book, setBooks] = useState<any>({});
     const [graph, setGraph] = useState<any>([]);
