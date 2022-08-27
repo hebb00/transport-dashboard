@@ -12,7 +12,8 @@ import {
 } from '@chakra-ui/react';
 import { filterProps } from 'framer-motion/types/render/dom/utils/filter-props';
 import { ReactNode } from 'react';
-import { FcAssistant, FcBusinesswoman, FcInTransit, FcBusinessman } from 'react-icons/fc';
+import { FcAssistant, FcBusinesswoman, FcInTransit, FcBusinessman, FcCustomerSupport } from 'react-icons/fc';
+import { useCookies } from 'react-cookie';
 
 
 interface StatsCardProps {
@@ -55,29 +56,65 @@ function StatsCard(props: any) {
 }
 
 
-export default function BasicStatistics({ driver, vehicle, client }: any) {
+export default function BasicStatistics({ driver, vehicle, client, users }: any) {
+    const [cookies, setCookie] = useCookies();
+
     return (
-        <Box maxW="7xl" mx={'auto'} pt={12} px={{ base: 2, sm: 12, md: 17 }}>
-            <SimpleGrid columns={{ base: 1, md: 3 }} spacing={{ base: 5, lg: 8 }}>
-                <StatsCard
-                    title={'Drivers'}
-                    stat={driver}
-                    per={20}
-                    icon={<FcBusinessman size={'3em'} />}
-                />
-                <StatsCard
-                    title={'Clients'}
-                    stat={client}
-                    per={60}
-                    icon={<FcBusinesswoman size={'3em'} />}
-                />
-                <StatsCard
-                    title={'Vehicles'}
-                    stat={vehicle}
-                    per={30}
-                    icon={< FcInTransit size={'3em'} />}
-                />
-            </SimpleGrid>
-        </Box>
+        <>
+            {
+                cookies.user?.role == 'admin' ?
+                    <Box maxW="8xl" mx={'auto'} pt={12} px={{ base: 2, sm: 12, md: 17 }}>
+                        <SimpleGrid columns={{ base: 1, md: 4 }} spacing={{ base: 5, lg: 8 }}>
+                            <StatsCard
+                                title={'Drivers'}
+                                stat={driver}
+                                per={20}
+                                icon={<FcBusinessman size={'3em'} />}
+                            />
+                            <StatsCard
+                                title={'Clients'}
+                                stat={client}
+                                per={60}
+                                icon={<FcBusinesswoman size={'3em'} />}
+                            />
+                            <StatsCard
+                                title={'Vehicles'}
+                                stat={vehicle}
+                                per={30}
+                                icon={< FcInTransit size={'3em'} />}
+                            />
+                            <StatsCard
+                                title={'Users'}
+                                stat={users}
+                                per={10}
+                                icon={< FcCustomerSupport size={'3em'} />}
+                            />
+                        </SimpleGrid>
+                    </Box>
+                    :
+                    <Box maxW="8xl" mx={'auto'} pt={12} px={{ base: 2, sm: 12, md: 17 }}>
+                        <SimpleGrid columns={{ base: 1, md: 3 }} spacing={{ base: 5, lg: 8 }}>
+                            <StatsCard
+                                title={'Drivers'}
+                                stat={driver}
+                                per={20}
+                                icon={<FcBusinessman size={'3em'} />}
+                            />
+                            <StatsCard
+                                title={'Clients'}
+                                stat={client}
+                                per={60}
+                                icon={<FcBusinesswoman size={'3em'} />}
+                            />
+                            <StatsCard
+                                title={'Vehicles'}
+                                stat={vehicle}
+                                per={30}
+                                icon={< FcInTransit size={'3em'} />}
+                            />
+                        </SimpleGrid>
+                    </Box>
+            }
+        </>
     );
 }
