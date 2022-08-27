@@ -42,7 +42,7 @@ export function ModifyBooking({ id, getData }: any) {
 
     }
     var def: any = booking[0]
-    const { handleSubmit: createHandleSubmit, register } = useForm({})
+    const { handleSubmit: createHandleSubmit, register, setValue } = useForm({})
     const handleSubmit = createHandleSubmit(values => {
         var book = {
             Subject: values.subject,
@@ -121,19 +121,19 @@ export function ModifyBooking({ id, getData }: any) {
                         <ModalBody>
                             <FormControl  >
                                 <Text>description</Text>
-                                <Input mb="2" placeholder={def?.Description} {...register('description')} />
+                                <Input mb="2"  {...setValue('description', def?.Description)}  {...register('description')} />
                                 <Text>location</Text>
-                                <Input mb="2" placeholder={def?.Location} {...register('Location')} />
+                                <Input mb="2" {...setValue('Location', def?.Location)} {...register('Location')} />
                                 <Text>subject</Text>
-                                <Input mb="2" placeholder={def?.Subject} {...register('subject')} />
+                                <Input mb="2" {...setValue('subject', def?.Subject)} {...register('subject')} />
                                 <Text>source</Text>
-                                <Input mb="2" placeholder={def?.source} {...register('source')} />
+                                <Input mb="2" {...setValue('source', def?.source)} {...register('source')} />
                                 <Text>start time</Text>
-                                <Input mb="2" type='date' placeholder={def?.StartTime} {...register('StartTime')} />
+                                <Input mb="2" type='date' {...setValue('StartTime', def?.StartTime)} {...register('StartTime')} />
                                 <Text>end time</Text>
-                                <Input mb="2" type='date' placeholder={def?.EndTime} {...register('EndTime')} />
+                                <Input mb="2" type='date' {...setValue('EndTime', def?.EndTime)} {...register('EndTime')} />
                                 <Text>price</Text>
-                                <Input mb="2" placeholder={def?.price} {...register('price')} />
+                                <Input mb="2"  {...setValue('price', def?.price)} {...register('price')} />
                                 <Select mb="2"  {...register('platenum')} placeholder='Select vehicle' >
                                     {vehicle.map((vehicle: any, i: any) => {
                                         return (

@@ -33,7 +33,7 @@ export default function ModifyDriver({ id, getData }: any) {
     }
 
 
-    const { handleSubmit: createHandleSubmit, register } = useForm(
+    const { handleSubmit: createHandleSubmit, register, setValue } = useForm(
         {
             defaultValues: {
                 firstName: "",
@@ -77,17 +77,17 @@ export default function ModifyDriver({ id, getData }: any) {
                     <form onSubmit={handleSubmit}>
                         <ModalBody>
                             <Text w="50%">First Name</Text>
-                            <Input placeholder={driver.firstname} {...register('firstName', { required: true })} />
+                            <Input  {...setValue('firstName', driver.firstname)} {...register('firstName', { required: true })} />
                             <Text> Last Name</Text>
-                            <Input placeholder={driver.lastname} {...register('lastName', { required: true })} />
+                            <Input {...setValue('lastName', driver.lastname)} {...register('lastName', { required: true })} />
                             <Text>Phone Number</Text>
-                            <Input placeholder={driver.phone_num}  {...register('phoneNumber', { required: true })} />
+                            <Input {...setValue('phoneNumber', driver.phone_num)}  {...register('phoneNumber', { required: true })} />
                             <Text>  license number</Text>
-                            <Input type="text" placeholder={driver.license_num} {...register('licenseNum', { required: true })} />
+                            <Input type="text" {...setValue('licenseNum', driver.license_num)} {...register('licenseNum', { required: true })} />
                             <Text> license Type</Text>
-                            <Input type="text" placeholder={driver.license_type}  {...register('licenseType', { required: true })} />
+                            <Input type="text" {...setValue('licenseType', driver.license_type)}  {...register('licenseType', { required: true })} />
                             <Text>license expire date</Text>
-                            <Input type="date" placeholder={driver.license_exp_date} {...register('licenseExpDate', { required: true })} />
+                            <Input type="date" {...setValue('licenseExpDate', driver.license_exp_date)} {...register('licenseExpDate', { required: true })} />
                         </ModalBody>
                         <ModalFooter>
                             <Button colorScheme='blue' mr={3} onClick={onClose}> Close  </Button>

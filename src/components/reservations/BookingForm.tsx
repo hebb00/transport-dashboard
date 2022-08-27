@@ -109,19 +109,19 @@ export default function BookingForm({ getReservation }: any) {
                         <ModalBody>
                             <FormControl  >
                                 <Text>description</Text>
-                                <Input mb="2" placeholder="description" {...register('description')} />
+                                <Input mb="2" placeholder="description" {...register('description', { required: true })} />
                                 <Text>location</Text>
-                                <Input mb="2" placeholder="location" {...register('Location')} />
+                                <Input mb="2" placeholder="location" {...register('Location', { required: true })} />
                                 <Text>subject</Text>
-                                <Input mb="2" placeholder="subject" {...register('subject')} />
+                                <Input mb="2" placeholder="subject" {...register('subject', { required: true })} />
                                 <Text>source</Text>
-                                <Input mb="2" placeholder="source" {...register('source')} />
+                                <Input mb="2" placeholder="source" {...register('source', { required: true })} />
                                 <Text>start time</Text>
-                                <Input mb="2" type='date' placeholder="Start Time" {...register('StartTime')} />
+                                <Input mb="2" type='date' placeholder="Start Time" {...register('StartTime', { required: true })} />
                                 <Text>end time</Text>
-                                <Input mb="2" type='date' placeholder="End Time"{...register('EndTime')} />
+                                <Input mb="2" type='date' placeholder="End Time"{...register('EndTime', { required: true })} />
                                 <Text>price</Text>
-                                <Input mb="2" placeholder="price" {...register('price')} />
+                                <Input mb="2" placeholder="price" {...register('price', { required: true })} />
                                 <Select mb="2"  {...register('platenum')} placeholder='Select vehicle' >
                                     {vehicle.map((vehicle: any, i: any) => {
                                         return (

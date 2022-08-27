@@ -42,7 +42,6 @@ import { getData as clientsInfo } from "../clients/client-service"
 import React, { useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
 
-export let scheduleObj: ScheduleComponent | null;
 
 function Schedular() {
   const [cookies, setCookie] = useCookies()
@@ -187,7 +186,6 @@ function Schedular() {
       }
     }
   }
-  console.log(client, "clients in scheduler")
   function ViewTable() {
     return (
       <HStack>
@@ -245,7 +243,6 @@ function Schedular() {
       <ScheduleComponent
         cssClass='timeline-resource'
         id='schedule'
-        ref={schedule => scheduleObj = schedule}
         workHours={{ start: '08:00', end: '18:00' }}
         timeScale={{ interval: 60, slotCount: 1 }}
         popupOpen={onPopupOpen}
@@ -254,7 +251,7 @@ function Schedular() {
         rowAutoHeight={true}
         allowResizing={false}
         actionComplete={onActionComplete}
-        width='100%' height='850px'
+        width='100%' height='860px'
         currentView="TimelineWeek"
         group={{ resources: ['vehicles', 'drivers'] }}
       >

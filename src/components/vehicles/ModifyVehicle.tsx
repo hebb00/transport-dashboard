@@ -28,8 +28,7 @@ export default function ModifyVehicle({ id, getData }: any) {
             }
         });
     }
-
-    const { handleSubmit: createHandleSubmit, register } = useForm(
+    const { handleSubmit: createHandleSubmit, register, setValue } = useForm(
         {
             defaultValues: {
                 model: "",
@@ -58,7 +57,10 @@ export default function ModifyVehicle({ id, getData }: any) {
 
     return (
         <>
-            <IconButton m="1" aria-label={'edit'} onClick={() => { showVehicle(); onOpen(); }} color="teal" type="button" icon={<EditIcon />}>edidt</IconButton >
+            <IconButton m="1" aria-label={'edit'} onClick={() => {
+                showVehicle();
+                onOpen();
+            }} color="teal" type="button" icon={<EditIcon />}>edidt</IconButton >
             <Modal isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay />
                 <ModalContent>
@@ -71,8 +73,8 @@ export default function ModifyVehicle({ id, getData }: any) {
                                     <Tr><Th>model</Th><Th>plate number</Th>
                                     </Tr>
                                     <Tr>
-                                        <Td><Input placeholder={vehicle.model} {...register('model', { required: true })} /></Td>
-                                        <Td><Input placeholder={vehicle.plate_num} {...register('plateNum', { required: true })} /></Td>
+                                        <Td><Input  {...setValue('model', vehicle.model)} {...register('model', { required: true })} /></Td>
+                                        <Td><Input {...setValue('plateNum', vehicle.plate_num)}  {...register('plateNum', { required: true })} /></Td>
                                     </Tr>
                                 </Tbody>
                             </Table>

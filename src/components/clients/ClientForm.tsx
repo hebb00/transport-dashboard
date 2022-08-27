@@ -62,19 +62,19 @@ export default function ClientForm({ getClient }: any) {
                                     <InputLeftElement
                                         pointerEvents="none"
                                         children={<CFaUserAlt color="gray.400" />} />
-                                    <Input mb="3" placeholder="first name" type="text" {...register('firstName')} />
+                                    <Input mb="3" placeholder="first name" type="text" {...register('firstName', { required: true })} />
                                 </InputGroup>
                                 <InputGroup>
                                     <InputLeftElement
                                         pointerEvents="none"
                                         children={<CFaUserAlt color="gray.400" />} />
-                                    <Input mb="3" placeholder="last name" type="text" {...register('lastName')} />
+                                    <Input mb="3" placeholder="last name" type="text" {...register('lastName', { required: true })} />
                                 </InputGroup>
                                 <InputGroup>
                                     <InputLeftElement
                                         pointerEvents="none"
                                         children={<CFaphone color="gray.400" />} />
-                                    <Input mb="3" placeholder="phone number" type="text"  {...register('phoneNumber')} />
+                                    <Input mb="3" placeholder="phone number" type="text"  {...register('phoneNumber', { required: true })} />
                                 </InputGroup>
                             </FormControl>
                         </ModalBody>

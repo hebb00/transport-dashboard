@@ -87,35 +87,35 @@ export function DriverForm({ data, getDriver }: any) {
                                     <InputLeftElement
                                         pointerEvents="none"
                                         children={<CFaUserAlt color="gray.400" />} />
-                                    <Input type="text" mb="3" placeholder="last Name"  {...register('lastName')} />
+                                    <Input type="text" mb="3" placeholder="last Name"  {...register('lastName', { required: true })} />
                                 </InputGroup>
                                 <InputGroup >
                                     <InputLeftElement
                                         pointerEvents="none"
                                         children={<CFaphone color="gray.400" />}
                                     />
-                                    <Input type="text" mb="3" placeholder="phone number"  {...register('phoneNumber')} />
+                                    <Input type="text" mb="3" placeholder="phone number"  {...register('phoneNumber', { required: true })} />
                                 </InputGroup>
                                 <InputGroup >
                                     <InputLeftElement
                                         pointerEvents="none"
                                         children={<CFclip color="gray.400" />}
                                     />
-                                    <Input type="text" mb="3" placeholder="License Number"  {...register('licenseNum')} />
+                                    <Input type="text" mb="3" placeholder="License Number"  {...register('licenseNum', { required: true })} />
                                 </InputGroup>
                                 <InputGroup >
                                     <InputLeftElement
                                         pointerEvents="none"
                                         children={<CFtruck color="gray.400" />}
                                     />
-                                    <Input type="text" mb="3" placeholder="License Type"  {...register('licenseType')} />
+                                    <Input type="text" mb="3" placeholder="License Type"  {...register('licenseType', { required: true })} />
                                 </InputGroup>
                                 <InputGroup >
                                     <InputLeftElement
                                         pointerEvents="none"
                                         children={<CFcal color="gray.400" />}
                                     />
-                                    <Input mb="3" type="date" placeholder="License Expire Date" {...register('licenseExpDate')} />
+                                    <Input mb="3" type="date" placeholder="License Expire Date" {...register('licenseExpDate', { required: true })} />
                                 </InputGroup>
                             </FormControl>
                         </ModalBody>

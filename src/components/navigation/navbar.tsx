@@ -24,12 +24,14 @@ import {
 import { Link as RouteLink } from "react-router-dom";
 import UserProfile from './profileList';
 import { useAuth } from '../../routes/login';
+import { useCookies } from 'react-cookie';
 
 
 
 export default function WithSubnavigation() {
   const { isOpen, onToggle } = useDisclosure();
-  const auth = useAuth();
+  const [cookies, setCookie] = useCookies();
+
   return (
     <Box>
       <Flex
@@ -65,7 +67,7 @@ export default function WithSubnavigation() {
           justify={'flex-end'}
           direction={'row'}
           spacing={6}>
-          {auth.user ?
+          {cookies.user ?
             <Box  >
               <UserProfile />
             </Box> :
