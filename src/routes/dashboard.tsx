@@ -80,6 +80,17 @@ export function Dashboard() {
         })
     }, []);
     useEffect(() => {
+        getUsers("statistic").then(async res => {
+            if (res.status == 200) {
+                const users = await res.json();
+                setUsers(users)
+                console.log(" drivers inside getDriver: ", users);
+            } else {
+                console.log(" error inside getDriver: ", res.status);
+            }
+        })
+    }, []);
+    useEffect(() => {
         getData("pie").then(async res => {
             if (res.status == 200) {
                 const license = await res.json();
@@ -249,7 +260,7 @@ export function Dashboard() {
                     <Line options={opt} data={dd} />
                 </Box>
             </HStack>
-            <Box mt={5} w="100%"><BasicStatistics driver={drivers.num} vehicle={vehicles.num} client={clients.num} /> </Box>
+            <Box mt={5} w="100%"><BasicStatistics driver={drivers.num} vehicle={vehicles.num} client={clients.num} users={Users.num} /> </Box>
             <HStack mt='6' h="90%"  >
                 <Box
                     width='30%' h="90%"
