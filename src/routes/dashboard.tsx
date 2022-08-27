@@ -19,6 +19,7 @@ import { Line } from 'react-chartjs-2';
 import { getData } from '../components/drivers/driver-service'
 import { getData as getClients } from '../components/clients/client-service'
 import { getData as getVehicles } from "../components/vehicles/vehicle-service"
+import { getData as getUsers } from "../components/users/user-service"
 import { getData as getBooks } from "../components/reservations/reservation-service"
 import { getData as getReservations } from "../components/reservations/reservation-service"
 import { InfoOutlineIcon } from '@chakra-ui/icons';
