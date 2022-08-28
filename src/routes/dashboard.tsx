@@ -190,8 +190,8 @@ export function Dashboard() {
             //     backgroundColor: 'rgba(79, 227, 193, 1)',
             // },
             {
-                label: 'Reservatins hours ',
-                data: graph.map((graph: any) => graph.hours),
+                label: 'Reservatins price ',
+                data: graph.map((graph: any) => graph.price),
                 borderColor: 'rgba(0, 88, 156, 1)',
                 backgroundColor: 'rgba(0, 88, 156, 1)',
             },
