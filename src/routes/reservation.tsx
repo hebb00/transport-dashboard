@@ -6,68 +6,134 @@ import { Column } from "react-table";
 import { ModifyBooking } from "../components/reservations/ModifyBooking"
 import { getData } from "../components/reservations/reservation-service"
 import BookingForm from "../components/reservations/BookingForm";
+import { useCookies } from 'react-cookie';
 
 
 export default function Reservation() {
     const [data, setData] = useState<any>([{}])
+    const [cookies, setCookie] = useCookies();
+    var columns;
+    cookies.user?.role == 'admin' ?
+        columns = React.useMemo(
+            () => [
+                {
+                    Header: 'id',
+                    accessor: 'Id',
+                },
+                {
+                    Header: 'Clients',
+                    accessor: 'clientname',
+                    sortType: 'basic',
+                },
+                {
+                    Header: 'source',
+                    accessor: 'source',
+                    sortType: 'basic',
+                },
 
-    const columns = React.useMemo(
-        () => [
-            {
-                Header: 'id',
-                accessor: 'Id',
-            },
-            {
-                Header: 'Clients',
-                accessor: 'clientname',
-                sortType: 'basic',
-            },
-            {
-                Header: 'source',
-                accessor: 'source',
-                sortType: 'basic',
-            },
+                {
+                    Header: 'destination',
+                    accessor: 'Location',
+                    sortType: 'basic',
+                },
 
-            {
-                Header: 'destination',
-                accessor: 'Location',
-                sortType: 'basic',
-            },
+                {
+                    Header: 'vehicles',
+                    accessor: 'plate_num',
+                    sortType: 'basic',
 
-            {
-                Header: 'vehicles',
-                accessor: 'plate_num',
-                sortType: 'basic',
+                },
+                {
+                    Header: 'price',
+                    accessor: 'price',
+                    sortType: 'basic',
 
-            },
-            {
-                Header: 'price',
-                accessor: 'price',
-                sortType: 'basic',
+                },
+                {
+                    Header: 'start Time',
+                    accessor: 'StartTime',
+                    sortType: 'basic',
 
-            },
-            {
-                Header: 'start Time',
-                accessor: 'StartTime',
-                sortType: 'basic',
+                },
+                {
+                    Header: 'end time',
+                    accessor: 'EndTime',
+                    sortType: 'basic',
 
-            },
-            {
-                Header: 'end time',
-                accessor: 'EndTime',
-                sortType: 'basic',
+                },
+                {
+                    Header: 'Drivers',
+                    accessor: 'drivername',
+                    sortType: 'basic',
 
-            },
-            {
-                Header: 'Drivers',
-                accessor: 'drivername',
-                sortType: 'basic',
+                },
+                {
+                    Header: 'Users',
+                    accessor: 'username',
+                    sortType: 'basic',
 
-            },
-        ],
+                },
+            ],
 
-        []
-    )
+            []
+        ) : columns = React.useMemo(
+            () => [
+                {
+                    Header: 'id',
+                    accessor: 'Id',
+                },
+                {
+                    Header: 'Clients',
+                    accessor: 'clientname',
+                    sortType: 'basic',
+                },
+                {
+                    Header: 'source',
+                    accessor: 'source',
+                    sortType: 'basic',
+                },
+
+                {
+                    Header: 'destination',
+                    accessor: 'Location',
+                    sortType: 'basic',
+                },
+
+                {
+                    Header: 'vehicles',
+                    accessor: 'plate_num',
+                    sortType: 'basic',
+
+                },
+                {
+                    Header: 'price',
+                    accessor: 'price',
+                    sortType: 'basic',
+
+                },
+                {
+                    Header: 'start Time',
+                    accessor: 'StartTime',
+                    sortType: 'basic',
+
+                },
+                {
+                    Header: 'end time',
+                    accessor: 'EndTime',
+                    sortType: 'basic',
+
+                },
+                {
+                    Header: 'Drivers',
+                    accessor: 'drivername',
+                    sortType: 'basic',
+
+                },
+
+            ],
+
+            []
+        );
     useEffect(() => {
         getData("reservation/table").then(async res => {
             if (res.status == 200) {
