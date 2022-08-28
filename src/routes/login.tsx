@@ -61,10 +61,9 @@ const Login = () => {
                 auth.signin(user, () => {
                     nav(`/profile?id=${user.id}`);
                 });
-                if (userInfo.check) {
-                    setCookie('user', userCookie);
-                    console.log(cookies.user, "its ur cookies")
-                }
+                setCookie('user', userCookie);
+                console.log(cookies.user, "its ur cookies")
+
             } else {
                 console.log(res.status, res.json())
                 nav("/login", { state: "incorrect username or password" })
@@ -129,7 +128,8 @@ const Login = () => {
                                             : ""}
                                     </FormHelperText>
                                     <Checkbox
-                                        {...register('check', { onChange: (e) => { console.log(e) } })}>stay logged in?</Checkbox>
+                                        {...register('check')}
+                                    >stay logged in?</Checkbox>
                                 </FormControl>
                                 <Button
                                     borderRadius={0}

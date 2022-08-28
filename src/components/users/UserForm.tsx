@@ -28,7 +28,7 @@ export default function UserForm() {
     const auth = useAuth();
     const [cookies, setCookie] = useCookies(['user']);
 
-    const { handleSubmit: createHandleSubmit, register } = useForm(
+    const { handleSubmit: createHandleSubmit, register, setValue } = useForm(
         {
             defaultValues: {
                 firstName: "",
@@ -80,28 +80,28 @@ export default function UserForm() {
                                 pointerEvents="none"
                                 children={<CFaUserAlt color="gray.400" />}
                             />
-                            <Input type="text" mb="3" placeholder="first Name"  {...register('firstName')} />
+                            <Input type="text" mb="3" {...setValue('firstName', auth.user.firstname)} {...register('firstName')} />
                         </InputGroup>
                         <InputGroup>
                             <InputLeftElement
                                 pointerEvents="none"
                                 children={<CFaUserAlt color="gray.400" />}
                             />
-                            <Input type="text" mb="3" placeholder="last Name"  {...register('lastName')} />
+                            <Input type="text" mb="3" {...setValue('lastName', auth.user.lastname)} {...register('lastName')} />
                         </InputGroup>
                         <InputGroup>
                             <InputLeftElement
                                 pointerEvents="none"
                                 children={<CFaUserAlt color="gray.400" />}
                             />
-                            <Input type="text" mb="3" placeholder="userName"  {...register('userName')} />
+                            <Input type="text" mb="3" {...setValue('userName', auth.user.username)} {...register('userName')} />
                         </InputGroup>
                         <InputGroup>
                             <InputLeftElement
                                 pointerEvents="none"
                                 children={<CFaphone color="gray.400" />}
                             />
-                            <Input type="text" mb="3" placeholder="phone number"  {...register('phoneNumber')} />
+                            <Input type="text" mb="3" {...setValue('phoneNumber', auth.user.phone_num)} {...register('phoneNumber')} />
                         </InputGroup>
                         <Text color={'gray'} align="start" mb="3"> change password</Text>
                         <InputGroup>

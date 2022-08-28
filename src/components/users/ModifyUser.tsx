@@ -32,7 +32,7 @@ export default function ModifyUser({ id, getData }: any) {
     }
 
 
-    const { handleSubmit: createHandleSubmit, register } = useForm(
+    const { handleSubmit: createHandleSubmit, register, setValue } = useForm(
         {
             defaultValues: {
                 firstName: "",
@@ -76,10 +76,10 @@ export default function ModifyUser({ id, getData }: any) {
                     <form onSubmit={handleSubmit}>
                         <ModalBody>
                             <FormControl>
-                                <Input type="text" mb="3" placeholder={user.firstname}  {...register('firstName')} />
-                                <Input type="text" mb="3" placeholder={user.lastname} {...register('lastName')} />
-                                <Input type="text" mb="3" placeholder={user.username} {...register('userName')} />
-                                <Input type="text" mb="3" placeholder={user.phone_num}  {...register('phoneNumber')} />
+                                <Input type="text" mb="3" {...setValue('firstName', user.firstname)}  {...register('firstName')} />
+                                <Input type="text" mb="3" {...setValue('lastName', user.lastname)} {...register('lastName')} />
+                                <Input type="text" mb="3" {...setValue('userName', user.username)} {...register('userName')} />
+                                <Input type="text" mb="3" {...setValue('phoneNumber', user.phone_num)}  {...register('phoneNumber')} />
                                 <Select  {...register('role')} placeholder="select role">
                                     <option value="admin"> admin </option>
                                     <option value="user"> user </option>

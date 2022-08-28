@@ -9,7 +9,6 @@ import {
     Legend,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
-import faker from 'faker';
 import { Box, Flex, SimpleGrid, HStack, Text, VStack } from '@chakra-ui/react';
 import BasicStatistics from "../components/card"
 import { ArcElement } from 'chart.js';
@@ -20,6 +19,7 @@ import { Line } from 'react-chartjs-2';
 import { getData } from '../components/drivers/driver-service'
 import { getData as getClients } from '../components/clients/client-service'
 import { getData as getVehicles } from "../components/vehicles/vehicle-service"
+import { getData as getUsers } from "../components/users/user-service"
 import { getData as getBooks } from "../components/reservations/reservation-service"
 import { getData as getReservations } from "../components/reservations/reservation-service"
 import { InfoOutlineIcon } from '@chakra-ui/icons';
@@ -59,10 +59,12 @@ export const options = {
 
 
 export function Dashboard() {
+
     const [drivers, setDrivers] = useState<any>({});
     const [license, setLicense] = useState<any>({});
     const [clients, setClients] = useState<any>({});
     const [vehicles, setVehicles] = useState<any>({});
+    const [Users, setUsers] = useState<any>({});
     const [reservations, setReservation] = useState<any>({});
     const [book, setBooks] = useState<any>({});
     const [graph, setGraph] = useState<any>([]);
@@ -74,6 +76,17 @@ export function Dashboard() {
                 const driver = await res.json();
                 setDrivers(driver)
                 console.log(" drivers inside getDriver: ", driver);
+            } else {
+                console.log(" error inside getDriver: ", res.status);
+            }
+        })
+    }, []);
+    useEffect(() => {
+        getUsers("statistic").then(async res => {
+            if (res.status == 200) {
+                const users = await res.json();
+                setUsers(users)
+                console.log(" drivers inside getDriver: ", users);
             } else {
                 console.log(" error inside getDriver: ", res.status);
             }
@@ -249,7 +262,7 @@ export function Dashboard() {
                     <Line options={opt} data={dd} />
                 </Box>
             </HStack>
-            <Box mt={5} w="100%"><BasicStatistics driver={drivers.num} vehicle={vehicles.num} client={clients.num} /> </Box>
+            <Box mt={5} w="100%"><BasicStatistics driver={drivers.num} vehicle={vehicles.num} client={clients.num} users={Users.num} /> </Box>
             <HStack mt='6' h="90%"  >
                 <Box
                     width='30%' h="90%"

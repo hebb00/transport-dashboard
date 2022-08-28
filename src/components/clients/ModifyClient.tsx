@@ -30,7 +30,7 @@ export default function ModifyClient({ id, getData }: any) {
     }
 
 
-    const { handleSubmit: createHandleSubmit, register } = useForm(
+    const { handleSubmit: createHandleSubmit, register, setValue } = useForm(
         {
             defaultValues: {
                 firstName: "",
@@ -74,9 +74,9 @@ export default function ModifyClient({ id, getData }: any) {
                                     <Tr><Th>First Name</Th><Th>Last Name</Th><Th>Phone Number</Th>
                                     </Tr>
                                     <Tr>
-                                        <Td><Input placeholder={client.firstname} {...register('firstName', { required: true })} /></Td>
-                                        <Td><Input placeholder={client.lastname} {...register('lastName', { required: true })} /></Td>
-                                        <Td><Input placeholder={client.phone_num} {...register('phoneNumber', { required: true })} /></Td>
+                                        <Td><Input {...setValue('firstName', client.firstname)} {...register('firstName')} /></Td>
+                                        <Td><Input {...setValue('lastName', client.lastname)} {...register('lastName')} /></Td>
+                                        <Td><Input {...setValue('phoneNumber', client.phone_num)} {...register('phoneNumber')} /></Td>
                                     </Tr>
                                 </Tbody>
                             </Table>

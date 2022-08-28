@@ -15,11 +15,11 @@ import {
     FiHardDrive
 } from 'react-icons/fi';
 import NavItem from './nav-item';
-import { useAuth } from '../../routes/login';
+import { useCookies } from 'react-cookie';
 
 export default function Sidebar() {
     const [navSize, changeNavSize] = useState("large");
-    const auth = useAuth();
+    const [cookies, setCookie] = useCookies();
 
     return (
         <>
@@ -55,7 +55,7 @@ export default function Sidebar() {
                     <NavItem navSize={navSize} icon={FiMapPin} title='Drivers' href="/drivers" />
                     <NavItem navSize={navSize} icon={FiHardDrive} title="Vehicles" href="/vehicle" />
                     <NavItem navSize={navSize} icon={FiCalendar} title="Reservations" href="/" />
-                    {auth.user?.role == 'admin' ?
+                    {cookies.user?.role == 'admin' ?
                         <NavItem navSize={navSize} icon={FiUser} title="Users" href="/users" />
                         : ""}
                 </Flex>

@@ -109,27 +109,27 @@ export default function Register({ getUser }: any) {
                                             <InputLeftElement
                                                 pointerEvents="none"
                                                 children={<CFaUserAlt color="gray.300" />} />
-                                            <Input type="text" placeholder="first name"  {...register('firstName')} />
+                                            <Input type="text" placeholder="first name"  {...register('firstName', { required: true })} />
                                         </InputGroup>
                                         <InputGroup m="2">
                                             <InputLeftElement
                                                 pointerEvents="none"
                                                 children={<CFaUserAlt color="gray.300" />} />
-                                            <Input type="text" placeholder="last name"   {...register('lastName')} />
+                                            <Input type="text" placeholder="last name"   {...register('lastName', { required: true })} />
                                         </InputGroup>
 
                                         <InputGroup m="2">
                                             <InputLeftElement
                                                 pointerEvents="none"
                                                 children={<CFa500 color="gray.300" />} />
-                                            <Input type="text" placeholder="user name"   {...register('userName')} />
+                                            <Input type="text" placeholder="user name"   {...register('userName', { required: true })} />
                                         </InputGroup>
                                         <InputGroup m="2">
                                             <InputLeftElement
                                                 pointerEvents="none"
                                                 children={<CFaphone color="gray.300" />}
                                             />
-                                            <Input type="number" placeholder="phone number"   {...register('phoneNumber')} />
+                                            <Input type="number" placeholder="phone number"   {...register('phoneNumber', { required: true })} />
                                         </InputGroup>
                                         <InputGroup m="2">
                                             <InputLeftElement

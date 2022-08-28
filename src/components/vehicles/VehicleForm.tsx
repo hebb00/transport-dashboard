@@ -61,13 +61,13 @@ export default function VehicleForm({ getVehicles }: any) {
                                         <Tr>
                                             <Td><Text >Model</Text></Td>
                                             <Td>
-                                                <Input placeholder="model" type="text" {...register('model')} />
+                                                <Input placeholder="model" type="text" {...register('model', { required: true })} />
                                             </Td>
                                         </Tr>
                                         <Tr>
                                             <Td><Text>plate number</Text></Td>
                                             <Td>
-                                                <Input placeholder="plateNum" type="text"  {...register('plateNum')} />
+                                                <Input placeholder="plateNum" type="text"  {...register('plateNum', { required: true })} />
                                             </Td>
                                         </Tr>
                                     </Tbody>
