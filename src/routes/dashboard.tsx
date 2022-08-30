@@ -125,17 +125,17 @@ export function Dashboard() {
             }
         })
     }, []);
-    useEffect(() => {
-        getReservations("statistic").then(async res => {
-            if (res.status == 200) {
-                const reservation = await res.json();
-                setReservation(reservation)
-                console.log(" reservations number: ", reservation);
-            } else {
-                console.log(" error inside : ", res.status);
-            }
-        })
-    }, []);
+    // useEffect(() => {
+    //     getReservations("statistic").then(async res => {
+    //         if (res.status == 200) {
+    //             const reservation = await res.json();
+    //             setReservation(reservation)
+    //             console.log(" reservations number: ", reservation);
+    //         } else {
+    //             console.log(" error inside : ", res.status);
+    //         }
+    //     })
+    // }, []);
     useEffect(() => {
         getBooks("clients-reservation").then(async res => {
             if (res.status == 200) {
@@ -168,7 +168,7 @@ export function Dashboard() {
         labels,
         datasets: [
             {
-                label: 'Reservatins hours ',
+                label: 'Reservations hours ',
                 data: graph.map((graph: any) => graph.hours),
                 backgroundColor: 'rgba(79, 227, 193, 1)',
             },
@@ -190,7 +190,7 @@ export function Dashboard() {
             //     backgroundColor: 'rgba(79, 227, 193, 1)',
             // },
             {
-                label: 'Reservatins price ',
+                label: 'Reservations prices ',
                 data: graph.map((graph: any) => graph.price),
                 borderColor: 'rgba(0, 88, 156, 1)',
                 backgroundColor: 'rgba(0, 88, 156, 1)',
