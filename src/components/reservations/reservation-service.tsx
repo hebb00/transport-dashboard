@@ -1,4 +1,3 @@
-import * as dataSource from '../../datasource.json';
 import { extend } from '@syncfusion/ej2-base';
 import { useState } from 'react'
 

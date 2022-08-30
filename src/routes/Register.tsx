@@ -74,11 +74,6 @@ export default function Register({ getUser }: any) {
                 getUser();
                 console.log("result is ", result)
                 onClose();
-                // auth.signin(user, () => {
-                //     console.log(user);
-                // nav(`/profile?id=${user.id}`);
-                // });
-
             } else {
                 nav(`/login?valid=false`, { state: "incorrect username or password" })
             }
@@ -95,7 +90,6 @@ export default function Register({ getUser }: any) {
                 <ModalContent>
                     <ModalHeader>add new user</ModalHeader>
                     <ModalCloseButton />
-
                     <Box minW={{ base: "90%", md: "468px" }}>
                         <form method="POST" action="/users/register">
                             <ModalBody>
@@ -117,7 +111,6 @@ export default function Register({ getUser }: any) {
                                                 children={<CFaUserAlt color="gray.300" />} />
                                             <Input type="text" placeholder="last name"   {...register('lastName', { required: true })} />
                                         </InputGroup>
-
                                         <InputGroup m="2">
                                             <InputLeftElement
                                                 pointerEvents="none"
@@ -149,7 +142,6 @@ export default function Register({ getUser }: any) {
                                         <Select  {...register('role')} placeholder="select role">
                                             <option value="admin"> admin </option>
                                             <option value="user"> user </option>
-
                                         </Select>
                                     </FormControl>
                                 </Stack>
@@ -165,9 +157,7 @@ export default function Register({ getUser }: any) {
                     </Box>
                 </ModalContent>
             </Modal>
-
         </>
-
     )
 }
 
