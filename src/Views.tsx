@@ -17,6 +17,7 @@ import Sidebar from './components/navigation/sidebar'
 import { CookiesProvider } from 'react-cookie';
 import { useCookies } from 'react-cookie';
 import Users from './routes/users';
+import Error from './routes/Error';
 
 export const AuthContext = createContext<any>(null!);
 
@@ -61,7 +62,8 @@ export default function Views() {
                       <Route path="/register" element={<Register />} />
                       <Route path="/users" element={<Users />} />
                     </>
-                    : ""}
+                    : <Route path="*" element={<Error />} />
+                  }
                 </Route>
                 <Route path="/login" element={<Login />} />
               </Routes>
