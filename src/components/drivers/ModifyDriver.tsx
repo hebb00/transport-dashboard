@@ -13,6 +13,7 @@ import {
 import { EditIcon } from '@chakra-ui/icons';
 import { useForm } from 'react-hook-form';
 import { fetchData, getData as getDriver } from "./driver-service"
+import dayjs from 'dayjs';
 
 
 
@@ -23,6 +24,7 @@ export default function ModifyDriver({ id, getData }: any) {
         getDriver(`modify-driver/${id}`).then(async res => {
             if (res.status == 200) {
                 const info = await res.json();
+                info.license_exp_date = dayjs(info.license_exp_date).format('YYYY-MM-DD')
                 setDriver(info)
                 console.log(" drivers inside getDriver in modify : ", info);
             } else {
@@ -87,7 +89,7 @@ export default function ModifyDriver({ id, getData }: any) {
                             <Text> license Type</Text>
                             <Input type="text" {...setValue('licenseType', driver.license_type)}  {...register('licenseType', { required: true })} />
                             <Text>license expire date</Text>
-                            <Input type="date" {...setValue('licenseExpDate', driver.license_exp_date)} {...register('licenseExpDate', { required: true })} />
+                            <Input type="date"  {...setValue('licenseExpDate', driver.license_exp_date)} {...register('licenseExpDate', { required: true })} />
                         </ModalBody>
                         <ModalFooter>
                             <Button colorScheme='blue' mr={3} onClick={onClose}> Close  </Button>

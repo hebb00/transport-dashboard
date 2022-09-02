@@ -7,6 +7,7 @@ import { ModifyBooking } from "../components/reservations/ModifyBooking"
 import { getData } from "../components/reservations/reservation-service"
 import BookingForm from "../components/reservations/BookingForm";
 import { useCookies } from 'react-cookie';
+import dayjs from "dayjs";
 
 
 export default function Reservation() {
@@ -138,6 +139,10 @@ export default function Reservation() {
         getData("reservation/table").then(async res => {
             if (res.status == 200) {
                 const booking = await res.json();
+                booking.map((d: any) => {
+                    d.StartTime = dayjs(d.StartTime).format('YYYY-MM-DD HH:mm');
+                    d.EndTime = dayjs(d.EndTime).format('YYYY-MM-DD HH:mm')
+                });
                 setData(booking)
                 console.log(" bookings: ", booking);
             } else {
@@ -151,6 +156,10 @@ export default function Reservation() {
         getData("reservation/table").then(async res => {
             if (res.status == 200) {
                 const reservation = await res.json();
+                reservation.map((d: any) => {
+                    d.StartTime = dayjs(d.StartTime).format('YYYY-MM-DD HH:mm');
+                    d.EndTime = dayjs(d.EndTime).format('YYYY-MM-DD HH:mm')
+                });
                 setData(reservation)
                 console.log(" drivers inside getDriver: ", reservation);
             } else {
