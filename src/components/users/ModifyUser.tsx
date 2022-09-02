@@ -1,4 +1,4 @@
-import { Input, IconButton, Button, FormControl, Select } from '@chakra-ui/react'
+import { Input, IconButton, Button, FormControl, Select, Text } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import {
     Modal,
@@ -76,11 +76,16 @@ export default function ModifyUser({ id, getData }: any) {
                     <form onSubmit={handleSubmit}>
                         <ModalBody>
                             <FormControl>
+                                <Text>First Name</Text>
                                 <Input type="text" mb="3" {...setValue('firstName', user.firstname)}  {...register('firstName')} />
+                                <Text>Last Name</Text>
                                 <Input type="text" mb="3" {...setValue('lastName', user.lastname)} {...register('lastName')} />
+                                <Text>UserName</Text>
                                 <Input type="text" mb="3" {...setValue('userName', user.username)} {...register('userName')} />
+                                <Text>Phone Number</Text>
                                 <Input type="text" mb="3" {...setValue('phoneNumber', user.phone_num)}  {...register('phoneNumber')} />
-                                <Select  {...register('role')} placeholder="select role">
+                                <Text>Role</Text>
+                                <Select  {...setValue('role', user.role)} {...register('role')} placeholder="select role">
                                     <option value="admin"> admin </option>
                                     <option value="user"> user </option>
                                 </Select>

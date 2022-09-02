@@ -1,5 +1,5 @@
 import {
-    Button, Input, FormControl, InputLeftElement, InputGroup
+    Button, Input, FormControl, InputLeftElement, InputGroup, Select
 } from "@chakra-ui/react"
 import React, { useState } from "react";
 import {
@@ -108,7 +108,12 @@ export function DriverForm({ data, getDriver }: any) {
                                         pointerEvents="none"
                                         children={<CFtruck color="gray.400" />}
                                     />
-                                    <Input type="text" mb="3" placeholder="License Type"  {...register('licenseType', { required: true })} />
+                                    <Select mb="3" pl='3' placeholder="License Type"  {...register('licenseType', { required: true })}>
+                                        <option value='small'>small</option>
+                                        <option value='heavy'>heavy</option>
+
+                                    </Select>
+                                    {/* <Input type="text" mb="3" placeholder="License Type"  {...register('licenseType', { required: true })} /> */}
                                 </InputGroup>
                                 <InputGroup >
                                     <InputLeftElement

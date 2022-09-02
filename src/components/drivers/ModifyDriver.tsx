@@ -1,4 +1,4 @@
-import { Input, Text, IconButton, Button, Th } from '@chakra-ui/react'
+import { Input, Text, IconButton, Button, Th, Select } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import {
     Modal,
@@ -87,7 +87,12 @@ export default function ModifyDriver({ id, getData }: any) {
                             <Text>  license number</Text>
                             <Input type="text" {...setValue('licenseNum', driver.license_num)} {...register('licenseNum', { required: true })} />
                             <Text> license Type</Text>
-                            <Input type="text" {...setValue('licenseType', driver.license_type)}  {...register('licenseType', { required: true })} />
+                            <Select mb="3" placeholder="License Type"   {...setValue('licenseType', driver.license_type)} {...register('licenseType', { required: true })}>
+                                <option value='small'>small</option>
+                                <option value='heavy'>heavy</option>
+
+                            </Select>
+                            {/* <Input type="text" {...setValue('licenseType', driver.license_type)}  {...register('licenseType', { required: true })} /> */}
                             <Text>license expire date</Text>
                             <Input type="date"  {...setValue('licenseExpDate', driver.license_exp_date)} {...register('licenseExpDate', { required: true })} />
                         </ModalBody>
