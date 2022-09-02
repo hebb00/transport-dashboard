@@ -4,6 +4,7 @@ import EventTable from "../components/table/new-table"
 import { DriverForm } from "../components/drivers/driver-form"
 import { getData } from "../components/drivers/driver-service";
 import ModifyDriver from "../components/drivers/ModifyDriver";
+import dayjs from "dayjs";
 
 
 
@@ -65,6 +66,7 @@ export default function Drivers() {
         getData("driver").then(async res => {
             if (res.status == 200) {
                 const drivers = await res.json();
+                drivers.map((d: any) => { d.license_exp_date = dayjs(d.license_exp_date).format('YYYY-MM-DD') })
                 setData(drivers)
                 console.log(" drivers: ", drivers);
             } else {

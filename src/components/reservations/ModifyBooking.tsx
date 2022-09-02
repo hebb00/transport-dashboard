@@ -19,6 +19,7 @@ import { getData as getVehicle } from "../../components/vehicles/vehicle-service
 import { EditIcon } from '@chakra-ui/icons';
 import { useAuth } from '../../routes/login';
 import { Select } from '@chakra-ui/react'
+import dayjs from "dayjs";
 
 
 export function ModifyBooking({ id, getData }: any) {
@@ -33,6 +34,10 @@ export function ModifyBooking({ id, getData }: any) {
         getBooking(`reservation/table/${id}`).then(async res => {
             if (res.status == 200) {
                 const info = await res.json();
+                info.map((d: any) => {
+                    d.StartTime = dayjs(d.StartTime).format('YYYY-MM-DD HH:mm');
+                    d.EndTime = dayjs(d.EndTime).format('YYYY-MM-DD HH:mm')
+                });
                 setBooking(info)
                 console.log(" book inside getbook in modify : ", info);
             } else {
@@ -129,9 +134,9 @@ export function ModifyBooking({ id, getData }: any) {
                                 <Text>source</Text>
                                 <Input mb="2" {...setValue('source', def?.source)} {...register('source')} />
                                 <Text>start time</Text>
-                                <Input mb="2" type='date' {...setValue('StartTime', def?.StartTime)} {...register('StartTime')} />
+                                <Input mb="2" type='datetime-local'  {...setValue('StartTime', def?.StartTime)} {...register('StartTime')} />
                                 <Text>end time</Text>
-                                <Input mb="2" type='date' {...setValue('EndTime', def?.EndTime)} {...register('EndTime')} />
+                                <Input mb="2" type='datetime-local' {...setValue('EndTime', def?.EndTime)} {...register('EndTime')} />
                                 <Text>price</Text>
                                 <Input mb="2"  {...setValue('price', def?.price)} {...register('price')} />
                                 <Select mb="2"  {...register('platenum')} placeholder='Select vehicle' >
