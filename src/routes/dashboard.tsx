@@ -51,7 +51,7 @@ export const options = {
         },
         title: {
             display: true,
-            text: 'reservations Bar Chart',
+            text: 'Accumulative Reserved Time Per Day',
         },
     },
 };
@@ -168,7 +168,7 @@ export function Dashboard() {
         labels,
         datasets: [
             {
-                label: 'Reservations hours ',
+                label: 'Reserved Time ',
                 data: graph.map((graph: any) => graph.hours),
                 backgroundColor: 'rgba(79, 227, 193, 1)',
             },
@@ -190,7 +190,7 @@ export function Dashboard() {
             //     backgroundColor: 'rgba(79, 227, 193, 1)',
             // },
             {
-                label: 'Reservations prices ',
+                label: 'Revenue',
                 data: graph.map((graph: any) => graph.price),
                 borderColor: 'rgba(0, 88, 156, 1)',
                 backgroundColor: 'rgba(0, 88, 156, 1)',
@@ -205,12 +205,12 @@ export function Dashboard() {
             },
             title: {
                 display: true,
-                text: 'reservations Line Chart',
+                text: 'Revenue Per Day',
             },
         },
     };
     const d = {
-        labels: [' big cars licesnse', 'small cars license', 'drivers'],
+        labels: [' heavy cars license', 'small cars license', 'drivers'],
         datasets: [
             {
                 label: 'number of ',

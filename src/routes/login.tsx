@@ -83,7 +83,7 @@ const Login = () => {
                 flexDirection="column"
                 width="100wh"
                 height="100vh"
-                bg='gray.50'
+                bg='gray.100'
                 justifyContent="center"
                 alignItems="center"
             >

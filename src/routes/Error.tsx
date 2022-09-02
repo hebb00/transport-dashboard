@@ -12,7 +12,7 @@ export default function Error() {
         <Alert status='error'>
             <AlertIcon />
             <AlertTitle>Unauthorized </AlertTitle>
-            <AlertDescription>this is an admin oly area and you are not allwed here</AlertDescription>
+            <AlertDescription>this is an admin only area and you are not allowed here</AlertDescription>
         </Alert>
 
 
